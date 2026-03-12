@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veille — Cloud Gaming · Gael Giordano</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --cyan: #00e5ff;
+      --cyan-dim: rgba(0,229,255,0.15);
+      --cyan-glow: rgba(0,229,255,0.35);
+      --blue-bg: #050d1a;
+      --blue-bg2: #071325;
+      --blue-text: #e8eaf0;
+      --blue-muted: #6b8aaa;
+      --blue-border: rgba(255,255,255,0.08);
+      --white-bg: #ffffff;
+      --white-bg2: #f2f6fb;
+      --white-text: #0d1824;
+      --white-muted: #5a6e82;
+      --white-border: #dce6f0;
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-mono); overflow-x: hidden; background: var(--blue-bg); color: var(--blue-text); }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(5,13,26,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--blue-border); }
+    .nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; letter-spacing: -0.5px; text-decoration: none; color: var(--blue-text); }
+    .nav-logo span { color: var(--cyan); }
+    .nav-back { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 20px; border: 1px solid var(--blue-border); color: var(--blue-muted); text-decoration: none; border-radius: 2px; display: flex; align-items: center; gap: 8px; transition: border-color 0.2s, color 0.2s; }
+    .nav-back:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* HERO */
+    .hero { min-height: 52vh; padding: 130px 48px 80px; background: var(--blue-bg); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+    .hero::after { content: ''; position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(var(--blue-border) 1px, transparent 1px), linear-gradient(90deg, var(--blue-border) 1px, transparent 1px); background-size: 60px 60px; }
+    .hero-glow { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(0,229,255,0.07) 0%, transparent 70%); top: 50%; left: 30%; transform: translate(-50%,-50%); pointer-events: none; z-index: 1; }
+    .hero-content { position: relative; z-index: 2; max-width: 760px; }
+    .hero-breadcrumb { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-muted); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+    .hero-breadcrumb a { color: var(--cyan); text-decoration: none; }
+    .hero-breadcrumb span { color: var(--blue-muted); }
+    .hero-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); border: 1px solid var(--cyan-dim); padding: 5px 12px; border-radius: 2px; margin-bottom: 20px; }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 800; line-height: 1; letter-spacing: -2px; margin-bottom: 20px; }
+    .hero-desc { font-size: 0.92rem; line-height: 1.8; color: var(--blue-muted); max-width: 580px; }
+    .hero-desc strong { color: var(--blue-text); font-weight: 500; }
+    .hero-meta { display: flex; gap: 24px; margin-top: 32px; flex-wrap: wrap; }
+    .meta-chip { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; color: var(--blue-muted); }
+    .meta-chip i { color: var(--cyan); font-size: 0.7rem; }
+
+    /* SECTIONS */
+    section { padding: 80px 48px; position: relative; }
+    .s-blue { background: var(--blue-bg2); }
+    .s-white { background: var(--white-bg); color: var(--white-text); }
+    .s-white2 { background: var(--white-bg2); color: var(--white-text); }
+    .s-blue2 { background: var(--blue-bg); }
+    .sec-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+    .sec-label::before { content: ''; width: 24px; height: 1px; background: var(--cyan); display: inline-block; }
+    .sec-title { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1; margin-bottom: 48px; }
+    .s-white .sec-title, .s-white2 .sec-title { color: var(--white-text); }
+    .s-blue .sec-title, .s-blue2 .sec-title { color: var(--blue-text); }
+
+    /* DÉFINITION */
+    .def-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .def-text p { font-size: 0.88rem; line-height: 1.9; color: var(--white-muted); margin-bottom: 14px; }
+    .def-text strong { color: var(--white-text); font-weight: 500; }
+    .def-visual { border: 1px solid var(--white-border); border-radius: 8px; overflow: hidden; }
+    .def-img { width: 100%; height: 220px; object-fit: cover; display: block; }
+    .def-caption { padding: 14px 18px; background: var(--white-bg2); font-size: 0.72rem; color: var(--white-muted); border-top: 1px solid var(--white-border); }
+
+    /* FONCTIONNEMENT */
+    .steps-list { display: flex; flex-direction: column; gap: 16px; max-width: 760px; }
+    .how-step { display: flex; gap: 20px; align-items: flex-start; padding: 20px 24px; border: 1px solid var(--blue-border); border-radius: 6px; background: rgba(255,255,255,0.03); transition: border-color 0.3s; }
+    .how-step:hover { border-color: var(--cyan-dim); }
+    .how-num { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--cyan); opacity: 0.3; flex-shrink: 0; line-height: 1; min-width: 36px; }
+    .how-body h3 { font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; color: var(--blue-text); margin-bottom: 6px; }
+    .how-body p { font-size: 0.8rem; color: var(--blue-muted); line-height: 1.7; }
+
+    /* AVANTAGES / LIMITES */
+    .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .pro-card { border: 1px solid var(--white-border); border-radius: 6px; padding: 28px; background: var(--white-bg); }
+    .pro-card h3 { font-family: var(--font-display); font-size: 0.9rem; font-weight: 700; margin-bottom: 18px; color: var(--white-text); display: flex; align-items: center; gap: 10px; }
+    .pro-card h3 i { color: var(--cyan); }
+    .pro-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .pro-list li { font-size: 0.82rem; color: var(--white-muted); padding: 8px 12px; background: var(--white-bg2); border-radius: 3px; border-left: 2px solid var(--white-border); display: flex; align-items: flex-start; gap: 8px; transition: border-color 0.2s; }
+    .pro-list li:hover { border-color: var(--cyan); }
+    .pro-list li .li-icon { flex-shrink: 0; color: var(--cyan); font-size: 0.7rem; margin-top: 2px; }
+    .con-list li .li-icon { color: #f59e0b; }
+
+    /* PLATEFORMES */
+    .platforms-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .platform-card { border: 1px solid var(--blue-border); border-radius: 6px; padding: 24px; background: rgba(255,255,255,0.03); position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+    .platform-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--cyan); transition: height 0.4s; }
+    .platform-card:hover::before { height: 100%; }
+    .platform-card:hover { border-color: var(--cyan-dim); transform: translateY(-3px); }
+    .platform-logo { font-family: var(--font-display); font-size: 1rem; font-weight: 800; color: var(--cyan); margin-bottom: 10px; letter-spacing: -0.5px; }
+    .platform-card h3 { font-size: 0.82rem; color: var(--blue-text); margin-bottom: 8px; font-family: var(--font-display); font-weight: 700; }
+    .platform-card p { font-size: 0.78rem; color: var(--blue-muted); line-height: 1.7; }
+
+    /* CONCLUSION */
+    .conclusion-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .concl-text p { font-size: 0.88rem; line-height: 1.9; color: var(--white-muted); margin-bottom: 14px; }
+    .concl-text strong { color: var(--white-text); font-weight: 500; }
+    .concl-box { border: 1px solid var(--white-border); border-radius: 8px; padding: 28px; background: var(--white-bg2); border-left: 3px solid var(--cyan); }
+    .concl-box-title { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan); margin-bottom: 12px; }
+    .concl-box p { font-size: 0.85rem; line-height: 1.8; color: var(--white-muted); }
+    .concl-box strong { color: var(--white-text); }
+
+    /* NAV VEILLES */
+    .veilles-nav { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 48px; }
+    .btn-back { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border: 1px solid var(--blue-border); color: var(--blue-muted); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: border-color 0.2s, color 0.2s; }
+    .btn-back:hover { border-color: var(--cyan); color: var(--cyan); }
+    .btn-fill { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; background: var(--cyan); color: var(--blue-bg); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; font-weight: 500; transition: box-shadow 0.2s, transform 0.2s; }
+    .btn-fill:hover { box-shadow: 0 0 24px var(--cyan-glow); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { background: var(--blue-bg); border-top: 1px solid var(--blue-border); padding: 24px 48px; display: flex; align-items: center; justify-content: space-between; font-size: 0.72rem; color: var(--blue-muted); }
+    .f-logo { font-family: var(--font-display); font-weight: 800; color: var(--blue-text); }
+    .f-logo span { color: var(--cyan); }
+
+    .reveal { opacity:0; transform:translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .d1{transition-delay:0.1s;} .d2{transition-delay:0.2s;} .d3{transition-delay:0.3s;}
+
+    @media(max-width:900px){
+      nav{padding:16px 20px;} .hero{padding:100px 20px 60px;} section{padding:60px 20px;}
+      .def-grid,.pros-cons,.platforms-grid,.conclusion-wrap{grid-template-columns:1fr;}
+      footer{flex-direction:column;gap:8px;text-align:center;}
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">GG<span>.</span></a>
+    <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero s-blue2">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-breadcrumb"><a href="index.html">Portfolio</a><span>/</span>Veille<span>/</span>Cloud Gaming</div>
+      <div class="hero-tag"><i class="fas fa-gamepad"></i> Gaming · Cloud · Streaming</div>
+      <h1>Veille technologique :<br><span style="color:var(--cyan)">Le Cloud Gaming</span></h1>
+      <p class="hero-desc">Découvrir comment le cloud permet de jouer à des jeux vidéo <strong>sans console ni PC puissant</strong> — uniquement via une connexion Internet.</p>
+      <div class="hero-meta">
+        <div class="meta-chip"><i class="fas fa-calendar"></i>BTS SIO 2025</div>
+        <div class="meta-chip"><i class="fas fa-tag"></i>Veille technologique</div>
+        <div class="meta-chip"><i class="fas fa-clock"></i>Lecture ~5 min</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÉFINITION (WHITE) -->
+  <section class="s-white">
+    <div class="sec-label reveal">Définition</div>
+    <h2 class="sec-title reveal">Qu'est-ce que<br>le Cloud Gaming ?</h2>
+    <div class="def-grid">
+      <div class="def-text reveal">
+        <p>Le <strong>cloud gaming</strong> est une nouvelle façon de jouer : au lieu d'exécuter le jeu sur ton appareil, il tourne sur des <strong>serveurs puissants dans le cloud</strong>.</p>
+        <p>L'image du jeu est envoyée en streaming sur ton écran, et tes actions (touches, manette) sont renvoyées au serveur presque instantanément.</p>
+        <p>C'est comme regarder une vidéo YouTube… mais interactive. Tout repose sur une <strong>connexion Internet rapide et stable</strong>.</p>
+      </div>
+      <div class="def-visual reveal d2">
+        <img src="image/cloudgaming.jpg" alt="Cloud Gaming" class="def-img">
+        <div class="def-caption">Le cloud gaming s'appuie sur des datacenters pour héberger et exécuter les jeux à distance.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FONCTIONNEMENT (BLUE) -->
+  <section class="s-blue">
+    <div class="sec-label reveal">Technique</div>
+    <h2 class="sec-title reveal">Comment<br>ça fonctionne ?</h2>
+    <div class="steps-list">
+      <div class="how-step reveal">
+        <div class="how-num">01</div>
+        <div class="how-body">
+          <h3>Choix du jeu</h3>
+          <p>Tu sélectionnes un jeu sur une plateforme cloud (GeForce NOW, Xbox Cloud Gaming…). Aucune installation locale n'est requise.</p>
+        </div>
+      </div>
+      <div class="how-step reveal d1">
+        <div class="how-num">02</div>
+        <div class="how-body">
+          <h3>Exécution sur serveur distant</h3>
+          <p>Le jeu se lance sur un serveur datacenter équipé de cartes graphiques très puissantes (GPU pro), géographiquement proche de toi pour minimiser la latence.</p>
+        </div>
+      </div>
+      <div class="how-step reveal d2">
+        <div class="how-num">03</div>
+        <div class="how-body">
+          <h3>Streaming vidéo compressé</h3>
+          <p>L'image du jeu est compressée (codec H.264/AV1) et transmise sur ton écran en temps réel, généralement en 60fps ou plus.</p>
+        </div>
+      </div>
+      <div class="how-step reveal d3">
+        <div class="how-num">04</div>
+        <div class="how-body">
+          <h3>Envoi des commandes</h3>
+          <p>Tes inputs (clavier, souris, manette) sont renvoyés au serveur pour être traités instantanément. La qualité de la connexion détermine le ressenti du joueur.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVANTAGES & LIMITES (WHITE) -->
+  <section class="s-white2">
+    <div class="sec-label reveal">Analyse</div>
+    <h2 class="sec-title reveal">Avantages<br>& Limites</h2>
+    <div class="pros-cons">
+      <div class="pro-card reveal">
+        <h3><i class="fas fa-check-circle"></i> Les avantages</h3>
+        <ul class="pro-list">
+          <li><i class="fas fa-circle li-icon"></i>Jouer sur n'importe quel appareil (PC, tablette, TV, smartphone)</li>
+          <li><i class="fas fa-circle li-icon"></i>Aucun téléchargement ni mise à jour requise</li>
+          <li><i class="fas fa-circle li-icon"></i>Accès immédiat à une grande bibliothèque de jeux</li>
+          <li><i class="fas fa-circle li-icon"></i>Pas besoin de matériel gaming coûteux</li>
+        </ul>
+      </div>
+      <div class="pro-card reveal d2">
+        <h3><i class="fas fa-exclamation-triangle"></i> Les limites</h3>
+        <ul class="pro-list con-list">
+          <li><i class="fas fa-circle li-icon"></i>Dépend totalement de la qualité de la connexion Internet</li>
+          <li><i class="fas fa-circle li-icon"></i>Risque de latence (décalage entre action et image)</li>
+          <li><i class="fas fa-circle li-icon"></i>Abonnements parfois coûteux pour de bonnes performances</li>
+          <li><i class="fas fa-circle li-icon"></i>Disponibilité limitée dans les zones peu connectées</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLATEFORMES (BLUE) -->
+  <section class="s-blue2">
+    <div class="sec-label reveal">Marché</div>
+    <h2 class="sec-title reveal">Les principales<br>plateformes</h2>
+    <div class="platforms-grid">
+      <div class="platform-card reveal">
+        <div class="platform-logo">NVIDIA</div>
+        <h3>GeForce NOW</h3>
+        <p>Joue à tes jeux Steam depuis le cloud. Compatible avec la bibliothèque existante du joueur, sans rachat.</p>
+      </div>
+      <div class="platform-card reveal d1">
+        <div class="platform-logo">XBOX</div>
+        <h3>Xbox Cloud Gaming</h3>
+        <p>Intégré dans le Xbox Game Pass Ultimate. Catalogue Microsoft disponible sur mobile, tablette et navigateur.</p>
+      </div>
+      <div class="platform-card reveal d2">
+        <div class="platform-logo">AMAZON</div>
+        <h3>Luna</h3>
+        <p>Service de cloud gaming basé sur l'infrastructure AWS. Plusieurs chaînes thématiques d'abonnement.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCLUSION (WHITE) -->
+  <section class="s-white">
+    <div class="sec-label reveal">Conclusion</div>
+    <h2 class="sec-title reveal">En résumé</h2>
+    <div class="conclusion-wrap">
+      <div class="concl-text reveal">
+        <p>Le <strong>cloud gaming</strong> transforme la façon de jouer : plus besoin d'un PC gamer ou d'une console, juste une bonne connexion Internet.</p>
+        <p>C'est une technologie encore jeune, qui dépend fortement des infrastructures réseau (fibre, 5G) et de la disponibilité des datacenters à proximité des utilisateurs.</p>
+        <p>Néanmoins, les investissements massifs de NVIDIA, Microsoft et Amazon montrent que ce marché est considéré comme <strong>l'un des futurs majeurs du jeu vidéo</strong>.</p>
+      </div>
+      <div class="concl-box reveal d2">
+        <div class="concl-box-title">Lien avec le BTS SIO</div>
+        <p>Le cloud gaming illustre parfaitement les enjeux étudiés en SISR : <strong>infrastructure réseau</strong>, <strong>latence</strong>, <strong>bande passante</strong>, <strong>datacenters</strong> et <strong>protocoles de streaming</strong>. Une technologie directement en lien avec les métiers de l'infrastructure informatique.</p>
+      </div>
+    </div>
+    <div class="veilles-nav reveal">
+      <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
+      <a href="veille2.html" class="btn-fill">Voir l'IA en entreprise <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="f-logo">GG<span>.</span></span>
+    <span>© 2025 Gael Giordano — Veille technologique BTS SIO</span>
+    <span>AFTEC Caen</span>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

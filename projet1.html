@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VPN WireGuard — Gael Giordano</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --cyan: #00e5ff;
+      --cyan-dim: rgba(0,229,255,0.15);
+      --cyan-glow: rgba(0,229,255,0.35);
+      --blue-bg: #050d1a;
+      --blue-bg2: #071325;
+      --blue-text: #e8eaf0;
+      --blue-muted: #6b8aaa;
+      --blue-border: rgba(255,255,255,0.08);
+      --white-bg: #ffffff;
+      --white-bg2: #f2f6fb;
+      --white-text: #0d1824;
+      --white-muted: #5a6e82;
+      --white-border: #dce6f0;
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-mono); overflow-x: hidden; background: var(--blue-bg); color: var(--blue-text); }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 18px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(5,13,26,0.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--blue-border);
+    }
+    .nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; letter-spacing: -0.5px; text-decoration: none; color: var(--blue-text); }
+    .nav-logo span { color: var(--cyan); }
+    .nav-back { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 20px; border: 1px solid var(--blue-border); color: var(--blue-muted); text-decoration: none; border-radius: 2px; display: flex; align-items: center; gap: 8px; transition: border-color 0.2s, color 0.2s; }
+    .nav-back:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* HERO */
+    .hero {
+      min-height: 52vh;
+      padding: 130px 48px 80px;
+      background: var(--blue-bg);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(var(--blue-border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--blue-border) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-glow { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(0,229,255,0.07) 0%, transparent 70%); top: 50%; left: 30%; transform: translate(-50%,-50%); pointer-events: none; z-index: 1; }
+    .hero-content { position: relative; z-index: 2; max-width: 760px; }
+    .hero-breadcrumb { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-muted); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+    .hero-breadcrumb a { color: var(--cyan); text-decoration: none; }
+    .hero-breadcrumb span { color: var(--blue-muted); }
+    .hero-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); border: 1px solid var(--cyan-dim); padding: 5px 12px; border-radius: 2px; margin-bottom: 20px; }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 800; line-height: 1; letter-spacing: -2px; margin-bottom: 20px; }
+    .hero-desc { font-size: 0.92rem; line-height: 1.8; color: var(--blue-muted); max-width: 580px; }
+    .hero-desc strong { color: var(--blue-text); font-weight: 500; }
+    .hero-meta { display: flex; gap: 24px; margin-top: 32px; flex-wrap: wrap; }
+    .meta-chip { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; color: var(--blue-muted); }
+    .meta-chip i { color: var(--cyan); font-size: 0.7rem; }
+
+    /* SECTIONS */
+    section { padding: 80px 48px; position: relative; }
+    .s-blue { background: var(--blue-bg2); }
+    .s-white { background: var(--white-bg); color: var(--white-text); }
+    .s-white2 { background: var(--white-bg2); color: var(--white-text); }
+    .s-blue2 { background: var(--blue-bg); }
+
+    .sec-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+    .sec-label::before { content: ''; width: 24px; height: 1px; background: var(--cyan); display: inline-block; }
+    .sec-title { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1; margin-bottom: 48px; }
+    .s-white .sec-title, .s-white2 .sec-title { color: var(--white-text); }
+    .s-blue .sec-title, .s-blue2 .sec-title { color: var(--blue-text); }
+
+    /* CONTEXTE */
+    .context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .context-text p { font-size: 0.88rem; line-height: 1.9; color: var(--white-muted); margin-bottom: 14px; }
+    .context-text strong { color: var(--white-text); font-weight: 500; }
+    .context-cards { display: flex; flex-direction: column; gap: 12px; }
+    .ctx-card { border: 1px solid var(--white-border); border-radius: 6px; padding: 16px 20px; background: var(--white-bg); transition: border-color 0.3s, transform 0.3s; }
+    .ctx-card:hover { border-color: var(--cyan); transform: translateX(5px); }
+    .ctx-card-label { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+    .ctx-card-value { font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; color: var(--white-text); }
+
+    /* ENV TECHNIQUE */
+    .env-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .env-card { border: 1px solid var(--blue-border); border-radius: 6px; padding: 22px; background: rgba(255,255,255,0.03); position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+    .env-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--cyan); transition: height 0.4s; }
+    .env-card:hover::before { height: 100%; }
+    .env-card:hover { border-color: var(--cyan-dim); transform: translateY(-3px); }
+    .env-card i { font-size: 1.2rem; color: var(--cyan); margin-bottom: 12px; display: block; }
+    .env-card h3 { font-family: var(--font-display); font-size: 0.82rem; font-weight: 700; margin-bottom: 6px; color: var(--blue-text); }
+    .env-card p { font-size: 0.76rem; color: var(--blue-muted); line-height: 1.6; }
+
+    /* ARCHITECTURE */
+    .archi-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .archi-text p { font-size: 0.88rem; line-height: 1.9; color: var(--white-muted); margin-bottom: 14px; }
+    .archi-text strong { color: var(--white-text); font-weight: 500; }
+    .network-schema { border: 1px solid var(--white-border); border-radius: 8px; overflow: hidden; background: var(--white-bg2); }
+    .schema-bar { background: var(--white-text); padding: 8px 16px; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white-bg); display: flex; align-items: center; gap: 8px; }
+    .schema-bar i { color: var(--cyan); }
+    .schema-body { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+    .net-row { display: flex; align-items: center; gap: 14px; padding: 10px 14px; border: 1px solid var(--white-border); border-radius: 4px; background: var(--white-bg); }
+    .net-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .net-label { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--white-muted); min-width: 120px; }
+    .net-value { font-family: var(--font-display); font-size: 0.82rem; font-weight: 700; color: var(--white-text); }
+
+    /* ETAPES */
+    .steps-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+    .step-card { border: 1px solid var(--blue-border); border-radius: 6px; padding: 24px; background: rgba(255,255,255,0.03); display: flex; gap: 18px; align-items: flex-start; transition: border-color 0.3s; }
+    .step-card:hover { border-color: var(--cyan-dim); }
+    .step-num { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; color: var(--cyan); opacity: 0.25; flex-shrink: 0; line-height: 1; }
+    .step-body h3 { font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; margin-bottom: 8px; color: var(--blue-text); }
+    .step-body p { font-size: 0.8rem; color: var(--blue-muted); line-height: 1.7; }
+
+    /* TESTS */
+    .tests-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+    .test-card { border: 1px solid var(--white-border); border-radius: 6px; padding: 20px 22px; background: var(--white-bg); display: flex; align-items: center; gap: 16px; transition: border-color 0.3s, transform 0.3s; }
+    .test-card:hover { border-color: var(--cyan); transform: translateX(4px); }
+    .test-icon { width: 38px; height: 38px; border-radius: 6px; background: rgba(0,229,255,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .test-icon i { color: var(--cyan); font-size: 0.9rem; }
+    .test-title { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--white-text); margin-bottom: 2px; }
+    .test-desc { font-size: 0.76rem; color: var(--white-muted); }
+    .test-status { margin-left: auto; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: #22c55e; background: rgba(34,197,94,0.1); padding: 3px 8px; border-radius: 2px; flex-shrink: 0; }
+
+    /* COMPÉTENCES */
+    .skills-wrap { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill-tag { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 16px; border: 1px solid var(--blue-border); color: var(--blue-muted); border-radius: 2px; background: rgba(255,255,255,0.02); transition: border-color 0.2s, color 0.2s; }
+    .skill-tag:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* CTA */
+    .cta-wrap { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
+    .btn-back { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border: 1px solid var(--blue-border); color: var(--blue-muted); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: border-color 0.2s, color 0.2s; }
+    .btn-back:hover { border-color: var(--cyan); color: var(--cyan); }
+    .btn-fill { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; background: var(--cyan); color: var(--blue-bg); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; font-weight: 500; transition: box-shadow 0.2s, transform 0.2s; }
+    .btn-fill:hover { box-shadow: 0 0 24px var(--cyan-glow); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { background: var(--blue-bg); border-top: 1px solid var(--blue-border); padding: 24px 48px; display: flex; align-items: center; justify-content: space-between; font-size: 0.72rem; color: var(--blue-muted); }
+    .f-logo { font-family: var(--font-display); font-weight: 800; color: var(--blue-text); }
+    .f-logo span { color: var(--cyan); }
+
+    /* ANIMATIONS */
+    .reveal { opacity:0; transform:translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .d1{transition-delay:0.1s;} .d2{transition-delay:0.2s;} .d3{transition-delay:0.3s;}
+
+    @media(max-width:900px){
+      nav{padding:16px 20px;}
+      .hero{padding:100px 20px 60px;}
+      section{padding:60px 20px;}
+      .context-grid,.archi-wrap,.steps-grid,.tests-grid,.env-grid{grid-template-columns:1fr;}
+      footer{flex-direction:column;gap:8px;text-align:center;}
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">GG<span>.</span></a>
+    <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero s-blue2">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-breadcrumb"><a href="index.html">Portfolio</a><span>/</span>Projets<span>/</span>VPN</div>
+      <div class="hero-tag"><i class="fas fa-network-wired"></i> Réseau · Infrastructure</div>
+      <h1>Interconnexion<br>multi-sites via<br><span style="color:var(--cyan)">VPN WireGuard</span></h1>
+      <p class="hero-desc">Projet réalisé dans le cadre du <strong>BTS SIO option SISR</strong> consistant à interconnecter un site central et un site distant via un tunnel VPN sécurisé.</p>
+      <div class="hero-meta">
+        <div class="meta-chip"><i class="fas fa-calendar"></i>BTS SIO 2025</div>
+        <div class="meta-chip"><i class="fas fa-tools"></i>WireGuard · OPNsense · Proxmox</div>
+        <div class="meta-chip"><i class="fas fa-check-circle"></i>Fonctionnel</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTEXTE (WHITE) -->
+  <section class="s-white">
+    <div class="sec-label reveal">Contexte</div>
+    <h2 class="sec-title reveal">Pourquoi ce projet ?</h2>
+    <div class="context-grid">
+      <div class="context-text reveal">
+        <p>L'infrastructure centrale héberge les services critiques (<strong>Active Directory, DNS, partages réseau</strong>). Certains sites distants ne disposaient pas d'accès sécurisé à ces ressources.</p>
+        <p>L'objectif était de mettre en place une solution VPN <strong>chiffrée, fiable et évolutive</strong> pour interconnecter ces sites et permettre un accès transparent aux ressources internes.</p>
+        <p>Un second cas d'usage a également été traité : l'accès sécurisé d'un <strong>poste prestataire externe</strong> non intégré au domaine Active Directory.</p>
+      </div>
+      <div class="context-cards reveal d2">
+        <div class="ctx-card"><div class="ctx-card-label">Objectif</div><div class="ctx-card-value">Interconnexion multi-sites sécurisée</div></div>
+        <div class="ctx-card"><div class="ctx-card-label">Solution retenue</div><div class="ctx-card-value">VPN WireGuard sur OPNsense</div></div>
+        <div class="ctx-card"><div class="ctx-card-label">Environnement</div><div class="ctx-card-value">Virtualisé sous Proxmox</div></div>
+        <div class="ctx-card"><div class="ctx-card-label">Cas supplémentaire</div><div class="ctx-card-value">Poste prestataire externe</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENV TECHNIQUE (BLUE) -->
+  <section class="s-blue">
+    <div class="sec-label reveal">Stack</div>
+    <h2 class="sec-title reveal">Environnement<br>Technique</h2>
+    <div class="env-grid">
+      <div class="env-card reveal">
+        <i class="fas fa-server"></i>
+        <h3>Proxmox</h3>
+        <p>Plateforme de virtualisation hébergeant l'ensemble des VMs du projet.</p>
+      </div>
+      <div class="env-card reveal d1">
+        <i class="fab fa-windows"></i>
+        <h3>Windows Server 2022</h3>
+        <p>Contrôleur de domaine Active Directory + service DNS.</p>
+      </div>
+      <div class="env-card reveal d2">
+        <i class="fas fa-desktop"></i>
+        <h3>Windows 11</h3>
+        <p>Postes clients intégrés au domaine Active Directory.</p>
+      </div>
+      <div class="env-card reveal">
+        <i class="fas fa-fire-alt"></i>
+        <h3>OPNsense</h3>
+        <p>Pare-feu et routeur open source gérant le trafic inter-sites.</p>
+      </div>
+      <div class="env-card reveal d1">
+        <i class="fas fa-lock"></i>
+        <h3>WireGuard</h3>
+        <p>Protocole VPN moderne, léger et performant. Port UDP 51820.</p>
+      </div>
+      <div class="env-card reveal d2">
+        <i class="fas fa-network-wired"></i>
+        <h3>Segmentation réseau</h3>
+        <p>Trois réseaux distincts : LAN central, LAN distant, WAN simulé.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE (WHITE) -->
+  <section class="s-white2">
+    <div class="sec-label reveal">Réseau</div>
+    <h2 class="sec-title reveal">Architecture<br>réseau</h2>
+    <div class="archi-wrap">
+      <div class="archi-text reveal">
+        <p>L'infrastructure est organisée autour de <strong>quatre réseaux distincts</strong> permettant une séparation claire entre les sites et le tunnel VPN.</p>
+        <p>Le <strong>WAN simulé</strong> représente Internet, permettant de reproduire fidèlement les conditions d'une interconnexion réelle entre deux sites géographiquement distants.</p>
+        <p>Le <strong>réseau VPN dédié</strong> assure le transport chiffré des communications entre les pare-feux OPNsense des deux sites.</p>
+      </div>
+      <div class="network-schema reveal d2">
+        <div class="schema-bar"><i class="fas fa-sitemap"></i> Plan d'adressage IP</div>
+        <div class="schema-body">
+          <div class="net-row">
+            <div class="net-dot" style="background:#00e5ff"></div>
+            <span class="net-label">LAN Central</span>
+            <span class="net-value">10.10.0.0/24</span>
+          </div>
+          <div class="net-row">
+            <div class="net-dot" style="background:#60a5fa"></div>
+            <span class="net-label">LAN Distant</span>
+            <span class="net-value">10.20.0.0/24</span>
+          </div>
+          <div class="net-row">
+            <div class="net-dot" style="background:#f59e0b"></div>
+            <span class="net-label">WAN Simulé</span>
+            <span class="net-value">192.168.50.0/24</span>
+          </div>
+          <div class="net-row">
+            <div class="net-dot" style="background:#22c55e"></div>
+            <span class="net-label">Réseau VPN</span>
+            <span class="net-value">10.100.0.0/24</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÉTAPES (BLUE) -->
+  <section class="s-blue2">
+    <div class="sec-label reveal">Mise en œuvre</div>
+    <h2 class="sec-title reveal">Étapes du<br>projet</h2>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h3>Déploiement de l'environnement virtualisé</h3>
+          <p>Création et configuration des machines virtuelles sous Proxmox : Windows Server, Windows 11, OPNsense.</p>
+        </div>
+      </div>
+      <div class="step-card reveal d1">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h3>Configuration du contrôleur de domaine</h3>
+          <p>Installation d'Active Directory et du service DNS sur Windows Server 2022. Intégration des postes clients.</p>
+        </div>
+      </div>
+      <div class="step-card reveal d2">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h3>Mise en place d'OPNsense</h3>
+          <p>Configuration du routage inter-sites, des interfaces réseau et des règles de base du pare-feu.</p>
+        </div>
+      </div>
+      <div class="step-card reveal d3">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h3>Configuration du tunnel WireGuard</h3>
+          <p>Génération des clés, configuration du tunnel UDP 51820 entre les deux pare-feux OPNsense.</p>
+        </div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">05</div>
+        <div class="step-body">
+          <h3>Règles firewall</h3>
+          <p>Création des règles permettant le trafic inter-sites tout en maintenant la sécurité des deux LAN.</p>
+        </div>
+      </div>
+      <div class="step-card reveal d1">
+        <div class="step-num">06</div>
+        <div class="step-body">
+          <h3>Tunnel prestataire externe</h3>
+          <p>Second tunnel VPN pour un poste non-domaine avec accès contrôlé via segmentation réseau.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTS (WHITE) -->
+  <section class="s-white">
+    <div class="sec-label reveal">Validation</div>
+    <h2 class="sec-title reveal">Tests<br>réalisés</h2>
+    <div class="tests-grid">
+      <div class="test-card reveal">
+        <div class="test-icon"><i class="fas fa-handshake"></i></div>
+        <div>
+          <div class="test-title">Handshake VPN</div>
+          <div class="test-desc">Établissement du tunnel WireGuard validé entre les deux sites</div>
+        </div>
+        <span class="test-status">✓ OK</span>
+      </div>
+      <div class="test-card reveal d1">
+        <div class="test-icon"><i class="fas fa-exchange-alt"></i></div>
+        <div>
+          <div class="test-title">Ping inter-sites</div>
+          <div class="test-desc">Communication ICMP fonctionnelle entre LAN central et LAN distant</div>
+        </div>
+        <span class="test-status">✓ OK</span>
+      </div>
+      <div class="test-card reveal d2">
+        <div class="test-icon"><i class="fas fa-folder-open"></i></div>
+        <div>
+          <div class="test-title">Partage SMB</div>
+          <div class="test-desc">Accès au partage de fichiers réseau depuis le site distant</div>
+        </div>
+        <span class="test-status">✓ OK</span>
+      </div>
+      <div class="test-card reveal d3">
+        <div class="test-icon"><i class="fas fa-hdd"></i></div>
+        <div>
+          <div class="test-title">Lecteur réseau</div>
+          <div class="test-desc">Montage du lecteur réseau distant sur les postes clients</div>
+        </div>
+        <span class="test-status">✓ OK</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES (BLUE) -->
+  <section class="s-blue">
+    <div class="sec-label reveal">Bilan</div>
+    <h2 class="sec-title reveal">Compétences<br>mobilisées</h2>
+    <div class="skills-wrap reveal">
+      <span class="skill-tag">Administration Windows Server</span>
+      <span class="skill-tag">Active Directory & DNS</span>
+      <span class="skill-tag">Configuration OPNsense</span>
+      <span class="skill-tag">Déploiement VPN WireGuard</span>
+      <span class="skill-tag">Sécurisation réseau</span>
+      <span class="skill-tag">Segmentation réseau</span>
+      <span class="skill-tag">Virtualisation Proxmox</span>
+      <span class="skill-tag">Règles Firewall</span>
+    </div>
+    <p style="font-size:0.88rem;line-height:1.9;color:var(--blue-muted);max-width:640px;margin-top:36px;" class="reveal">
+      Ce projet m'a permis de consolider mes compétences en <strong style="color:var(--blue-text)">administration réseau</strong> et en <strong style="color:var(--blue-text)">sécurisation d'infrastructures multi-sites</strong>, en travaillant avec des outils professionnels utilisés en entreprise.
+    </p>
+    <div class="cta-wrap reveal">
+      <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
+      <a href="projet2.html" class="btn-fill">Projet suivant <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="f-logo">GG<span>.</span></span>
+    <span>© 2025 Gael Giordano — BTS SIO SISR</span>
+    <span>AFTEC Caen</span>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

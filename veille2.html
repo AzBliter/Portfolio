@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veille — L'IA en entreprise · Gael Giordano</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --cyan: #00e5ff;
+      --cyan-dim: rgba(0,229,255,0.15);
+      --cyan-glow: rgba(0,229,255,0.35);
+      --blue-bg: #050d1a;
+      --blue-bg2: #071325;
+      --blue-text: #e8eaf0;
+      --blue-muted: #6b8aaa;
+      --blue-border: rgba(255,255,255,0.08);
+      --white-bg: #ffffff;
+      --white-bg2: #f2f6fb;
+      --white-text: #0d1824;
+      --white-muted: #5a6e82;
+      --white-border: #dce6f0;
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-mono); overflow-x: hidden; background: var(--blue-bg); color: var(--blue-text); }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(5,13,26,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--blue-border); }
+    .nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; letter-spacing: -0.5px; text-decoration: none; color: var(--blue-text); }
+    .nav-logo span { color: var(--cyan); }
+    .nav-back { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 20px; border: 1px solid var(--blue-border); color: var(--blue-muted); text-decoration: none; border-radius: 2px; display: flex; align-items: center; gap: 8px; transition: border-color 0.2s, color 0.2s; }
+    .nav-back:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    .hero { min-height: 52vh; padding: 130px 48px 80px; background: var(--blue-bg); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+    .hero::after { content: ''; position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(var(--blue-border) 1px, transparent 1px), linear-gradient(90deg, var(--blue-border) 1px, transparent 1px); background-size: 60px 60px; }
+    .hero-glow { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(0,229,255,0.07) 0%, transparent 70%); top: 50%; left: 30%; transform: translate(-50%,-50%); pointer-events: none; z-index: 1; }
+    .hero-content { position: relative; z-index: 2; max-width: 760px; }
+    .hero-breadcrumb { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-muted); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+    .hero-breadcrumb a { color: var(--cyan); text-decoration: none; }
+    .hero-breadcrumb span { color: var(--blue-muted); }
+    .hero-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); border: 1px solid var(--cyan-dim); padding: 5px 12px; border-radius: 2px; margin-bottom: 20px; }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 800; line-height: 1; letter-spacing: -2px; margin-bottom: 20px; }
+    .hero-desc { font-size: 0.92rem; line-height: 1.8; color: var(--blue-muted); max-width: 580px; }
+    .hero-desc strong { color: var(--blue-text); font-weight: 500; }
+    .hero-meta { display: flex; gap: 24px; margin-top: 32px; flex-wrap: wrap; }
+    .meta-chip { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; color: var(--blue-muted); }
+    .meta-chip i { color: var(--cyan); font-size: 0.7rem; }
+
+    section { padding: 80px 48px; position: relative; }
+    .s-blue { background: var(--blue-bg2); }
+    .s-white { background: var(--white-bg); color: var(--white-text); }
+    .s-white2 { background: var(--white-bg2); color: var(--white-text); }
+    .s-blue2 { background: var(--blue-bg); }
+    .sec-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+    .sec-label::before { content: ''; width: 24px; height: 1px; background: var(--cyan); display: inline-block; }
+    .sec-title { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1; margin-bottom: 48px; }
+    .s-white .sec-title, .s-white2 .sec-title { color: var(--white-text); }
+    .s-blue .sec-title, .s-blue2 .sec-title { color: var(--blue-text); }
+
+    /* DÉFINITION */
+    .def-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .def-text p { font-size: 0.88rem; line-height: 1.9; color: var(--white-muted); margin-bottom: 14px; }
+    .def-text strong { color: var(--white-text); font-weight: 500; }
+    .def-visual { border: 1px solid var(--white-border); border-radius: 8px; overflow: hidden; }
+    .def-img { width: 100%; height: 220px; object-fit: cover; display: block; }
+    .def-caption { padding: 14px 18px; background: var(--white-bg2); font-size: 0.72rem; color: var(--white-muted); border-top: 1px solid var(--white-border); }
+
+    /* FONCTIONNEMENT */
+    .steps-list { display: flex; flex-direction: column; gap: 16px; max-width: 760px; }
+    .how-step { display: flex; gap: 20px; align-items: flex-start; padding: 20px 24px; border: 1px solid var(--blue-border); border-radius: 6px; background: rgba(255,255,255,0.03); transition: border-color 0.3s; }
+    .how-step:hover { border-color: var(--cyan-dim); }
+    .how-num { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--cyan); opacity: 0.3; flex-shrink: 0; line-height: 1; min-width: 36px; }
+    .how-body h3 { font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; color: var(--blue-text); margin-bottom: 6px; }
+    .how-body p { font-size: 0.8rem; color: var(--blue-muted); line-height: 1.7; }
+
+    /* CAS CONCRETS */
+    .usecases-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .uc-card { border: 1px solid var(--white-border); border-radius: 6px; padding: 22px; background: var(--white-bg); transition: border-color 0.3s, transform 0.3s; position: relative; overflow: hidden; }
+    .uc-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--cyan); transition: height 0.4s; }
+    .uc-card:hover::before { height: 100%; }
+    .uc-card:hover { border-color: rgba(0,229,255,0.4); transform: translateY(-3px); }
+    .uc-icon { width: 38px; height: 38px; background: rgba(0,229,255,0.08); border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+    .uc-icon i { color: var(--cyan); font-size: 0.9rem; }
+    .uc-card h3 { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--white-text); margin-bottom: 8px; }
+    .uc-card p { font-size: 0.78rem; color: var(--white-muted); line-height: 1.7; }
+
+    /* AVANTAGES / LIMITES */
+    .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .pro-card { border: 1px solid var(--blue-border); border-radius: 6px; padding: 28px; background: rgba(255,255,255,0.03); }
+    .pro-card h3 { font-family: var(--font-display); font-size: 0.9rem; font-weight: 700; margin-bottom: 18px; color: var(--blue-text); display: flex; align-items: center; gap: 10px; }
+    .pro-card h3 i { color: var(--cyan); }
+    .pro-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .pro-list li { font-size: 0.82rem; color: var(--blue-muted); padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 3px; border-left: 2px solid var(--blue-border); display: flex; align-items: flex-start; gap: 8px; transition: border-color 0.2s; }
+    .pro-list li:hover { border-color: var(--cyan); }
+    .li-icon { flex-shrink: 0; color: var(--cyan); font-size: 0.65rem; margin-top: 3px; }
+    .con-list .li-icon { color: #f59e0b; }
+
+    /* MISE EN PLACE */
+    .deploy-steps { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+    .dep-card { border: 1px solid var(--white-border); border-radius: 6px; padding: 22px 24px; background: var(--white-bg); display: flex; gap: 18px; align-items: flex-start; transition: border-color 0.3s; }
+    .dep-card:hover { border-color: var(--cyan); }
+    .dep-num { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--cyan); opacity: 0.25; flex-shrink: 0; line-height: 1; }
+    .dep-body h3 { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--white-text); margin-bottom: 6px; }
+    .dep-body p { font-size: 0.79rem; color: var(--white-muted); line-height: 1.7; }
+
+    /* CONCLUSION */
+    .conclusion-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .concl-text p { font-size: 0.88rem; line-height: 1.9; color: var(--blue-muted); margin-bottom: 14px; }
+    .concl-text strong { color: var(--blue-text); font-weight: 500; }
+    .concl-box { border: 1px solid var(--blue-border); border-radius: 8px; padding: 28px; background: rgba(255,255,255,0.03); border-left: 3px solid var(--cyan); }
+    .concl-box-title { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan); margin-bottom: 12px; }
+    .concl-box p { font-size: 0.85rem; line-height: 1.8; color: var(--blue-muted); }
+    .concl-box strong { color: var(--blue-text); }
+
+    .veilles-nav { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 48px; }
+    .btn-back { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border: 1px solid var(--blue-border); color: var(--blue-muted); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: border-color 0.2s, color 0.2s; }
+    .btn-back:hover { border-color: var(--cyan); color: var(--cyan); }
+    .btn-fill { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; background: var(--cyan); color: var(--blue-bg); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; font-weight: 500; transition: box-shadow 0.2s, transform 0.2s; }
+    .btn-fill:hover { box-shadow: 0 0 24px var(--cyan-glow); transform: translateY(-2px); }
+
+    footer { background: var(--blue-bg); border-top: 1px solid var(--blue-border); padding: 24px 48px; display: flex; align-items: center; justify-content: space-between; font-size: 0.72rem; color: var(--blue-muted); }
+    .f-logo { font-family: var(--font-display); font-weight: 800; color: var(--blue-text); }
+    .f-logo span { color: var(--cyan); }
+
+    .reveal { opacity:0; transform:translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .d1{transition-delay:0.1s;} .d2{transition-delay:0.2s;} .d3{transition-delay:0.3s;}
+
+    @media(max-width:900px){
+      nav{padding:16px 20px;} .hero{padding:100px 20px 60px;} section{padding:60px 20px;}
+      .def-grid,.pros-cons,.usecases-grid,.deploy-steps,.conclusion-wrap{grid-template-columns:1fr;}
+      footer{flex-direction:column;gap:8px;text-align:center;}
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">GG<span>.</span></a>
+    <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero s-blue2">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-breadcrumb"><a href="index.html">Portfolio</a><span>/</span>Veille<span>/</span>IA en entreprise</div>
+      <div class="hero-tag"><i class="fas fa-robot"></i> Intelligence Artificielle · Entreprise</div>
+      <h1>Veille technologique :<br><span style="color:var(--cyan)">L'IA en entreprise</span></h1>
+      <p class="hero-desc">Comprendre à quoi sert l'IA au travail, comment ça fonctionne, ses <strong>avantages</strong>, ses <strong>limites</strong> et comment l'adopter concrètement.</p>
+      <div class="hero-meta">
+        <div class="meta-chip"><i class="fas fa-calendar"></i>BTS SIO 2025</div>
+        <div class="meta-chip"><i class="fas fa-tag"></i>Veille technologique</div>
+        <div class="meta-chip"><i class="fas fa-clock"></i>Lecture ~5 min</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÉFINITION (WHITE) -->
+  <section class="s-white">
+    <div class="sec-label reveal">Définition</div>
+    <h2 class="sec-title reveal">C'est quoi,<br>l'IA en entreprise ?</h2>
+    <div class="def-grid">
+      <div class="def-text reveal">
+        <p>L'<strong>Intelligence Artificielle</strong> aide les équipes à <strong>analyser</strong> des données, <strong>automatiser</strong> des tâches répétitives et <strong>générer</strong> du contenu (textes, images, code).</p>
+        <p>Son objectif en entreprise est triple : <strong>gagner du temps</strong>, <strong>réduire les erreurs</strong> et <strong>mieux prendre des décisions</strong> grâce à l'analyse des données.</p>
+        <p>Elle s'appuie sur des modèles déjà entraînés (comme les LLM ou les modèles de vision), que l'entreprise intègre à ses outils existants sans avoir besoin de tout développer.</p>
+      </div>
+      <div class="def-visual reveal d2">
+        <img src="image/ia.jpg" alt="IA en entreprise" class="def-img">
+        <div class="def-caption">L'IA s'intègre dans les outils du quotidien : CRM, ERP, messagerie, outils de développement.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FONCTIONNEMENT (BLUE) -->
+  <section class="s-blue">
+    <div class="sec-label reveal">Technique</div>
+    <h2 class="sec-title reveal">Comment<br>ça marche ?</h2>
+    <div class="steps-list">
+      <div class="how-step reveal">
+        <div class="how-num">01</div>
+        <div class="how-body">
+          <h3>Les données</h3>
+          <p>On part des données de l'entreprise : documents, mails, tickets, historiques clients, base de code. C'est le carburant de l'IA.</p>
+        </div>
+      </div>
+      <div class="how-step reveal d1">
+        <div class="how-num">02</div>
+        <div class="how-body">
+          <h3>Un modèle IA pré-entraîné</h3>
+          <p>On utilise un modèle existant (GPT, Claude, Mistral, Llama…). Pas besoin de tout entraîner from scratch — on l'adapte à son contexte.</p>
+        </div>
+      </div>
+      <div class="how-step reveal d2">
+        <div class="how-num">03</div>
+        <div class="how-body">
+          <h3>Intégration aux outils</h3>
+          <p>L'IA est branchée aux logiciels existants : email, CRM, ERP, Git, outils de support. Elle fonctionne en arrière-plan ou en assistant interactif.</p>
+        </div>
+      </div>
+      <div class="how-step reveal d3">
+        <div class="how-num">04</div>
+        <div class="how-body">
+          <h3>Validation humaine & mesure</h3>
+          <p>Pour les actions importantes, un humain valide. On mesure les gains (temps, qualité, erreurs évitées) pour améliorer en continu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAS CONCRETS (WHITE) -->
+  <section class="s-white2">
+    <div class="sec-label reveal">Usages</div>
+    <h2 class="sec-title reveal">Exemples<br>concrets</h2>
+    <div class="usecases-grid">
+      <div class="uc-card reveal">
+        <div class="uc-icon"><i class="fas fa-headset"></i></div>
+        <h3>Support IT</h3>
+        <p>Tri automatique des tickets, réponses aux questions fréquentes, suggestion de solutions aux techniciens.</p>
+      </div>
+      <div class="uc-card reveal d1">
+        <div class="uc-icon"><i class="fas fa-users"></i></div>
+        <h3>RH</h3>
+        <p>Extraction d'informations de CV, génération de mails de réponse, analyse des candidatures.</p>
+      </div>
+      <div class="uc-card reveal d2">
+        <div class="uc-icon"><i class="fas fa-chart-line"></i></div>
+        <h3>Ventes & Marketing</h3>
+        <p>Rédaction d'emails, scoring de prospects, génération de posts, personnalisation des communications.</p>
+      </div>
+      <div class="uc-card reveal">
+        <div class="uc-icon"><i class="fas fa-file-invoice"></i></div>
+        <h3>Finance</h3>
+        <p>Lecture automatique de factures PDF, détection d'anomalies, rapprochement comptable.</p>
+      </div>
+      <div class="uc-card reveal d1">
+        <div class="uc-icon"><i class="fas fa-code"></i></div>
+        <h3>Développement</h3>
+        <p>Assistant de code (Copilot, Cursor), génération de tests unitaires, relecture et documentation.</p>
+      </div>
+      <div class="uc-card reveal d2">
+        <div class="uc-icon"><i class="fas fa-cogs"></i></div>
+        <h3>Opérations</h3>
+        <p>Automatisation des rapports, monitoring intelligent, alertes prédictives sur les systèmes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVANTAGES & LIMITES (BLUE) -->
+  <section class="s-blue2">
+    <div class="sec-label reveal">Analyse</div>
+    <h2 class="sec-title reveal">Avantages<br>& Précautions</h2>
+    <div class="pros-cons">
+      <div class="pro-card reveal">
+        <h3><i class="fas fa-check-circle"></i> Les avantages</h3>
+        <ul class="pro-list">
+          <li><i class="fas fa-circle li-icon"></i>Gain de temps sur les tâches répétitives et chronophages</li>
+          <li><i class="fas fa-circle li-icon"></i>Meilleure aide à la décision grâce à l'analyse des données</li>
+          <li><i class="fas fa-circle li-icon"></i>Standardisation et qualité des réponses (support, mails)</li>
+          <li><i class="fas fa-circle li-icon"></i>Accessible sans expertise IA via les outils no-code/low-code</li>
+        </ul>
+      </div>
+      <div class="pro-card reveal d2">
+        <h3><i class="fas fa-exclamation-triangle"></i> Les précautions</h3>
+        <ul class="pro-list con-list">
+          <li><i class="fas fa-circle li-icon"></i>Données sensibles : respecter le RGPD et les règles internes</li>
+          <li><i class="fas fa-circle li-icon"></i>Erreurs possibles : toujours garder un humain dans la boucle</li>
+          <li><i class="fas fa-circle li-icon"></i>Biais algorithmiques : former et cadrer les usages en équipe</li>
+          <li><i class="fas fa-circle li-icon"></i>Dépendance : ne pas tout déléguer à l'IA sans comprendre</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISE EN PLACE (WHITE) -->
+  <section class="s-white">
+    <div class="sec-label reveal">Méthode</div>
+    <h2 class="sec-title reveal">Mise en place<br>en 4 étapes</h2>
+    <div class="deploy-steps">
+      <div class="dep-card reveal">
+        <div class="dep-num">01</div>
+        <div class="dep-body">
+          <h3>Cibler une tâche</h3>
+          <p>Identifier une tâche répétitive et bien définie : réponses mails, lecture de PDF, tri de tickets. Commencer petit.</p>
+        </div>
+      </div>
+      <div class="dep-card reveal d1">
+        <div class="dep-num">02</div>
+        <div class="dep-body">
+          <h3>Prototyper</h3>
+          <p>Utiliser un outil no-code / low-code ou un petit script. Ne pas tout coder — tester d'abord la faisabilité rapidement.</p>
+        </div>
+      </div>
+      <div class="dep-card reveal d2">
+        <div class="dep-num">03</div>
+        <div class="dep-body">
+          <h3>Sécuriser</h3>
+          <p>Anonymiser les données sensibles, valider les sorties importantes, journaliser les actions pour traçabilité.</p>
+        </div>
+      </div>
+      <div class="dep-card reveal d3">
+        <div class="dep-num">04</div>
+        <div class="dep-body">
+          <h3>Mesurer & étendre</h3>
+          <p>Quantifier les gains (minutes gagnées, erreurs évitées, satisfaction). Prouver la valeur, puis déployer plus largement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCLUSION (BLUE) -->
+  <section class="s-blue">
+    <div class="sec-label reveal">Conclusion</div>
+    <h2 class="sec-title reveal">En résumé</h2>
+    <div class="conclusion-wrap">
+      <div class="concl-text reveal">
+        <p>L'IA en entreprise n'est pas une révolution soudaine, mais une <strong>évolution progressive</strong> des outils du travail.</p>
+        <p>Son adoption réussie repose sur trois piliers : <strong>des usages bien ciblés</strong>, une <strong>gouvernance claire des données</strong> et une <strong>montée en compétences des équipes</strong>.</p>
+        <p>Pour les profils IT comme en BTS SIO, comprendre l'IA c'est aussi savoir comment l'intégrer aux infrastructures existantes et garantir sa sécurité.</p>
+      </div>
+      <div class="concl-box reveal d2">
+        <div class="concl-box-title">Lien avec le BTS SIO</div>
+        <p>L'IA touche directement les métiers SISR et SLAM : <strong>automatisation des tâches système</strong>, <strong>analyse de logs</strong>, <strong>détection d'anomalies réseau</strong>, <strong>assistance au développement</strong>. Comprendre ces outils est devenu incontournable pour tout technicien informatique.</p>
+      </div>
+    </div>
+    <div class="veilles-nav reveal">
+      <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
+      <a href="veille1.html" class="btn-fill">Voir le Cloud Gaming <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="f-logo">GG<span>.</span></span>
+    <span>© 2025 Gael Giordano — Veille technologique BTS SIO</span>
+    <span>AFTEC Caen</span>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
