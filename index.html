@@ -12,13 +12,11 @@
   --cyan: #f97316;
   --cyan-dim: rgba(249,115,22,0.2);
   --cyan-glow: rgba(249,115,22,0.4);
-
   --blue-bg: #111111;
   --blue-bg2: #1c1c1c;
   --blue-text: #f5f5f5;
   --blue-muted: #a3a3a3;
   --blue-border: rgba(255,255,255,0.1);
-
   --white-bg: #ffffff;
   --white-bg2: #f3f3f3;
   --white-text: #111111;
@@ -30,7 +28,6 @@
     html { scroll-behavior: smooth; }
     body { font-family: var(--font-mono); overflow-x: hidden; }
 
-    /* ── GRID overlay on blue sections only ── */
     .s-blue::after {
       content: '';
       position: absolute; inset: 0; z-index: 0;
@@ -41,7 +38,6 @@
       pointer-events: none;
     }
 
-    /* ── LOADER ── */
     #loader {
       position: fixed; inset: 0; z-index: 9000;
       background: var(--blue-bg);
@@ -55,7 +51,6 @@
     .loader-bar-inner { height: 100%; background: var(--cyan); width: 0%; animation: loadBar 1.2s ease forwards; box-shadow: 0 0 12px var(--cyan); }
     @keyframes loadBar { to { width: 100%; } }
 
-    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       padding: 18px 48px;
@@ -80,10 +75,8 @@
     .nav-cta { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 20px; border: 1px solid var(--cyan); color: var(--cyan); text-decoration: none; border-radius: 2px; transition: background 0.2s, color 0.2s, box-shadow 0.2s; }
     .nav-cta:hover { background: var(--cyan); color: var(--blue-bg); box-shadow: 0 0 20px var(--cyan-glow); }
 
-    /* ── WRAPPER ── */
     .wrapper { position: relative; }
 
-    /* ── SECTION BASE ── */
     section { padding: 100px 48px; position: relative; overflow: hidden; }
     .s-blue { background: var(--blue-bg); color: var(--blue-text); }
     .s-blue2 { background: var(--blue-bg2); color: var(--blue-text); }
@@ -100,7 +93,7 @@
       font-weight: 800; letter-spacing: -2px; line-height: 1; margin-bottom: 64px; position: relative; z-index: 1;
     }
 
-    /* ── HERO (BLUE) ── */
+    /* HERO */
     #accueil {
       min-height: 100vh;
       display: grid; grid-template-columns: 1fr 1fr;
@@ -135,7 +128,7 @@
     .scroll-arrow { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--cyan), transparent); animation: scrollPulse 2s infinite; }
     @keyframes scrollPulse { 0%,100%{opacity:0.3;transform:scaleY(0.7);}50%{opacity:1;transform:scaleY(1);} }
 
-    /* ── ABOUT (WHITE) ── */
+    /* À PROPOS */
     #apropos .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; position: relative; z-index: 1; }
     .about-text p { font-size: 0.9rem; line-height: 1.9; color: var(--white-muted); margin-bottom: 16px; }
     .about-text strong { color: var(--white-text); font-weight: 500; }
@@ -145,7 +138,7 @@
     .info-card-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan); margin-bottom: 5px; }
     .info-card-value { font-family: var(--font-display); font-size: 0.95rem; font-weight: 600; color: var(--white-text); }
 
-    /* ── BTS (BLUE) ── */
+    /* BTS SIO */
     #bts-sio .bts-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; position: relative; z-index: 1; }
     .bts-card { border: 1px solid var(--blue-border); border-radius: 6px; padding: 28px; background: rgba(255,255,255,0.03); transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; position: relative; overflow: hidden; }
     .bts-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--cyan); transition: height 0.4s ease; }
@@ -156,7 +149,7 @@
     .bts-card p { font-size: 0.82rem; line-height: 1.8; color: var(--blue-muted); }
     .highlight { display: inline-block; margin-top: 10px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); border: 1px solid var(--cyan-dim); padding: 4px 10px; border-radius: 2px; }
 
-    /* ── PARCOURS (WHITE) ── */
+    /* PARCOURS */
     #parcours .parcours-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; position: relative; z-index: 1; }
     .parcours-col h2 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; margin-bottom: 28px; padding-bottom: 12px; border-bottom: 1px solid var(--white-border); color: var(--white-muted); letter-spacing: -0.5px; }
     .timeline { list-style: none; display: flex; flex-direction: column; gap: 20px; }
@@ -173,7 +166,7 @@
     .tag { font-size: 0.63rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; background: var(--white-bg2); color: var(--white-muted); border-radius: 2px; border: 1px solid var(--white-border); }
     .tl-item:hover .tag { border-color: var(--cyan-dim); color: var(--cyan); }
 
-    /* ── PROJETS (BLUE) ── */
+    /* PROJETS */
     #projets .projets-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; position: relative; z-index: 1; }
     .projet-card { background: rgba(255,255,255,0.04); border: 1px solid var(--blue-border); border-radius: 8px; overflow: hidden; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; }
     .projet-card:hover { transform: translateY(-8px); border-color: var(--cyan-dim); box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(0,229,255,0.08); }
@@ -187,9 +180,8 @@
     .projet-body p { font-size: 0.8rem; line-height: 1.7; color: var(--blue-muted); margin-bottom: 18px; }
     .btn-card { display: inline-block; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 16px; border: 1px solid var(--blue-border); color: var(--blue-muted); text-decoration: none; border-radius: 2px; transition: border-color 0.2s, color 0.2s; }
     .btn-card:hover { border-color: var(--cyan); color: var(--cyan); }
-    .btn-card.wip { opacity: 0.45; pointer-events: none; }
 
-    /* ── COMPÉTENCES (WHITE) ── */
+    /* COMPÉTENCES */
     #competences .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; position: relative; z-index: 1; }
     .skill-card { border: 1px solid var(--white-border); border-radius: 6px; padding: 26px; background: var(--white-bg2); transition: border-color 0.3s, box-shadow 0.3s; }
     .skill-card:hover { border-color: var(--cyan); box-shadow: 0 4px 24px rgba(0,229,255,0.08); }
@@ -199,7 +191,7 @@
     .skill-list li { font-size: 0.82rem; color: var(--white-muted); padding: 7px 10px; background: var(--white-bg); border-radius: 3px; border-left: 2px solid var(--white-border); transition: border-color 0.2s, color 0.2s; }
     .skill-list li:hover { border-color: var(--cyan); color: var(--white-text); }
 
-    /* ── VEILLE (BLUE) ── */
+    /* VEILLE */
     #veille .veille-container { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; position: relative; z-index: 1; }
     .veille-card { border: 1px solid var(--blue-border); border-radius: 6px; overflow: hidden; background: rgba(255,255,255,0.03); display: grid; grid-template-columns: 240px 1fr; transition: border-color 0.3s, transform 0.3s; }
     .veille-card:hover { border-color: var(--cyan-dim); transform: translateY(-4px); }
@@ -212,7 +204,7 @@
     .btn-veille { display: inline-block; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 16px; border: 1px solid var(--blue-border); color: var(--blue-muted); text-decoration: none; border-radius: 2px; transition: border-color 0.2s, color 0.2s; }
     .btn-veille:hover { border-color: var(--cyan); color: var(--cyan); }
 
-    /* ── CONTACT (WHITE) ── */
+    /* CONTACT */
     #contact .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
     .contact-intro { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 20px; color: var(--white-text); }
     .contact-intro span { color: var(--cyan); }
@@ -227,19 +219,17 @@
     .contact-link-arrow { color: var(--white-muted); font-size: 0.75rem; transition: transform 0.2s, color 0.2s; }
     .contact-link:hover .contact-link-arrow { transform: translateX(4px); color: var(--cyan); }
 
-    /* ── FOOTER (BLUE) ── */
+    /* FOOTER */
     footer { background: var(--blue-bg); border-top: 1px solid var(--blue-border); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; font-size: 0.73rem; color: var(--blue-muted); position: relative; z-index: 2; }
     .f-logo { font-family: var(--font-display); font-weight: 800; color: var(--blue-text); }
     .f-logo span { color: var(--cyan); }
 
-    /* ── ANIMATIONS ── */
     @keyframes fadeUp { from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);} }
     @keyframes fadeIn { from{opacity:0;}to{opacity:1;} }
     .reveal { opacity:0; transform:translateY(36px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity:1; transform:translateY(0); }
     .d1{transition-delay:0.1s;} .d2{transition-delay:0.2s;} .d3{transition-delay:0.3s;}
 
-    /* ── MOBILE ── */
     @media(max-width:900px){
       nav{padding:16px 24px;}
       .nav-links{display:none;}
@@ -276,7 +266,7 @@
       <a href="tableau des competences.pdf" target="_blank" class="nav-cta">Tableau de synthèse</a>
     </nav>
 
-    <!-- 1 — HERO (BLUE) -->
+    <!-- 1 — HERO -->
     <section id="accueil" class="s-blue">
       <div class="hero-glow"></div>
       <div class="hero-left">
@@ -298,7 +288,7 @@
       <div class="scroll-hint"><div class="scroll-arrow"></div>Scroll</div>
     </section>
 
-    <!-- 2 — À PROPOS (WHITE) -->
+    <!-- 2 — À PROPOS -->
     <section id="apropos" class="s-white">
       <p class="section-label reveal">À propos</p>
       <h2 class="section-title reveal">Qui<br>suis-je ?</h2>
@@ -317,7 +307,7 @@
       </div>
     </section>
 
-    <!-- 3 — BTS SIO (BLUE) -->
+    <!-- 3 — BTS SIO -->
     <section id="bts-sio" class="s-blue2">
       <p class="section-label reveal">Formation</p>
       <h2 class="section-title reveal">Le BTS<br>SIO</h2>
@@ -329,7 +319,7 @@
       </div>
     </section>
 
-    <!-- 4 — PARCOURS (WHITE) -->
+    <!-- 4 — PARCOURS -->
     <section id="parcours" class="s-white2">
       <p class="section-label reveal">Expérience</p>
       <h2 class="section-title reveal">Mon<br>Parcours</h2>
@@ -387,11 +377,12 @@
       </div>
     </section>
 
-    <!-- 5 — PROJETS (BLUE) -->
+    <!-- 5 — PROJETS -->
     <section id="projets" class="s-blue">
       <p class="section-label reveal">Réalisations</p>
       <h2 class="section-title reveal">Mes<br>Projets</h2>
       <div class="projets-grid">
+
         <div class="projet-card reveal">
           <div class="projet-img"><img src="image/portfolio.jpg" alt="Portfolio"><div class="projet-img-overlay"></div></div>
           <div class="projet-body">
@@ -401,28 +392,31 @@
             <a href="#" class="btn-card" onclick="alert('Tu es déjà dessus ! 😉'); return false;">Vous y êtes ↗</a>
           </div>
         </div>
+
         <div class="projet-card reveal d1">
-          <div class="projet-img"><img src="image/vpn.jpg" alt="VPN"><div class="projet-img-overlay"></div></div>
+          <div class="projet-img"><img src="image/vpn.jpg" alt="VPN WireGuard"><div class="projet-img-overlay"></div></div>
           <div class="projet-body">
             <div class="projet-num">02 — Réseau</div>
-            <h3>VPN Caen la Mer</h3>
-            <p>Installation et configuration d'un VPN sur l'ensemble du réseau de la communauté urbaine de Caen la Mer.</p>
+            <h3>Étude comparative WireGuard / OpenVPN</h3>
+            <p>Évaluation et test de WireGuard dans un environnement virtualisé Proxmox, comparé à OpenVPN, en vue d'une interconnexion sécurisée des sites de Caen la Mer.</p>
             <a href="projet1.html" class="btn-card">Voir le projet ↗</a>
           </div>
         </div>
+
         <div class="projet-card reveal d2">
-          <div class="projet-img"><img src="image/projet2.jpg" alt="Ansible"><div class="projet-img-overlay"></div></div>
+          <div class="projet-img"><img src="image/projet2.jpg" alt="Ansible Minecraft"><div class="projet-img-overlay"></div></div>
           <div class="projet-body">
             <div class="projet-num">03 — DevOps</div>
-            <h3>Ansible + Minecraft</h3>
-            <p>Création de conteneurs via Ansible afin de déployer automatiquement des serveurs Minecraft.</p>
+            <h3>Déploiement automatique Minecraft via Ansible</h3>
+            <p>Automatisation complète du déploiement d'un serveur Minecraft 1.21.4 sur un conteneur Proxmox Debian 12 via playbooks Ansible — en une seule commande.</p>
             <a href="projet2.html" class="btn-card">Voir le projet ↗</a>
           </div>
         </div>
+
       </div>
     </section>
 
-    <!-- 6 — COMPÉTENCES (WHITE) -->
+    <!-- 6 — COMPÉTENCES -->
     <section id="competences" class="s-white">
       <p class="section-label reveal">Savoir-faire</p>
       <h2 class="section-title reveal">Mes<br>Compétences</h2>
@@ -437,7 +431,7 @@
             <li>Déploiement Active Directory</li>
             <li>Installation & configuration GLPI</li>
             <li>Déploiement et installation de VM</li>
-            <li>Configuration VPN</li>
+            <li>Configuration VPN WireGuard</li>
             <li>Ansible / Conteneurisation</li>
           </ul>
         </div>
@@ -454,7 +448,7 @@
       </div>
     </section>
 
-    <!-- 7 — VEILLE (BLUE) -->
+    <!-- 7 — VEILLE -->
     <section id="veille" class="s-blue2">
       <p class="section-label reveal">Actualités tech</p>
       <h2 class="section-title reveal">Veille<br>Technologique</h2>
@@ -478,7 +472,7 @@
       </div>
     </section>
 
-    <!-- 8 — CONTACT (WHITE) -->
+    <!-- 8 — CONTACT -->
     <section id="contact" class="s-white2">
       <div class="contact-grid">
         <div class="reveal">
@@ -520,27 +514,21 @@
   </div>
 
   <script>
-    // LOADER
     window.addEventListener('load', () => {
       setTimeout(() => document.getElementById('loader').classList.add('hide'), 1400);
     });
 
-    // NAV color swap based on section bg
     const nav = document.getElementById('nav');
     const navLogo = document.getElementById('navLogo');
     const navLinks = document.getElementById('navLinks');
-
     const blueSections = ['accueil','bts-sio','projets','veille'];
 
     window.addEventListener('scroll', () => {
-      // Detect current section
       let current = 'accueil';
       document.querySelectorAll('section[id]').forEach(s => {
         if (window.scrollY >= s.offsetTop - 80) current = s.id;
       });
-
       const isBlue = blueSections.includes(current);
-
       if (isBlue) {
         nav.classList.remove('scrolled-white');
         if (window.scrollY > 60) nav.classList.add('scrolled-blue');
@@ -554,7 +542,6 @@
       }
     });
 
-    // SCROLL REVEAL
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
     }, { threshold: 0.12 });
