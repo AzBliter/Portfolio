@@ -12,13 +12,11 @@
   --cyan: #f97316;
   --cyan-dim: rgba(249,115,22,0.2);
   --cyan-glow: rgba(249,115,22,0.4);
-
   --blue-bg: #111111;
   --blue-bg2: #1c1c1c;
   --blue-text: #f5f5f5;
   --blue-muted: #a3a3a3;
   --blue-border: rgba(255,255,255,0.1);
-
   --white-bg: #ffffff;
   --white-bg2: #f3f3f3;
   --white-text: #111111;
@@ -29,7 +27,6 @@
     html { scroll-behavior: smooth; }
     body { font-family: var(--font-mono); overflow-x: hidden; background: var(--blue-bg); color: var(--blue-text); }
 
-    /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       padding: 18px 48px;
@@ -42,7 +39,6 @@
     .nav-back { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 20px; border: 1px solid var(--blue-border); color: var(--blue-muted); text-decoration: none; border-radius: 2px; display: flex; align-items: center; gap: 8px; transition: border-color 0.2s, color 0.2s; }
     .nav-back:hover { border-color: var(--cyan); color: var(--cyan); }
 
-    /* HERO */
     .hero {
       min-height: 52vh;
       padding: 130px 48px 80px;
@@ -71,7 +67,6 @@
     .meta-chip { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; color: var(--blue-muted); }
     .meta-chip i { color: var(--cyan); font-size: 0.7rem; }
 
-    /* SECTIONS */
     section { padding: 80px 48px; position: relative; }
     .s-blue { background: var(--blue-bg2); }
     .s-white { background: var(--white-bg); color: var(--white-text); }
@@ -84,7 +79,6 @@
     .s-white .sec-title, .s-white2 .sec-title { color: var(--white-text); }
     .s-blue .sec-title, .s-blue2 .sec-title { color: var(--blue-text); }
 
-    /* CONTEXTE */
     .context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
     .context-text p { font-size: 0.88rem; line-height: 1.9; color: var(--white-muted); margin-bottom: 14px; }
     .context-text strong { color: var(--white-text); font-weight: 500; }
@@ -94,7 +88,6 @@
     .ctx-card-label { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
     .ctx-card-value { font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; color: var(--white-text); }
 
-    /* ENV TECHNIQUE */
     .env-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
     .env-card { border: 1px solid var(--blue-border); border-radius: 6px; padding: 22px; background: rgba(255,255,255,0.03); position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
     .env-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--cyan); transition: height 0.4s; }
@@ -104,20 +97,18 @@
     .env-card h3 { font-family: var(--font-display); font-size: 0.82rem; font-weight: 700; margin-bottom: 6px; color: var(--blue-text); }
     .env-card p { font-size: 0.76rem; color: var(--blue-muted); line-height: 1.6; }
 
-    /* ARCHITECTURE */
     .archi-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
     .archi-text p { font-size: 0.88rem; line-height: 1.9; color: var(--white-muted); margin-bottom: 14px; }
     .archi-text strong { color: var(--white-text); font-weight: 500; }
     .network-schema { border: 1px solid var(--white-border); border-radius: 8px; overflow: hidden; background: var(--white-bg2); }
     .schema-bar { background: var(--white-text); padding: 8px 16px; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white-bg); display: flex; align-items: center; gap: 8px; }
     .schema-bar i { color: var(--cyan); }
-    .schema-body { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+    .schema-body { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
     .net-row { display: flex; align-items: center; gap: 14px; padding: 10px 14px; border: 1px solid var(--white-border); border-radius: 4px; background: var(--white-bg); }
     .net-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
     .net-label { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--white-muted); min-width: 120px; }
     .net-value { font-family: var(--font-display); font-size: 0.82rem; font-weight: 700; color: var(--white-text); }
 
-    /* ETAPES */
     .steps-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
     .step-card { border: 1px solid var(--blue-border); border-radius: 6px; padding: 24px; background: rgba(255,255,255,0.03); display: flex; gap: 18px; align-items: flex-start; transition: border-color 0.3s; }
     .step-card:hover { border-color: var(--cyan-dim); }
@@ -125,7 +116,6 @@
     .step-body h3 { font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; margin-bottom: 8px; color: var(--blue-text); }
     .step-body p { font-size: 0.8rem; color: var(--blue-muted); line-height: 1.7; }
 
-    /* TESTS */
     .tests-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
     .test-card { border: 1px solid var(--white-border); border-radius: 6px; padding: 20px 22px; background: var(--white-bg); display: flex; align-items: center; gap: 16px; transition: border-color 0.3s, transform 0.3s; }
     .test-card:hover { border-color: var(--cyan); transform: translateX(4px); }
@@ -135,24 +125,20 @@
     .test-desc { font-size: 0.76rem; color: var(--white-muted); }
     .test-status { margin-left: auto; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: #22c55e; background: rgba(34,197,94,0.1); padding: 3px 8px; border-radius: 2px; flex-shrink: 0; }
 
-    /* COMPÉTENCES */
     .skills-wrap { display: flex; flex-wrap: wrap; gap: 10px; }
     .skill-tag { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 16px; border: 1px solid var(--blue-border); color: var(--blue-muted); border-radius: 2px; background: rgba(255,255,255,0.02); transition: border-color 0.2s, color 0.2s; }
     .skill-tag:hover { border-color: var(--cyan); color: var(--cyan); }
 
-    /* CTA */
     .cta-wrap { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
     .btn-back { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border: 1px solid var(--blue-border); color: var(--blue-muted); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: border-color 0.2s, color 0.2s; }
     .btn-back:hover { border-color: var(--cyan); color: var(--cyan); }
     .btn-fill { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; background: var(--cyan); color: var(--blue-bg); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; font-weight: 500; transition: box-shadow 0.2s, transform 0.2s; }
     .btn-fill:hover { box-shadow: 0 0 24px var(--cyan-glow); transform: translateY(-2px); }
 
-    /* FOOTER */
     footer { background: var(--blue-bg); border-top: 1px solid var(--blue-border); padding: 24px 48px; display: flex; align-items: center; justify-content: space-between; font-size: 0.72rem; color: var(--blue-muted); }
     .f-logo { font-family: var(--font-display); font-weight: 800; color: var(--blue-text); }
     .f-logo span { color: var(--cyan); }
 
-    /* ANIMATIONS */
     .reveal { opacity:0; transform:translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .reveal.visible { opacity:1; transform:translateY(0); }
     .d1{transition-delay:0.1s;} .d2{transition-delay:0.2s;} .d3{transition-delay:0.3s;}
@@ -179,8 +165,8 @@
     <div class="hero-content">
       <div class="hero-breadcrumb"><a href="index.html">Portfolio</a><span>/</span>Projets<span>/</span>VPN</div>
       <div class="hero-tag"><i class="fas fa-network-wired"></i> Réseau · Infrastructure</div>
-      <h1>Interconnexion<br>multi-sites via<br><span style="color:var(--cyan)">VPN WireGuard</span></h1>
-      <p class="hero-desc">Projet réalisé dans le cadre du <strong>BTS SIO option SISR</strong> consistant à interconnecter un site central et un site distant via un tunnel VPN sécurisé.</p>
+      <h1>Étude comparative<br>WireGuard / OpenVPN<br><span style="color:var(--cyan)">Caen la Mer</span></h1>
+      <p class="hero-desc">Évaluation et test de la solution <strong>WireGuard</strong> dans un environnement virtualisé, comparée à <strong>OpenVPN</strong>, en vue d'une interconnexion sécurisée des sites de Caen la Mer.</p>
       <div class="hero-meta">
         <div class="meta-chip"><i class="fas fa-calendar"></i>BTS SIO 2025</div>
         <div class="meta-chip"><i class="fas fa-tools"></i>WireGuard · OPNsense · Proxmox</div>
@@ -195,15 +181,15 @@
     <h2 class="sec-title reveal">Pourquoi ce projet ?</h2>
     <div class="context-grid">
       <div class="context-text reveal">
-        <p>L'infrastructure centrale héberge les services critiques (<strong>Active Directory, DNS, partages réseau</strong>). Certains sites distants ne disposaient pas d'accès sécurisé à ces ressources.</p>
-        <p>L'objectif était de mettre en place une solution VPN <strong>chiffrée, fiable et évolutive</strong> pour interconnecter ces sites et permettre un accès transparent aux ressources internes.</p>
-        <p>Un second cas d'usage a également été traité : l'accès sécurisé d'un <strong>poste prestataire externe</strong> non intégré au domaine Active Directory.</p>
+        <p>La DSI de Caen la Mer souhaitait évaluer la pertinence d'une solution VPN moderne pour interconnecter ses sites distants. L'objectif était de <strong>comparer WireGuard et OpenVPN</strong> sur des critères objectifs avant toute intégration en production.</p>
+        <p>WireGuard, protocole VPN récent réputé pour sa légèreté et ses performances, a été testé dans un environnement virtualisé reproduisant fidèlement l'infrastructure réelle : un site central, un site distant et un poste prestataire externe.</p>
+        <p>Un second cas d'usage a également été traité : la <strong>restriction horaire de l'accès VPN du prestataire</strong> via un schedule OPNsense, limitant la connexion aux heures ouvrées.</p>
       </div>
       <div class="context-cards reveal d2">
-        <div class="ctx-card"><div class="ctx-card-label">Objectif</div><div class="ctx-card-value">Interconnexion multi-sites sécurisée</div></div>
-        <div class="ctx-card"><div class="ctx-card-label">Solution retenue</div><div class="ctx-card-value">VPN WireGuard sur OPNsense</div></div>
+        <div class="ctx-card"><div class="ctx-card-label">Objectif</div><div class="ctx-card-value">Évaluation comparative WireGuard / OpenVPN</div></div>
+        <div class="ctx-card"><div class="ctx-card-label">Solution testée</div><div class="ctx-card-value">VPN WireGuard sur OPNsense</div></div>
         <div class="ctx-card"><div class="ctx-card-label">Environnement</div><div class="ctx-card-value">Virtualisé sous Proxmox</div></div>
-        <div class="ctx-card"><div class="ctx-card-label">Cas supplémentaire</div><div class="ctx-card-value">Poste prestataire externe</div></div>
+        <div class="ctx-card"><div class="ctx-card-label">Cas supplémentaire</div><div class="ctx-card-value">Schedule accès prestataire</div></div>
       </div>
     </div>
   </section>
@@ -216,32 +202,32 @@
       <div class="env-card reveal">
         <i class="fas fa-server"></i>
         <h3>Proxmox</h3>
-        <p>Plateforme de virtualisation hébergeant l'ensemble des VMs du projet.</p>
+        <p>Plateforme de virtualisation hébergeant l'ensemble des VMs. Bridges vmbr1, vmbr2, vmbr3 pour segmenter les réseaux.</p>
       </div>
       <div class="env-card reveal d1">
         <i class="fab fa-windows"></i>
         <h3>Windows Server 2022</h3>
-        <p>Contrôleur de domaine Active Directory + service DNS.</p>
+        <p>Contrôleur de domaine Active Directory + service DNS + partage de fichiers SMB.</p>
       </div>
       <div class="env-card reveal d2">
         <i class="fas fa-desktop"></i>
         <h3>Windows 11</h3>
-        <p>Postes clients intégrés au domaine Active Directory.</p>
+        <p>Postes clients intégrés au domaine Active Directory et poste prestataire hors domaine.</p>
       </div>
       <div class="env-card reveal">
         <i class="fas fa-fire-alt"></i>
         <h3>OPNsense</h3>
-        <p>Pare-feu et routeur open source gérant le trafic inter-sites.</p>
+        <p>Pare-feu et routeur open source gérant le trafic inter-sites, le VPN et les règles de filtrage.</p>
       </div>
       <div class="env-card reveal d1">
         <i class="fas fa-lock"></i>
         <h3>WireGuard</h3>
-        <p>Protocole VPN moderne, léger et performant. Port UDP 51820.</p>
+        <p>Protocole VPN moderne, léger et performant. Port UDP 51820. Intégré nativement dans OPNsense.</p>
       </div>
       <div class="env-card reveal d2">
         <i class="fas fa-network-wired"></i>
         <h3>Segmentation réseau</h3>
-        <p>Trois réseaux distincts : LAN central, LAN distant, WAN simulé.</p>
+        <p>Quatre zones distinctes : LAN central (vmbr1), LAN distant (vmbr2), WAN simulé (vmbr3), réseau VPN.</p>
       </div>
     </div>
   </section>
@@ -252,33 +238,69 @@
     <h2 class="sec-title reveal">Architecture<br>réseau</h2>
     <div class="archi-wrap">
       <div class="archi-text reveal">
-        <p>L'infrastructure est organisée autour de <strong>quatre réseaux distincts</strong> permettant une séparation claire entre les sites et le tunnel VPN.</p>
-        <p>Le <strong>WAN simulé</strong> représente Internet, permettant de reproduire fidèlement les conditions d'une interconnexion réelle entre deux sites géographiquement distants.</p>
-        <p>Le <strong>réseau VPN dédié</strong> assure le transport chiffré des communications entre les pare-feux OPNsense des deux sites.</p>
+        <p>L'infrastructure est organisée autour de <strong>quatre zones réseau distinctes</strong> interconnectées via OPNsense, permettant une séparation claire entre les sites et les tunnels VPN.</p>
+        <p>Le <strong>WAN simulé</strong> (vmbr3 — 192.168.50.0/24) représente Internet et centralise les connexions des tunnels WireGuard. OPNsense dispose de trois interfaces : une vers le LAN central (vmbr1), une vers le site distant (vmbr2) et une vers le WAN (vmbr3).</p>
+        <p>Le <strong>réseau VPN dédié</strong> (10.100.0.0/24) assure le transport chiffré entre les pairs WireGuard, chaque site disposant d'une adresse tunnel unique.</p>
       </div>
       <div class="network-schema reveal d2">
         <div class="schema-bar"><i class="fas fa-sitemap"></i> Plan d'adressage IP</div>
         <div class="schema-body">
+
           <div class="net-row">
-            <div class="net-dot" style="background:#00e5ff"></div>
-            <span class="net-label">LAN Central</span>
-            <span class="net-value">10.10.0.0/24</span>
+            <div class="net-dot" style="background:#ef4444"></div>
+            <span class="net-label">Zone Prestataire</span>
+            <span class="net-value">192.168.50.3 — vmbr3</span>
           </div>
+          <div class="net-row" style="padding-left:28px; background:#fafafa;">
+            <div class="net-dot" style="background:#fca5a5; width:7px; height:7px;"></div>
+            <span class="net-label" style="font-size:0.65rem;">Tunnel WG · GW</span>
+            <span class="net-value" style="font-size:0.75rem;">10.100.0.3 · 192.168.50.1</span>
+          </div>
+
           <div class="net-row">
             <div class="net-dot" style="background:#60a5fa"></div>
-            <span class="net-label">LAN Distant</span>
-            <span class="net-value">10.20.0.0/24</span>
+            <span class="net-label">Site Distant A</span>
+            <span class="net-value">10.20.0.0/24 — vmbr2</span>
           </div>
+          <div class="net-row" style="padding-left:28px; background:#fafafa;">
+            <div class="net-dot" style="background:#93c5fd; width:7px; height:7px;"></div>
+            <span class="net-label" style="font-size:0.65rem;">Tunnel WG · GW</span>
+            <span class="net-value" style="font-size:0.75rem;">10.100.0.2 · 10.20.0.254</span>
+          </div>
+
           <div class="net-row">
-            <div class="net-dot" style="background:#f59e0b"></div>
-            <span class="net-label">WAN Simulé</span>
-            <span class="net-value">192.168.50.0/24</span>
+            <div class="net-dot" style="background:#a78bfa"></div>
+            <span class="net-label">Internet — WAN</span>
+            <span class="net-value">192.168.50.1 — vmbr3</span>
           </div>
+
           <div class="net-row">
-            <div class="net-dot" style="background:#22c55e"></div>
-            <span class="net-label">Réseau VPN</span>
-            <span class="net-value">10.100.0.0/24</span>
+            <div class="net-dot" style="background:#f97316"></div>
+            <span class="net-label">OPNsense</span>
+            <span class="net-value">Tunnel WG : 10.100.0.1</span>
           </div>
+          <div class="net-row" style="padding-left:28px; background:#fafafa;">
+            <div class="net-dot" style="background:#fdba74; width:7px; height:7px;"></div>
+            <span class="net-label" style="font-size:0.65rem;">LAN · Interfaces</span>
+            <span class="net-value" style="font-size:0.75rem;">10.10.0.254 · vmbr1/2/3</span>
+          </div>
+
+          <div class="net-row">
+            <div class="net-dot" style="background:#d6c4a0"></div>
+            <span class="net-label">Site Central</span>
+            <span class="net-value">10.10.0.0/24 — vmbr1</span>
+          </div>
+          <div class="net-row" style="padding-left:28px; background:#fafafa;">
+            <div class="net-dot" style="background:#e5d5b5; width:7px; height:7px;"></div>
+            <span class="net-label" style="font-size:0.65rem;">Serveur · GW</span>
+            <span class="net-value" style="font-size:0.75rem;">10.10.0.10 · 10.10.0.254</span>
+          </div>
+          <div class="net-row" style="padding-left:28px; background:#fafafa;">
+            <div class="net-dot" style="background:#e5d5b5; width:7px; height:7px;"></div>
+            <span class="net-label" style="font-size:0.65rem;">Client · GW</span>
+            <span class="net-value" style="font-size:0.75rem;">10.10.0.20 · 10.10.0.254</span>
+          </div>
+
         </div>
       </div>
     </div>
@@ -293,42 +315,42 @@
         <div class="step-num">01</div>
         <div class="step-body">
           <h3>Déploiement de l'environnement virtualisé</h3>
-          <p>Création et configuration des machines virtuelles sous Proxmox : Windows Server, Windows 11, OPNsense.</p>
+          <p>Création et configuration des machines virtuelles sous Proxmox : Windows Server, Windows 11, OPNsense. Mise en place des bridges vmbr1, vmbr2, vmbr3.</p>
         </div>
       </div>
       <div class="step-card reveal d1">
         <div class="step-num">02</div>
         <div class="step-body">
           <h3>Configuration du contrôleur de domaine</h3>
-          <p>Installation d'Active Directory et du service DNS sur Windows Server 2022. Intégration des postes clients.</p>
+          <p>Installation d'Active Directory et du service DNS sur Windows Server 2022. Intégration des postes clients au domaine caenlamer.local.</p>
         </div>
       </div>
       <div class="step-card reveal d2">
         <div class="step-num">03</div>
         <div class="step-body">
           <h3>Mise en place d'OPNsense</h3>
-          <p>Configuration du routage inter-sites, des interfaces réseau et des règles de base du pare-feu.</p>
+          <p>Configuration du routage inter-sites, des interfaces réseau (vmbr1/2/3) et des règles de base du pare-feu.</p>
         </div>
       </div>
       <div class="step-card reveal d3">
         <div class="step-num">04</div>
         <div class="step-body">
           <h3>Configuration du tunnel WireGuard</h3>
-          <p>Génération des clés, configuration du tunnel UDP 51820 entre les deux pare-feux OPNsense.</p>
+          <p>Génération des clés, configuration du tunnel UDP 51820. Deux tunnels : site-à-site et accès prestataire externe.</p>
         </div>
       </div>
       <div class="step-card reveal">
         <div class="step-num">05</div>
         <div class="step-body">
-          <h3>Règles firewall</h3>
-          <p>Création des règles permettant le trafic inter-sites tout en maintenant la sécurité des deux LAN.</p>
+          <h3>Règles firewall & schedule prestataire</h3>
+          <p>Création des règles autorisant le trafic inter-sites. Mise en place d'un schedule limitant l'accès VPN du prestataire aux heures ouvrées (lundi–vendredi, 08h–18h) via une Floating Rule OPNsense.</p>
         </div>
       </div>
       <div class="step-card reveal d1">
         <div class="step-num">06</div>
         <div class="step-body">
-          <h3>Tunnel prestataire externe</h3>
-          <p>Second tunnel VPN pour un poste non-domaine avec accès contrôlé via segmentation réseau.</p>
+          <h3>Comparaison WireGuard / OpenVPN</h3>
+          <p>Analyse comparative sur les critères de performance, sécurité, simplicité de configuration et maintenance. Recommandation d'intégration formulée.</p>
         </div>
       </div>
     </div>
@@ -371,6 +393,22 @@
         </div>
         <span class="test-status">✓ OK</span>
       </div>
+      <div class="test-card reveal">
+        <div class="test-icon"><i class="fas fa-clock"></i></div>
+        <div>
+          <div class="test-title">Schedule prestataire</div>
+          <div class="test-desc">Blocage VPN prestataire hors heures ouvrées validé via Floating Rule</div>
+        </div>
+        <span class="test-status">✓ OK</span>
+      </div>
+      <div class="test-card reveal d1">
+        <div class="test-icon"><i class="fas fa-shield-alt"></i></div>
+        <div>
+          <div class="test-title">Accès prestataire</div>
+          <div class="test-desc">Accès aux ressources internes depuis poste hors domaine via VPN</div>
+        </div>
+        <span class="test-status">✓ OK</span>
+      </div>
     </div>
   </section>
 
@@ -387,9 +425,11 @@
       <span class="skill-tag">Segmentation réseau</span>
       <span class="skill-tag">Virtualisation Proxmox</span>
       <span class="skill-tag">Règles Firewall</span>
+      <span class="skill-tag">Floating Rules OPNsense</span>
+      <span class="skill-tag">Planification d'accès (Schedule)</span>
     </div>
     <p style="font-size:0.88rem;line-height:1.9;color:var(--blue-muted);max-width:640px;margin-top:36px;" class="reveal">
-      Ce projet m'a permis de consolider mes compétences en <strong style="color:var(--blue-text)">administration réseau</strong> et en <strong style="color:var(--blue-text)">sécurisation d'infrastructures multi-sites</strong>, en travaillant avec des outils professionnels utilisés en entreprise.
+      Ce projet m'a permis de consolider mes compétences en <strong style="color:var(--blue-text)">administration réseau</strong> et en <strong style="color:var(--blue-text)">sécurisation d'infrastructures multi-sites</strong>, en travaillant avec des outils professionnels utilisés en entreprise. La comparaison WireGuard / OpenVPN m'a également permis de développer un regard critique sur le choix des solutions techniques.
     </p>
     <div class="cta-wrap reveal">
       <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
