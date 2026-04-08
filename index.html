@@ -9,9 +9,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
-  --cyan: #f97316;
-  --cyan-dim: rgba(249,115,22,0.2);
-  --cyan-glow: rgba(249,115,22,0.4);
+  --cyan: #00e5ff;
+  --cyan-dim: rgba(0,229,255,0.2);
+  --cyan-glow: rgba(0,229,255,0.4);
   --blue-bg: #111111;
   --blue-bg2: #1c1c1c;
   --blue-text: #f5f5f5;
@@ -22,6 +22,8 @@
   --white-text: #111111;
   --white-muted: #666666;
   --white-border: #dddddd;
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'DM Mono', monospace;
 }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -481,9 +483,9 @@
           <p class="contact-sub">Toujours ouvert aux opportunités, collaborations ou simples échanges. N'hésite pas à me contacter.</p>
         </div>
         <div class="contact-links reveal d2">
-          <a href="mailto:giordanogael@proton.me" class="contact-link">
+          <a href="/cdn-cgi/l/email-protection#9bfcf2f4e9fffaf5f4fcfafef7dbebe9f4eff4f5b5f6fe" class="contact-link">
             <i class="fas fa-envelope"></i>
-            <div class="contact-link-text"><div class="contact-link-label">Email</div><div class="contact-link-value">giordanogael@proton.me</div></div>
+            <div class="contact-link-text"><div class="contact-link-label">Email</div><div class="contact-link-value"><span class="__cf_email__" data-cfemail="bddad4d2cfd9dcd3d2dadcd8d1fdcdcfd2c9d2d393d0d8">[email&#160;protected]</span></div></div>
             <span class="contact-link-arrow">→</span>
           </a>
           <a href="tel:+33613351400" class="contact-link">
@@ -513,22 +515,24 @@
 
   </div>
 
-  <script>
-    window.addEventListener('load', () => {
-      setTimeout(() => document.getElementById('loader').classList.add('hide'), 1400);
-    });
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    function hideLoader() {
+      document.getElementById('loader').classList.add('hide');
+    }
+    setTimeout(hideLoader, 1400);
+    window.addEventListener('load', function() { setTimeout(hideLoader, 400); });
 
-    const nav = document.getElementById('nav');
-    const navLogo = document.getElementById('navLogo');
-    const navLinks = document.getElementById('navLinks');
-    const blueSections = ['accueil','bts-sio','projets','veille'];
+    var nav = document.getElementById('nav');
+    var navLogo = document.getElementById('navLogo');
+    var navLinks = document.getElementById('navLinks');
+    var blueSections = ['accueil','bts-sio','projets','veille'];
 
-    window.addEventListener('scroll', () => {
-      let current = 'accueil';
-      document.querySelectorAll('section[id]').forEach(s => {
+    window.addEventListener('scroll', function() {
+      var current = 'accueil';
+      document.querySelectorAll('section[id]').forEach(function(s) {
         if (window.scrollY >= s.offsetTop - 80) current = s.id;
       });
-      const isBlue = blueSections.includes(current);
+      var isBlue = blueSections.includes(current);
       if (isBlue) {
         nav.classList.remove('scrolled-white');
         if (window.scrollY > 60) nav.classList.add('scrolled-blue');
@@ -542,10 +546,12 @@
       }
     });
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
     }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
   </script>
 </body>
 </html>
