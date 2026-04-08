@@ -9,9 +9,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
-      --cyan: #f97316;
-      --cyan-dim: rgba(249,115,22,0.15);
-      --cyan-glow: rgba(249,115,22,0.4);
+      --cyan: #00e5ff;
+      --cyan-dim: rgba(0,229,255,0.15);
+      --cyan-glow: rgba(0,229,255,0.4);
       --blue-bg: #111111;
       --blue-bg2: #1a1a1a;
       --blue-text: #f0f0f0;
@@ -37,7 +37,7 @@
     /* HERO */
     .hero { min-height: 55vh; padding: 140px 48px 80px; background: var(--blue-bg); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
     .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--blue-border) 1px, transparent 1px), linear-gradient(90deg, var(--blue-border) 1px, transparent 1px); background-size: 50px 50px; }
-    .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(249,115,22,0.06) 0%, transparent 70%); top: 40%; left: 25%; transform: translate(-50%,-50%); pointer-events: none; }
+    .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 70%); top: 40%; left: 25%; transform: translate(-50%,-50%); pointer-events: none; }
     .hero-content { position: relative; z-index: 2; max-width: 800px; }
     .hero-breadcrumb { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-muted); margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
     .hero-breadcrumb a { color: var(--cyan); text-decoration: none; }
@@ -107,11 +107,11 @@
     /* PLAYBOOKS */
     .playbooks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     .pb-card { border: 1px solid var(--white-border); border-radius: 8px; overflow: hidden; background: var(--white-bg); transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; }
-    .pb-card:hover { border-color: var(--cyan); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(249,115,22,0.08); }
+    .pb-card:hover { border-color: var(--cyan); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,229,255,0.08); }
     .pb-header { padding: 16px 20px; border-bottom: 1px solid var(--white-border); display: flex; align-items: center; gap: 12px; background: var(--white-bg2); }
-    .pb-icon { width: 36px; height: 36px; background: rgba(249,115,22,0.1); border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .pb-icon { width: 36px; height: 36px; background: rgba(0,229,255,0.1); border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .pb-icon i { color: var(--cyan); font-size: 0.9rem; }
-    .pb-filename { font-size: 0.7rem; font-family: 'DM Mono', monospace; color: var(--cyan); background: rgba(249,115,22,0.06); border: 1px solid var(--cyan-dim); padding: 3px 8px; border-radius: 3px; }
+    .pb-filename { font-size: 0.7rem; font-family: 'DM Mono', monospace; color: var(--cyan); background: rgba(0,229,255,0.06); border: 1px solid var(--cyan-dim); padding: 3px 8px; border-radius: 3px; }
     .pb-title { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--white-text); }
     .pb-body { padding: 18px 20px; }
     .pb-body p { font-size: 0.81rem; color: var(--white-muted); line-height: 1.8; margin-bottom: 12px; }
@@ -149,7 +149,7 @@
     .results-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .result-card { border: 1px solid var(--blue-border); border-radius: 5px; padding: 18px 20px; background: rgba(255,255,255,0.025); display: flex; align-items: center; gap: 14px; transition: border-color 0.3s; }
     .result-card:hover { border-color: var(--cyan-dim); }
-    .result-ico { width: 36px; height: 36px; border-radius: 5px; background: rgba(249,115,22,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .result-ico { width: 36px; height: 36px; border-radius: 5px; background: rgba(0,229,255,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .result-ico i { color: var(--cyan); font-size: 0.85rem; }
     .result-name { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; color: var(--blue-text); margin-bottom: 2px; }
     .result-sub { font-size: 0.73rem; color: var(--blue-muted); }
@@ -288,7 +288,7 @@
               <path d="M2 1L8 5L2 9" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round"/>
             </marker>
             <marker id="arr-api" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-              <path d="M2 1L8 5L2 9" fill="none" stroke="#f97316" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M2 1L8 5L2 9" fill="none" stroke="#00b8d4" stroke-width="1.5" stroke-linecap="round"/>
             </marker>
           </defs>
 
@@ -297,22 +297,22 @@
           <text x="220" y="34" text-anchor="middle" font-size="10.5" font-weight="600" fill="#888" letter-spacing="1">PROXMOX HOST — pve-01</text>
 
           <!-- CT Ansible -->
-          <rect x="30" y="55" width="170" height="100" rx="10" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
+          <rect x="30" y="55" width="170" height="100" rx="10" fill="#e0f7fa" stroke="#fdba74" stroke-width="1.5"/>
           <text x="115" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">CT Ansible</text>
           <text x="115" y="96" text-anchor="middle" font-size="10" fill="#78350f">Serveur maître</text>
           <text x="115" y="112" text-anchor="middle" font-size="10" fill="#78350f">Debian 12</text>
           <text x="115" y="130" text-anchor="middle" font-size="9.5" fill="#b45309">Playbooks YAML</text>
 
           <!-- API Proxmox -->
-          <rect x="250" y="55" width="170" height="100" rx="10" fill="#fff7ed" stroke="#f97316" stroke-width="1.5"/>
+          <rect x="250" y="55" width="170" height="100" rx="10" fill="#e0f7fa" stroke="#00e5ff" stroke-width="1.5"/>
           <text x="335" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">API Proxmox</text>
           <text x="335" y="96" text-anchor="middle" font-size="10" fill="#78350f">REST HTTPS</text>
           <text x="335" y="112" text-anchor="middle" font-size="10" fill="#78350f">Port 8006</text>
           <text x="335" y="130" text-anchor="middle" font-size="9.5" fill="#b45309">Token Auth</text>
 
           <!-- Flèche Ansible → API -->
-          <path d="M 200 105 L 250 105" fill="none" stroke="#f97316" stroke-width="1.8" marker-end="url(#arr-api)"/>
-          <rect x="188" y="88" width="76" height="16" rx="3" fill="#fff7ed"/>
+          <path d="M 200 105 L 250 105" fill="none" stroke="#00b8d4" stroke-width="1.8" marker-end="url(#arr-api)"/>
+          <rect x="188" y="88" width="76" height="16" rx="3" fill="#e0f7fa"/>
           <text x="226" y="99" text-anchor="middle" font-size="9" fill="#c2410c">① API REST</text>
 
           <!-- CT Cible créé -->
@@ -323,8 +323,8 @@
           <text x="220" y="294" text-anchor="middle" font-size="9.5" fill="#16a34a">Créé automatiquement</text>
 
           <!-- Flèche API → CT Cible -->
-          <path d="M 335 155 L 335 200 L 310 220" fill="none" stroke="#f97316" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr-api)"/>
-          <rect x="290" y="174" width="90" height="16" rx="3" fill="#fff7ed"/>
+          <path d="M 335 155 L 335 200 L 310 220" fill="none" stroke="#00b8d4" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr-api)"/>
+          <rect x="290" y="174" width="90" height="16" rx="3" fill="#e0f7fa"/>
           <text x="335" y="185" text-anchor="middle" font-size="9" fill="#c2410c">② Crée le CT</text>
 
           <!-- Flèche Ansible → CT Cible (SSH) -->
@@ -345,7 +345,7 @@
           <text x="220" y="355" text-anchor="middle" font-size="9" fill="#166534">④ Installe Minecraft</text>
 
           <!-- Légende -->
-          <line x1="30" y1="480" x2="55" y2="480" stroke="#f97316" stroke-width="1.8"/>
+          <line x1="30" y1="480" x2="55" y2="480" stroke="#00e5ff" stroke-width="1.8"/>
           <text x="62" y="484" font-size="9" fill="#888">Appel API REST</text>
           <line x1="160" y1="480" x2="185" y2="480" stroke="#22c55e" stroke-width="1.8" stroke-dasharray="5 3"/>
           <text x="192" y="484" font-size="9" fill="#888">Connexion SSH</text>
