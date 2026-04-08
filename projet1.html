@@ -9,146 +9,138 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
-  --cyan: #f97316;
-  --cyan-dim: rgba(249,115,22,0.2);
-  --cyan-glow: rgba(249,115,22,0.4);
-  --blue-bg: #111111;
-  --blue-bg2: #1c1c1c;
-  --blue-text: #f5f5f5;
-  --blue-muted: #a3a3a3;
-  --blue-border: rgba(255,255,255,0.1);
-  --white-bg: #ffffff;
-  --white-bg2: #f3f3f3;
-  --white-text: #111111;
-  --white-muted: #666666;
-  --white-border: #dddddd;
-}
+      --cyan: #f97316;
+      --cyan-dim: rgba(249,115,22,0.15);
+      --cyan-glow: rgba(249,115,22,0.4);
+      --blue-bg: #111111;
+      --blue-bg2: #1a1a1a;
+      --blue-text: #f0f0f0;
+      --blue-muted: #999999;
+      --blue-border: rgba(255,255,255,0.08);
+      --white-bg: #ffffff;
+      --white-bg2: #f5f5f5;
+      --white-text: #111111;
+      --white-muted: #666666;
+      --white-border: #e5e5e5;
+    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--font-mono); overflow-x: hidden; background: var(--blue-bg); color: var(--blue-text); }
+    body { font-family: 'DM Mono', monospace; overflow-x: hidden; background: var(--blue-bg); color: var(--blue-text); }
 
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 18px 48px;
-      display: flex; align-items: center; justify-content: space-between;
-      background: rgba(5,13,26,0.92); backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--blue-border);
-    }
-    .nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; letter-spacing: -0.5px; text-decoration: none; color: var(--blue-text); }
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--blue-border); }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; text-decoration: none; color: var(--blue-text); letter-spacing: -0.5px; }
     .nav-logo span { color: var(--cyan); }
-    .nav-back { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 20px; border: 1px solid var(--blue-border); color: var(--blue-muted); text-decoration: none; border-radius: 2px; display: flex; align-items: center; gap: 8px; transition: border-color 0.2s, color 0.2s; }
+    .nav-back { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 18px; border: 1px solid var(--blue-border); color: var(--blue-muted); text-decoration: none; border-radius: 3px; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
     .nav-back:hover { border-color: var(--cyan); color: var(--cyan); }
 
-    .hero {
-      min-height: 52vh;
-      padding: 130px 48px 80px;
-      background: var(--blue-bg);
-      position: relative; overflow: hidden;
-      display: flex; flex-direction: column; justify-content: flex-end;
-    }
-    .hero::after {
-      content: '';
-      position: absolute; inset: 0; z-index: 0;
-      background-image:
-        linear-gradient(var(--blue-border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--blue-border) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-    .hero-glow { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(0,229,255,0.07) 0%, transparent 70%); top: 50%; left: 30%; transform: translate(-50%,-50%); pointer-events: none; z-index: 1; }
-    .hero-content { position: relative; z-index: 2; max-width: 760px; }
-    .hero-breadcrumb { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-muted); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+    /* HERO */
+    .hero { min-height: 55vh; padding: 140px 48px 80px; background: var(--blue-bg); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--blue-border) 1px, transparent 1px), linear-gradient(90deg, var(--blue-border) 1px, transparent 1px); background-size: 50px 50px; }
+    .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(249,115,22,0.06) 0%, transparent 70%); top: 40%; left: 25%; transform: translate(-50%,-50%); pointer-events: none; }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; }
+    .hero-breadcrumb { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-muted); margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
     .hero-breadcrumb a { color: var(--cyan); text-decoration: none; }
-    .hero-breadcrumb span { color: var(--blue-muted); }
-    .hero-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); border: 1px solid var(--cyan-dim); padding: 5px 12px; border-radius: 2px; margin-bottom: 20px; }
-    .hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 800; line-height: 1; letter-spacing: -2px; margin-bottom: 20px; }
-    .hero-desc { font-size: 0.92rem; line-height: 1.8; color: var(--blue-muted); max-width: 580px; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); border: 1px solid var(--cyan-dim); padding: 5px 12px; border-radius: 2px; margin-bottom: 24px; }
+    .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.2rem, 5vw, 4.2rem); font-weight: 800; line-height: 0.95; letter-spacing: -2px; margin-bottom: 24px; }
+    .hero h1 span { color: var(--cyan); }
+    .hero-desc { font-size: 0.88rem; line-height: 1.9; color: var(--blue-muted); max-width: 600px; margin-bottom: 32px; }
     .hero-desc strong { color: var(--blue-text); font-weight: 500; }
-    .hero-meta { display: flex; gap: 24px; margin-top: 32px; flex-wrap: wrap; }
-    .meta-chip { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; color: var(--blue-muted); }
-    .meta-chip i { color: var(--cyan); font-size: 0.7rem; }
+    .hero-chips { display: flex; gap: 16px; flex-wrap: wrap; }
+    .chip { display: flex; align-items: center; gap: 7px; font-size: 0.7rem; color: var(--blue-muted); background: rgba(255,255,255,0.04); border: 1px solid var(--blue-border); padding: 6px 12px; border-radius: 2px; }
+    .chip i { color: var(--cyan); font-size: 0.65rem; }
 
-    section { padding: 80px 48px; position: relative; }
-    .s-blue { background: var(--blue-bg2); }
-    .s-white { background: var(--white-bg); color: var(--white-text); }
-    .s-white2 { background: var(--white-bg2); color: var(--white-text); }
-    .s-blue2 { background: var(--blue-bg); }
+    /* SECTIONS */
+    section { padding: 88px 48px; }
+    .s-dark { background: var(--blue-bg); color: var(--blue-text); }
+    .s-dark2 { background: var(--blue-bg2); color: var(--blue-text); }
+    .s-light { background: var(--white-bg); color: var(--white-text); }
+    .s-light2 { background: var(--white-bg2); color: var(--white-text); }
 
-    .sec-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-    .sec-label::before { content: ''; width: 24px; height: 1px; background: var(--cyan); display: inline-block; }
-    .sec-title { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1; margin-bottom: 48px; }
-    .s-white .sec-title, .s-white2 .sec-title { color: var(--white-text); }
-    .s-blue .sec-title, .s-blue2 .sec-title { color: var(--blue-text); }
+    .sec-eyebrow { font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+    .sec-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--cyan); display: inline-block; }
+    .sec-title { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1; margin-bottom: 52px; }
+    .s-light .sec-title, .s-light2 .sec-title { color: var(--white-text); }
+    .s-dark .sec-title, .s-dark2 .sec-title { color: var(--blue-text); }
 
-    .context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-    .context-text p { font-size: 0.88rem; line-height: 1.9; color: var(--white-muted); margin-bottom: 14px; }
-    .context-text strong { color: var(--white-text); font-weight: 500; }
-    .context-cards { display: flex; flex-direction: column; gap: 12px; }
-    .ctx-card { border: 1px solid var(--white-border); border-radius: 6px; padding: 16px 20px; background: var(--white-bg); transition: border-color 0.3s, transform 0.3s; }
-    .ctx-card:hover { border-color: var(--cyan); transform: translateX(5px); }
-    .ctx-card-label { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
-    .ctx-card-value { font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; color: var(--white-text); }
+    /* CONTEXTE */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+    .prose p { font-size: 0.87rem; line-height: 1.95; margin-bottom: 14px; color: var(--white-muted); }
+    .prose strong { color: var(--white-text); font-weight: 500; }
+    .prose-dark p { color: var(--blue-muted); }
+    .prose-dark strong { color: var(--blue-text); }
+    .info-stack { display: flex; flex-direction: column; gap: 10px; }
+    .info-item { border: 1px solid var(--white-border); border-radius: 5px; padding: 14px 18px; background: var(--white-bg); transition: border-color 0.25s, transform 0.25s; }
+    .info-item:hover { border-color: var(--cyan); transform: translateX(5px); }
+    .info-item-label { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+    .info-item-val { font-family: 'Syne', sans-serif; font-size: 0.86rem; font-weight: 700; color: var(--white-text); }
 
-    .env-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
-    .env-card { border: 1px solid var(--blue-border); border-radius: 6px; padding: 22px; background: rgba(255,255,255,0.03); position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
-    .env-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--cyan); transition: height 0.4s; }
-    .env-card:hover::before { height: 100%; }
-    .env-card:hover { border-color: var(--cyan-dim); transform: translateY(-3px); }
-    .env-card i { font-size: 1.2rem; color: var(--cyan); margin-bottom: 12px; display: block; }
-    .env-card h3 { font-family: var(--font-display); font-size: 0.82rem; font-weight: 700; margin-bottom: 6px; color: var(--blue-text); }
-    .env-card p { font-size: 0.76rem; color: var(--blue-muted); line-height: 1.6; }
+    /* STACK */
+    .stack-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .stack-card { border: 1px solid var(--blue-border); border-radius: 5px; padding: 22px; background: rgba(255,255,255,0.025); position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+    .stack-card::after { content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 0; background: var(--cyan); transition: height 0.4s; }
+    .stack-card:hover::after { height: 100%; }
+    .stack-card:hover { border-color: var(--cyan-dim); transform: translateY(-3px); }
+    .stack-card i { font-size: 1.1rem; color: var(--cyan); margin-bottom: 10px; display: block; }
+    .stack-card h3 { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; color: var(--blue-text); margin-bottom: 6px; }
+    .stack-card p { font-size: 0.74rem; color: var(--blue-muted); line-height: 1.65; }
 
-    .archi-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-    .archi-text p { font-size: 0.88rem; line-height: 1.9; color: var(--white-muted); margin-bottom: 14px; }
-    .archi-text strong { color: var(--white-text); font-weight: 500; }
-    .network-schema { border: 1px solid var(--white-border); border-radius: 8px; overflow: hidden; background: var(--white-bg2); }
-    .schema-bar { background: var(--white-text); padding: 8px 16px; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white-bg); display: flex; align-items: center; gap: 8px; }
-    .schema-bar i { color: var(--cyan); }
-    .schema-body { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-    .net-row { display: flex; align-items: center; gap: 14px; padding: 10px 14px; border: 1px solid var(--white-border); border-radius: 4px; background: var(--white-bg); }
-    .net-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-    .net-label { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--white-muted); min-width: 120px; }
-    .net-value { font-family: var(--font-display); font-size: 0.82rem; font-weight: 700; color: var(--white-text); }
+    /* ═══ SCHÉMA RÉSEAU ═══ */
+    .schema-section { padding: 88px 48px; background: var(--white-bg2); }
+    .schema-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 56px; align-items: start; }
+    .schema-desc p { font-size: 0.87rem; line-height: 1.95; margin-bottom: 14px; color: var(--white-muted); }
+    .schema-desc strong { color: var(--white-text); font-weight: 500; }
 
-    .steps-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
-    .step-card { border: 1px solid var(--blue-border); border-radius: 6px; padding: 24px; background: rgba(255,255,255,0.03); display: flex; gap: 18px; align-items: flex-start; transition: border-color 0.3s; }
-    .step-card:hover { border-color: var(--cyan-dim); }
-    .step-num { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; color: var(--cyan); opacity: 0.25; flex-shrink: 0; line-height: 1; }
-    .step-body h3 { font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; margin-bottom: 8px; color: var(--blue-text); }
-    .step-body p { font-size: 0.8rem; color: var(--blue-muted); line-height: 1.7; }
+    .network-diagram { background: var(--white-bg); border: 1px solid var(--white-border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+    .diagram-bar { background: #1a1a1a; padding: 10px 16px; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: #999; display: flex; align-items: center; gap: 8px; }
+    .diagram-bar i { color: var(--cyan); }
+    .diagram-svg-wrap { padding: 20px; }
 
-    .tests-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
-    .test-card { border: 1px solid var(--white-border); border-radius: 6px; padding: 20px 22px; background: var(--white-bg); display: flex; align-items: center; gap: 16px; transition: border-color 0.3s, transform 0.3s; }
-    .test-card:hover { border-color: var(--cyan); transform: translateX(4px); }
-    .test-icon { width: 38px; height: 38px; border-radius: 6px; background: rgba(0,229,255,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .test-icon i { color: var(--cyan); font-size: 0.9rem; }
-    .test-title { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--white-text); margin-bottom: 2px; }
-    .test-desc { font-size: 0.76rem; color: var(--white-muted); }
-    .test-status { margin-left: auto; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: #22c55e; background: rgba(34,197,94,0.1); padding: 3px 8px; border-radius: 2px; flex-shrink: 0; }
+    /* ÉTAPES */
+    .steps-list { display: flex; flex-direction: column; gap: 0; }
+    .step-row { display: grid; grid-template-columns: 52px 1fr; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--blue-border); align-items: start; }
+    .step-row:last-child { border-bottom: none; }
+    .step-n { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--cyan); opacity: 0.2; line-height: 1; padding-top: 2px; }
+    .step-content h3 { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--blue-text); margin-bottom: 6px; }
+    .step-content p { font-size: 0.8rem; color: var(--blue-muted); line-height: 1.75; }
+    .step-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+    .step-tag { font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--blue-border); color: var(--blue-muted); border-radius: 2px; }
 
-    .skills-wrap { display: flex; flex-wrap: wrap; gap: 10px; }
-    .skill-tag { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 16px; border: 1px solid var(--blue-border); color: var(--blue-muted); border-radius: 2px; background: rgba(255,255,255,0.02); transition: border-color 0.2s, color 0.2s; }
-    .skill-tag:hover { border-color: var(--cyan); color: var(--cyan); }
+    /* TESTS */
+    .tests-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .test-row { border: 1px solid var(--white-border); border-radius: 5px; padding: 18px 20px; background: var(--white-bg); display: flex; align-items: center; gap: 14px; transition: border-color 0.25s, transform 0.25s; }
+    .test-row:hover { border-color: var(--cyan); transform: translateX(4px); }
+    .test-ico { width: 36px; height: 36px; border-radius: 5px; background: rgba(249,115,22,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .test-ico i { color: var(--cyan); font-size: 0.85rem; }
+    .test-name { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; color: var(--white-text); margin-bottom: 2px; }
+    .test-sub { font-size: 0.73rem; color: var(--white-muted); line-height: 1.5; }
+    .test-ok { margin-left: auto; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: #16a34a; background: rgba(22,163,74,0.1); padding: 3px 8px; border-radius: 2px; flex-shrink: 0; white-space: nowrap; }
 
-    .cta-wrap { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
-    .btn-back { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border: 1px solid var(--blue-border); color: var(--blue-muted); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: border-color 0.2s, color 0.2s; }
-    .btn-back:hover { border-color: var(--cyan); color: var(--cyan); }
-    .btn-fill { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; background: var(--cyan); color: var(--blue-bg); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; font-weight: 500; transition: box-shadow 0.2s, transform 0.2s; }
-    .btn-fill:hover { box-shadow: 0 0 24px var(--cyan-glow); transform: translateY(-2px); }
+    /* TAGS */
+    .tags-cloud { display: flex; flex-wrap: wrap; gap: 9px; }
+    .tag { font-size: 0.7rem; letter-spacing: 0.07em; text-transform: uppercase; padding: 8px 14px; border: 1px solid var(--blue-border); color: var(--blue-muted); border-radius: 2px; background: rgba(255,255,255,0.02); transition: all 0.2s; }
+    .tag:hover { border-color: var(--cyan); color: var(--cyan); }
 
-    footer { background: var(--blue-bg); border-top: 1px solid var(--blue-border); padding: 24px 48px; display: flex; align-items: center; justify-content: space-between; font-size: 0.72rem; color: var(--blue-muted); }
-    .f-logo { font-family: var(--font-display); font-weight: 800; color: var(--blue-text); }
+    /* CTA */
+    .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 40px; }
+    .btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; border: 1px solid var(--blue-border); color: var(--blue-muted); font-family: 'DM Mono', monospace; font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; }
+    .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+    .btn-solid { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; background: var(--cyan); color: #111; font-family: 'DM Mono', monospace; font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; font-weight: 500; transition: all 0.2s; }
+    .btn-solid:hover { box-shadow: 0 0 24px var(--cyan-glow); transform: translateY(-2px); }
+
+    footer { background: var(--blue-bg); border-top: 1px solid var(--blue-border); padding: 22px 48px; display: flex; align-items: center; justify-content: space-between; font-size: 0.7rem; color: var(--blue-muted); }
+    .f-logo { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--blue-text); }
     .f-logo span { color: var(--cyan); }
 
-    .reveal { opacity:0; transform:translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .reveal.visible { opacity:1; transform:translateY(0); }
-    .d1{transition-delay:0.1s;} .d2{transition-delay:0.2s;} .d3{transition-delay:0.3s;}
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; }
 
-    @media(max-width:900px){
-      nav{padding:16px 20px;}
-      .hero{padding:100px 20px 60px;}
-      section{padding:60px 20px;}
-      .context-grid,.archi-wrap,.steps-grid,.tests-grid,.env-grid{grid-template-columns:1fr;}
-      footer{flex-direction:column;gap:8px;text-align:center;}
+    @media(max-width: 900px) {
+      nav { padding: 14px 20px; }
+      .hero, section, .schema-section { padding-left: 20px; padding-right: 20px; }
+      .two-col, .schema-wrap, .tests-grid, .stack-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 6px; text-align: center; }
     }
   </style>
 </head>
@@ -156,284 +148,389 @@
 
   <nav>
     <a href="index.html" class="nav-logo">GG<span>.</span></a>
-    <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
+    <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Retour</a>
   </nav>
 
   <!-- HERO -->
-  <div class="hero s-blue2">
+  <div class="hero">
+    <div class="hero-grid"></div>
     <div class="hero-glow"></div>
     <div class="hero-content">
-      <div class="hero-breadcrumb"><a href="index.html">Portfolio</a><span>/</span>Projets<span>/</span>VPN</div>
-      <div class="hero-tag"><i class="fas fa-network-wired"></i> Réseau · Infrastructure</div>
-      <h1>Étude comparative<br>WireGuard / OpenVPN<br><span style="color:var(--cyan)">Caen la Mer</span></h1>
-      <p class="hero-desc">Évaluation et test de la solution <strong>WireGuard</strong> dans un environnement virtualisé, comparée à <strong>OpenVPN</strong>, en vue d'une interconnexion sécurisée des sites de Caen la Mer.</p>
-      <div class="hero-meta">
-        <div class="meta-chip"><i class="fas fa-calendar"></i>BTS SIO 2025</div>
-        <div class="meta-chip"><i class="fas fa-tools"></i>WireGuard · OPNsense · Proxmox</div>
-        <div class="meta-chip"><i class="fas fa-check-circle"></i>Fonctionnel</div>
+      <div class="hero-breadcrumb">
+        <a href="index.html">Portfolio</a><span>/</span>Projets<span>/</span>VPN WireGuard
+      </div>
+      <div class="hero-tag"><i class="fas fa-network-wired"></i> Réseau · Infrastructure · Sécurité</div>
+      <h1>Étude comparative<br>WireGuard / OpenVPN<br><span>Caen la Mer</span></h1>
+      <p class="hero-desc">Évaluation de la solution <strong>WireGuard</strong> dans un environnement virtualisé Proxmox, comparée à <strong>OpenVPN</strong>, en vue d'une interconnexion sécurisée des sites distants de Caen la Mer.</p>
+      <div class="hero-chips">
+        <div class="chip"><i class="fas fa-calendar"></i>BTS SIO 2025</div>
+        <div class="chip"><i class="fas fa-tools"></i>WireGuard · OPNsense · Proxmox</div>
+        <div class="chip"><i class="fas fa-check-circle"></i>Fonctionnel</div>
       </div>
     </div>
   </div>
 
-  <!-- CONTEXTE (WHITE) -->
-  <section class="s-white">
-    <div class="sec-label reveal">Contexte</div>
-    <h2 class="sec-title reveal">Pourquoi ce projet ?</h2>
-    <div class="context-grid">
-      <div class="context-text reveal">
-        <p>La DSI de Caen la Mer souhaitait évaluer la pertinence d'une solution VPN moderne pour interconnecter ses sites distants. L'objectif était de <strong>comparer WireGuard et OpenVPN</strong> sur des critères objectifs avant toute intégration en production.</p>
+  <!-- CONTEXTE -->
+  <section class="s-light">
+    <div class="sec-eyebrow reveal">Contexte</div>
+    <h2 class="sec-title reveal">Pourquoi<br>ce projet ?</h2>
+    <div class="two-col">
+      <div class="prose reveal">
+        <p>La DSI de Caen la Mer souhaitait évaluer la pertinence d'une solution VPN moderne pour interconnecter ses sites distants. L'objectif : <strong>comparer WireGuard et OpenVPN</strong> sur des critères objectifs avant toute intégration en production.</p>
         <p>WireGuard, protocole VPN récent réputé pour sa légèreté et ses performances, a été testé dans un environnement virtualisé reproduisant fidèlement l'infrastructure réelle : un site central, un site distant et un poste prestataire externe.</p>
-        <p>Un second cas d'usage a également été traité : la <strong>restriction horaire de l'accès VPN du prestataire</strong> via un schedule OPNsense, limitant la connexion aux heures ouvrées.</p>
+        <p>Un second cas d'usage a été traité : la <strong>restriction horaire de l'accès VPN du prestataire</strong> via un schedule OPNsense, limitant la connexion aux heures ouvrées (lundi–vendredi, 08h–18h).</p>
       </div>
-      <div class="context-cards reveal d2">
-        <div class="ctx-card"><div class="ctx-card-label">Objectif</div><div class="ctx-card-value">Évaluation comparative WireGuard / OpenVPN</div></div>
-        <div class="ctx-card"><div class="ctx-card-label">Solution testée</div><div class="ctx-card-value">VPN WireGuard sur OPNsense</div></div>
-        <div class="ctx-card"><div class="ctx-card-label">Environnement</div><div class="ctx-card-value">Virtualisé sous Proxmox</div></div>
-        <div class="ctx-card"><div class="ctx-card-label">Cas supplémentaire</div><div class="ctx-card-value">Schedule accès prestataire</div></div>
+      <div class="info-stack reveal d2">
+        <div class="info-item"><div class="info-item-label">Objectif principal</div><div class="info-item-val">Évaluation comparative WireGuard / OpenVPN</div></div>
+        <div class="info-item"><div class="info-item-label">Solution testée</div><div class="info-item-val">VPN WireGuard sur OPNsense</div></div>
+        <div class="info-item"><div class="info-item-label">Environnement</div><div class="info-item-val">Virtualisé sous Proxmox</div></div>
+        <div class="info-item"><div class="info-item-label">Cas supplémentaire</div><div class="info-item-val">Schedule accès prestataire</div></div>
+        <div class="info-item"><div class="info-item-label">Résultat</div><div class="info-item-val">WireGuard recommandé pour intégration</div></div>
       </div>
     </div>
   </section>
 
-  <!-- ENV TECHNIQUE (BLUE) -->
-  <section class="s-blue">
-    <div class="sec-label reveal">Stack</div>
-    <h2 class="sec-title reveal">Environnement<br>Technique</h2>
-    <div class="env-grid">
-      <div class="env-card reveal">
+  <!-- STACK TECHNIQUE -->
+  <section class="s-dark2">
+    <div class="sec-eyebrow reveal">Stack</div>
+    <h2 class="sec-title reveal">Environnement<br>technique</h2>
+    <div class="stack-grid">
+      <div class="stack-card reveal">
         <i class="fas fa-server"></i>
         <h3>Proxmox</h3>
-        <p>Plateforme de virtualisation hébergeant l'ensemble des VMs. Bridges vmbr1, vmbr2, vmbr3 pour segmenter les réseaux.</p>
+        <p>Hyperviseur hébergeant toutes les VMs. Bridges vmbr1 (LAN central), vmbr2 (Site A), vmbr3 (WAN simulé).</p>
       </div>
-      <div class="env-card reveal d1">
+      <div class="stack-card reveal d1">
         <i class="fab fa-windows"></i>
         <h3>Windows Server 2022</h3>
-        <p>Contrôleur de domaine Active Directory + service DNS + partage de fichiers SMB.</p>
+        <p>Contrôleur de domaine Active Directory, service DNS et partage de fichiers SMB (SRV-CAEN-DC01).</p>
       </div>
-      <div class="env-card reveal d2">
+      <div class="stack-card reveal d2">
         <i class="fas fa-desktop"></i>
         <h3>Windows 11</h3>
-        <p>Postes clients intégrés au domaine Active Directory et poste prestataire hors domaine.</p>
+        <p>Postes clients intégrés au domaine et poste prestataire hors domaine sur réseau WAN simulé.</p>
       </div>
-      <div class="env-card reveal">
+      <div class="stack-card reveal">
         <i class="fas fa-fire-alt"></i>
         <h3>OPNsense</h3>
-        <p>Pare-feu et routeur open source gérant le trafic inter-sites, le VPN et les règles de filtrage.</p>
+        <p>Pare-feu open source assurant le routage inter-sites, la gestion des tunnels VPN et les règles de filtrage.</p>
       </div>
-      <div class="env-card reveal d1">
+      <div class="stack-card reveal d1">
         <i class="fas fa-lock"></i>
         <h3>WireGuard</h3>
-        <p>Protocole VPN moderne, léger et performant. Port UDP 51820. Intégré nativement dans OPNsense.</p>
+        <p>Protocole VPN moderne et léger. Port UDP 51820. Intégré nativement dans OPNsense. Réseau VPN : 10.100.0.0/24.</p>
       </div>
-      <div class="env-card reveal d2">
-        <i class="fas fa-network-wired"></i>
-        <h3>Segmentation réseau</h3>
-        <p>Quatre zones distinctes : LAN central (vmbr1), LAN distant (vmbr2), WAN simulé (vmbr3), réseau VPN.</p>
+      <div class="stack-card reveal d2">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Schedule OPNsense</h3>
+        <p>Restriction horaire de l'accès VPN prestataire via Floating Rules. Accès autorisé lundi–vendredi, 08h–18h uniquement.</p>
       </div>
     </div>
   </section>
 
-  <!-- ARCHITECTURE (WHITE) -->
-  <section class="s-white2">
-    <div class="sec-label reveal">Réseau</div>
-    <h2 class="sec-title reveal">Architecture<br>réseau</h2>
-    <div class="archi-wrap">
-      <div class="archi-text reveal">
-        <p>L'infrastructure est organisée autour de <strong>quatre zones réseau distinctes</strong> interconnectées via OPNsense, permettant une séparation claire entre les sites et les tunnels VPN.</p>
-        <p>Le <strong>WAN simulé</strong> (vmbr3 — 192.168.50.0/24) représente Internet et centralise les connexions des tunnels WireGuard. OPNsense dispose de trois interfaces : une vers le LAN central (vmbr1), une vers le site distant (vmbr2) et une vers le WAN (vmbr3).</p>
-        <p>Le <strong>réseau VPN dédié</strong> (10.100.0.0/24) assure le transport chiffré entre les pairs WireGuard, chaque site disposant d'une adresse tunnel unique.</p>
+  <!-- SCHÉMA RÉSEAU -->
+  <div class="schema-section">
+    <div class="sec-eyebrow reveal">Architecture</div>
+    <h2 class="sec-title reveal" style="color:var(--white-text)">Schéma<br>réseau</h2>
+    <div class="schema-wrap">
+      <div class="schema-desc reveal">
+        <p>L'infrastructure est organisée autour de <strong>quatre zones réseau distinctes</strong>, toutes interconnectées via OPNsense qui dispose de trois interfaces physiques.</p>
+        <p>Le <strong>WAN simulé</strong> (vmbr3 — 192.168.50.0/24) représente Internet et centralise les connexions entrantes des deux tunnels WireGuard. C'est l'interface publique d'OPNsense.</p>
+        <p>Chaque pair WireGuard dispose d'une <strong>adresse tunnel dédiée</strong> dans le réseau 10.100.0.0/24, permettant un chiffrement de bout en bout des communications.</p>
+        <p>Le <strong>Site Central</strong> (vmbr1) héberge le serveur Windows et les clients. Le <strong>Site Distant A</strong> (vmbr2) et la <strong>Zone Prestataire</strong> (vmbr3) se connectent exclusivement via leurs tunnels respectifs.</p>
+
+        <!-- Plan d'adressage compact -->
+        <div style="margin-top:28px; border:1px solid var(--white-border); border-radius:8px; overflow:hidden; background:var(--white-bg);">
+          <div style="background:#1a1a1a; padding:9px 14px; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:#999; display:flex; align-items:center; gap:7px;">
+            <i class="fas fa-table" style="color:var(--cyan)"></i> Plan d'adressage IP
+          </div>
+          <table style="width:100%; border-collapse:collapse; font-size:0.76rem;">
+            <thead>
+              <tr style="background:#f0f0f0;">
+                <th style="padding:8px 12px; text-align:left; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:#888; font-weight:500; border-bottom:1px solid var(--white-border);">Zone</th>
+                <th style="padding:8px 12px; text-align:left; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:#888; font-weight:500; border-bottom:1px solid var(--white-border);">IP / Réseau</th>
+                <th style="padding:8px 12px; text-align:left; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:#888; font-weight:500; border-bottom:1px solid var(--white-border);">Bridge</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #f0f0f0;">
+                <td style="padding:9px 12px; color:#111; font-weight:500;">Zone Prestataire</td>
+                <td style="padding:9px 12px; color:#666; font-family:'DM Mono',monospace; font-size:0.72rem;">192.168.50.3 — WG: 10.100.0.3</td>
+                <td style="padding:9px 12px;"><span style="font-size:0.6rem; background:#fef3c7; color:#92400e; padding:2px 7px; border-radius:2px; font-family:'DM Mono',monospace;">vmbr3</span></td>
+              </tr>
+              <tr style="border-bottom:1px solid #f0f0f0; background:#fafafa;">
+                <td style="padding:9px 12px; color:#111; font-weight:500;">Site Distant A</td>
+                <td style="padding:9px 12px; color:#666; font-family:'DM Mono',monospace; font-size:0.72rem;">10.20.0.10 — WG: 10.100.0.2</td>
+                <td style="padding:9px 12px;"><span style="font-size:0.6rem; background:#dbeafe; color:#1e40af; padding:2px 7px; border-radius:2px; font-family:'DM Mono',monospace;">vmbr2</span></td>
+              </tr>
+              <tr style="border-bottom:1px solid #f0f0f0;">
+                <td style="padding:9px 12px; color:#111; font-weight:500;">WAN (OPNsense)</td>
+                <td style="padding:9px 12px; color:#666; font-family:'DM Mono',monospace; font-size:0.72rem;">192.168.50.1</td>
+                <td style="padding:9px 12px;"><span style="font-size:0.6rem; background:#ede9fe; color:#5b21b6; padding:2px 7px; border-radius:2px; font-family:'DM Mono',monospace;">vmbr3</span></td>
+              </tr>
+              <tr style="border-bottom:1px solid #f0f0f0; background:#fafafa;">
+                <td style="padding:9px 12px; color:#111; font-weight:500;">OPNsense LAN</td>
+                <td style="padding:9px 12px; color:#666; font-family:'DM Mono',monospace; font-size:0.72rem;">10.10.0.254 — WG: 10.100.0.1</td>
+                <td style="padding:9px 12px;"><span style="font-size:0.6rem; background:#fee2e2; color:#991b1b; padding:2px 7px; border-radius:2px; font-family:'DM Mono',monospace;">vmbr1/2/3</span></td>
+              </tr>
+              <tr style="border-bottom:1px solid #f0f0f0;">
+                <td style="padding:9px 12px; color:#111; font-weight:500;">Serveur Windows</td>
+                <td style="padding:9px 12px; color:#666; font-family:'DM Mono',monospace; font-size:0.72rem;">10.10.0.10 — GW: 10.10.0.254</td>
+                <td style="padding:9px 12px;"><span style="font-size:0.6rem; background:#dcfce7; color:#166534; padding:2px 7px; border-radius:2px; font-family:'DM Mono',monospace;">vmbr1</span></td>
+              </tr>
+              <tr>
+                <td style="padding:9px 12px; color:#111; font-weight:500;">Client Windows 11</td>
+                <td style="padding:9px 12px; color:#666; font-family:'DM Mono',monospace; font-size:0.72rem;">10.10.0.20 — GW: 10.10.0.254</td>
+                <td style="padding:9px 12px;"><span style="font-size:0.6rem; background:#dcfce7; color:#166534; padding:2px 7px; border-radius:2px; font-family:'DM Mono',monospace;">vmbr1</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div class="network-schema reveal d2">
-        <div class="schema-bar"><i class="fas fa-sitemap"></i> Plan d'adressage IP</div>
-        <div class="schema-body">
 
-          <div class="net-row">
-            <div class="net-dot" style="background:#ef4444"></div>
-            <span class="net-label">Zone Prestataire</span>
-            <span class="net-value">192.168.50.3 — vmbr3</span>
-          </div>
-          <div class="net-row" style="padding-left:28px; background:#fafafa;">
-            <div class="net-dot" style="background:#fca5a5; width:7px; height:7px;"></div>
-            <span class="net-label" style="font-size:0.65rem;">Tunnel WG · GW</span>
-            <span class="net-value" style="font-size:0.75rem;">10.100.0.3 · 192.168.50.1</span>
-          </div>
+      <!-- SCHÉMA SVG -->
+      <div class="network-diagram reveal d2">
+        <div class="diagram-bar"><i class="fas fa-project-diagram"></i> Schéma réseau — Infrastructure WireGuard</div>
+        <div class="diagram-svg-wrap">
+          <svg width="100%" viewBox="0 0 520 620" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Mono',monospace;">
+            <defs>
+              <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M2 1L8 5L2 9" fill="none" stroke="#999" stroke-width="1.5" stroke-linecap="round"/>
+              </marker>
+              <marker id="arr-wg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M2 1L8 5L2 9" fill="none" stroke="#888" stroke-width="1.5" stroke-linecap="round"/>
+              </marker>
+            </defs>
 
-          <div class="net-row">
-            <div class="net-dot" style="background:#60a5fa"></div>
-            <span class="net-label">Site Distant A</span>
-            <span class="net-value">10.20.0.0/24 — vmbr2</span>
-          </div>
-          <div class="net-row" style="padding-left:28px; background:#fafafa;">
-            <div class="net-dot" style="background:#93c5fd; width:7px; height:7px;"></div>
-            <span class="net-label" style="font-size:0.65rem;">Tunnel WG · GW</span>
-            <span class="net-value" style="font-size:0.75rem;">10.100.0.2 · 10.20.0.254</span>
-          </div>
+            <!-- Zone Prestataire (haut gauche) -->
+            <rect x="10" y="10" width="170" height="110" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+            <text x="95" y="34" text-anchor="middle" font-size="11" font-weight="700" fill="#991b1b">Zone Prestataire</text>
+            <text x="95" y="54" text-anchor="middle" font-size="10" fill="#7f1d1d">IP : 192.168.50.3</text>
+            <text x="95" y="70" text-anchor="middle" font-size="10" fill="#7f1d1d">Tunnel WG : 10.100.0.3</text>
+            <text x="95" y="86" text-anchor="middle" font-size="10" fill="#ef4444">Gateway : 192.168.50.1</text>
+            <text x="95" y="102" text-anchor="middle" font-size="10" fill="#ef4444">Bridge : vmbr3</text>
 
-          <div class="net-row">
-            <div class="net-dot" style="background:#a78bfa"></div>
-            <span class="net-label">Internet — WAN</span>
-            <span class="net-value">192.168.50.1 — vmbr3</span>
-          </div>
+            <!-- Site Distant A (haut droite) -->
+            <rect x="340" y="10" width="170" height="110" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+            <text x="425" y="34" text-anchor="middle" font-size="11" font-weight="700" fill="#1e40af">Site Distant — Site A</text>
+            <text x="425" y="54" text-anchor="middle" font-size="10" fill="#1e3a8a">Réseau : 10.20.0.0/24</text>
+            <text x="425" y="70" text-anchor="middle" font-size="10" fill="#1e3a8a">IP : 10.20.0.10</text>
+            <text x="425" y="86" text-anchor="middle" font-size="10" fill="#3b82f6">Tunnel WG : 10.100.0.2</text>
+            <text x="425" y="102" text-anchor="middle" font-size="10" fill="#3b82f6">Gateway : 10.20.0.254 · vmbr2</text>
 
-          <div class="net-row">
-            <div class="net-dot" style="background:#f97316"></div>
-            <span class="net-label">OPNsense</span>
-            <span class="net-value">Tunnel WG : 10.100.0.1</span>
-          </div>
-          <div class="net-row" style="padding-left:28px; background:#fafafa;">
-            <div class="net-dot" style="background:#fdba74; width:7px; height:7px;"></div>
-            <span class="net-label" style="font-size:0.65rem;">LAN · Interfaces</span>
-            <span class="net-value" style="font-size:0.75rem;">10.10.0.254 · vmbr1/2/3</span>
-          </div>
+            <!-- Label Tunnel prestataire -->
+            <rect x="30" y="162" width="140" height="36" rx="6" fill="#fefce8" stroke="#fbbf24" stroke-width="1.2"/>
+            <text x="100" y="176" text-anchor="middle" font-size="10" font-weight="600" fill="#92400e">Tunnel VPN</text>
+            <text x="100" y="190" text-anchor="middle" font-size="10" fill="#92400e">WireGuard</text>
 
-          <div class="net-row">
-            <div class="net-dot" style="background:#d6c4a0"></div>
-            <span class="net-label">Site Central</span>
-            <span class="net-value">10.10.0.0/24 — vmbr1</span>
-          </div>
-          <div class="net-row" style="padding-left:28px; background:#fafafa;">
-            <div class="net-dot" style="background:#e5d5b5; width:7px; height:7px;"></div>
-            <span class="net-label" style="font-size:0.65rem;">Serveur · GW</span>
-            <span class="net-value" style="font-size:0.75rem;">10.10.0.10 · 10.10.0.254</span>
-          </div>
-          <div class="net-row" style="padding-left:28px; background:#fafafa;">
-            <div class="net-dot" style="background:#e5d5b5; width:7px; height:7px;"></div>
-            <span class="net-label" style="font-size:0.65rem;">Client · GW</span>
-            <span class="net-value" style="font-size:0.75rem;">10.10.0.20 · 10.10.0.254</span>
-          </div>
+            <!-- Label Tunnel Site A -->
+            <rect x="350" y="162" width="140" height="36" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+            <text x="420" y="176" text-anchor="middle" font-size="10" font-weight="600" fill="#166534">Tunnel VPN</text>
+            <text x="420" y="190" text-anchor="middle" font-size="10" fill="#166534">WireGuard</text>
 
+            <!-- Internet (centre) -->
+            <rect x="185" y="230" width="150" height="72" rx="12" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="2"/>
+            <text x="260" y="260" text-anchor="middle" font-size="22" fill="#7c3aed">🌐</text>
+            <text x="260" y="285" text-anchor="middle" font-size="11" font-weight="700" fill="#4c1d95">Internet</text>
+
+            <!-- vmbr3 / WAN -->
+            <rect x="195" y="342" width="130" height="50" rx="8" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
+            <text x="260" y="362" text-anchor="middle" font-size="10" font-weight="700" fill="#92400e">vmbr3 — WAN</text>
+            <text x="260" y="378" text-anchor="middle" font-size="10" fill="#c2410c">IP : 192.168.50.1</text>
+
+            <!-- OPNsense -->
+            <rect x="155" y="432" width="210" height="80" rx="10" fill="#fdf4ff" stroke="#d8b4fe" stroke-width="1.5"/>
+            <text x="260" y="456" text-anchor="middle" font-size="11" font-weight="700" fill="#581c87">OPNsense</text>
+            <text x="260" y="472" text-anchor="middle" font-size="10" fill="#6b21a8">Pare-feu / VPN</text>
+            <text x="260" y="488" text-anchor="middle" font-size="10" fill="#7e22ce">Tunnel WG : 10.100.0.1</text>
+            <text x="260" y="504" text-anchor="middle" font-size="9.5" fill="#9333ea">LAN : 10.10.0.254 · vmbr1 / vmbr2 / vmbr3</text>
+
+            <!-- vmbr1 -->
+            <rect x="215" y="554" width="90" height="28" rx="5" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+            <text x="260" y="572" text-anchor="middle" font-size="10" font-weight="600" fill="#166534">vmbr1</text>
+
+            <!-- Site Central -->
+            <rect x="10" y="430" width="130" height="140" rx="10" fill="#fafaf9" stroke="#d4c4a0" stroke-width="1.5"/>
+            <text x="75" y="454" text-anchor="middle" font-size="11" font-weight="700" fill="#44403c">Site Central</text>
+            <text x="75" y="470" text-anchor="middle" font-size="9.5" fill="#78716c">10.10.0.0/24 · vmbr1</text>
+
+            <rect x="22" y="480" width="106" height="38" rx="6" fill="#fff" stroke="#d6d3d1" stroke-width="1"/>
+            <text x="75" y="496" text-anchor="middle" font-size="9.5" font-weight="600" fill="#292524">Serveur Windows</text>
+            <text x="75" y="509" text-anchor="middle" font-size="9" fill="#78716c">AD/DNS · 10.10.0.10</text>
+
+            <rect x="22" y="526" width="106" height="34" rx="6" fill="#fff" stroke="#d6d3d1" stroke-width="1"/>
+            <text x="75" y="541" text-anchor="middle" font-size="9.5" font-weight="600" fill="#292524">Client Win 11</text>
+            <text x="75" y="554" text-anchor="middle" font-size="9" fill="#78716c">10.10.0.20</text>
+
+            <!-- ═══ CONNEXIONS ═══ -->
+
+            <!-- Prestataire → Label tunnel -->
+            <line x1="95" y1="120" x2="95" y2="162" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="6 3" marker-end="url(#arr-wg)"/>
+
+            <!-- Label tunnel → Internet -->
+            <path d="M 140 180 L 200 266" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="6 3" marker-end="url(#arr-wg)"/>
+
+            <!-- Site A → Label tunnel -->
+            <line x1="425" y1="120" x2="425" y2="162" stroke="#86efac" stroke-width="1.5" stroke-dasharray="6 3" marker-end="url(#arr-wg)"/>
+
+            <!-- Label tunnel → Internet -->
+            <path d="M 380 180 L 318 266" fill="none" stroke="#86efac" stroke-width="1.5" stroke-dasharray="6 3" marker-end="url(#arr-wg)"/>
+
+            <!-- Internet ↔ vmbr3/WAN -->
+            <line x1="260" y1="302" x2="260" y2="342" stroke="#c4b5fd" stroke-width="1.5" marker-end="url(#arr)"/>
+            <line x1="254" y1="342" x2="254" y2="302" stroke="#c4b5fd" stroke-width="1.5" marker-end="url(#arr)"/>
+
+            <!-- vmbr3 ↔ OPNsense -->
+            <line x1="260" y1="392" x2="260" y2="432" stroke="#d8b4fe" stroke-width="1.5" marker-end="url(#arr)"/>
+            <line x1="254" y1="432" x2="254" y2="392" stroke="#d8b4fe" stroke-width="1.5" marker-end="url(#arr)"/>
+
+            <!-- OPNsense → vmbr1 -->
+            <line x1="260" y1="512" x2="260" y2="554" stroke="#86efac" stroke-width="1.5" marker-end="url(#arr)"/>
+
+            <!-- vmbr1 → Site Central -->
+            <path d="M 215 568 L 140 520" fill="none" stroke="#86efac" stroke-width="1.5" marker-end="url(#arr)"/>
+
+          </svg>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- ÉTAPES (BLUE) -->
-  <section class="s-blue2">
-    <div class="sec-label reveal">Mise en œuvre</div>
+  <!-- ÉTAPES -->
+  <section class="s-dark">
+    <div class="sec-eyebrow reveal">Mise en œuvre</div>
     <h2 class="sec-title reveal">Étapes du<br>projet</h2>
-    <div class="steps-grid">
-      <div class="step-card reveal">
-        <div class="step-num">01</div>
-        <div class="step-body">
+    <div class="steps-list">
+      <div class="step-row reveal">
+        <div class="step-n">01</div>
+        <div class="step-content">
           <h3>Déploiement de l'environnement virtualisé</h3>
-          <p>Création et configuration des machines virtuelles sous Proxmox : Windows Server, Windows 11, OPNsense. Mise en place des bridges vmbr1, vmbr2, vmbr3.</p>
+          <p>Création des VMs sous Proxmox : Windows Server 2022, Windows 11, OPNsense. Configuration des bridges vmbr1 (LAN central), vmbr2 (Site A) et vmbr3 (WAN simulé).</p>
+          <div class="step-tags"><span class="step-tag">Proxmox</span><span class="step-tag">Windows Server 2022</span><span class="step-tag">vmbr1/2/3</span></div>
         </div>
       </div>
-      <div class="step-card reveal d1">
-        <div class="step-num">02</div>
-        <div class="step-body">
+      <div class="step-row reveal">
+        <div class="step-n">02</div>
+        <div class="step-content">
           <h3>Configuration du contrôleur de domaine</h3>
-          <p>Installation d'Active Directory et du service DNS sur Windows Server 2022. Intégration des postes clients au domaine caenlamer.local.</p>
+          <p>Installation d'Active Directory et DNS sur Windows Server 2022. Création du domaine caenlamer.local. Intégration des postes clients.</p>
+          <div class="step-tags"><span class="step-tag">Active Directory</span><span class="step-tag">DNS</span><span class="step-tag">caenlamer.local</span></div>
         </div>
       </div>
-      <div class="step-card reveal d2">
-        <div class="step-num">03</div>
-        <div class="step-body">
+      <div class="step-row reveal">
+        <div class="step-n">03</div>
+        <div class="step-content">
           <h3>Mise en place d'OPNsense</h3>
-          <p>Configuration du routage inter-sites, des interfaces réseau (vmbr1/2/3) et des règles de base du pare-feu.</p>
+          <p>Configuration du routage inter-sites, des trois interfaces réseau (LAN, Site A, WAN) et des règles firewall de base.</p>
+          <div class="step-tags"><span class="step-tag">OPNsense</span><span class="step-tag">Routage</span><span class="step-tag">Firewall</span></div>
         </div>
       </div>
-      <div class="step-card reveal d3">
-        <div class="step-num">04</div>
-        <div class="step-body">
-          <h3>Configuration du tunnel WireGuard</h3>
-          <p>Génération des clés, configuration du tunnel UDP 51820. Deux tunnels : site-à-site et accès prestataire externe.</p>
+      <div class="step-row reveal">
+        <div class="step-n">04</div>
+        <div class="step-content">
+          <h3>Configuration des tunnels WireGuard</h3>
+          <p>Génération des clés cryptographiques, configuration de deux tunnels UDP 51820 : site-à-site (Site A) et accès prestataire externe hors domaine.</p>
+          <div class="step-tags"><span class="step-tag">WireGuard</span><span class="step-tag">UDP 51820</span><span class="step-tag">Clés SSH</span><span class="step-tag">Site-à-site</span></div>
         </div>
       </div>
-      <div class="step-card reveal">
-        <div class="step-num">05</div>
-        <div class="step-body">
-          <h3>Règles firewall & schedule prestataire</h3>
-          <p>Création des règles autorisant le trafic inter-sites. Mise en place d'un schedule limitant l'accès VPN du prestataire aux heures ouvrées (lundi–vendredi, 08h–18h) via une Floating Rule OPNsense.</p>
+      <div class="step-row reveal">
+        <div class="step-n">05</div>
+        <div class="step-content">
+          <h3>Schedule prestataire (restriction horaire)</h3>
+          <p>Mise en place d'un schedule OPNsense limitant l'accès VPN du prestataire aux heures ouvrées (lundi–vendredi, 08h–18h). Utilisation de Floating Rules pour garantir le blocage hors horaires.</p>
+          <div class="step-tags"><span class="step-tag">Schedule</span><span class="step-tag">Floating Rules</span><span class="step-tag">Sécurité accès</span></div>
         </div>
       </div>
-      <div class="step-card reveal d1">
-        <div class="step-num">06</div>
-        <div class="step-body">
+      <div class="step-row reveal">
+        <div class="step-n">06</div>
+        <div class="step-content">
           <h3>Comparaison WireGuard / OpenVPN</h3>
-          <p>Analyse comparative sur les critères de performance, sécurité, simplicité de configuration et maintenance. Recommandation d'intégration formulée.</p>
+          <p>Analyse comparative sur les critères de performance, sécurité, simplicité de configuration et maintenance. Recommandation d'intégration de WireGuard formulée pour la DSI.</p>
+          <div class="step-tags"><span class="step-tag">WireGuard</span><span class="step-tag">OpenVPN</span><span class="step-tag">Benchmark</span><span class="step-tag">Recommandation</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TESTS (WHITE) -->
-  <section class="s-white">
-    <div class="sec-label reveal">Validation</div>
+  <!-- TESTS -->
+  <section class="s-light">
+    <div class="sec-eyebrow reveal">Validation</div>
     <h2 class="sec-title reveal">Tests<br>réalisés</h2>
     <div class="tests-grid">
-      <div class="test-card reveal">
-        <div class="test-icon"><i class="fas fa-handshake"></i></div>
+      <div class="test-row reveal">
+        <div class="test-ico"><i class="fas fa-handshake"></i></div>
         <div>
-          <div class="test-title">Handshake VPN</div>
-          <div class="test-desc">Établissement du tunnel WireGuard validé entre les deux sites</div>
+          <div class="test-name">Handshake VPN</div>
+          <div class="test-sub">Établissement du tunnel WireGuard entre les deux sites</div>
         </div>
-        <span class="test-status">✓ OK</span>
+        <span class="test-ok">✓ OK</span>
       </div>
-      <div class="test-card reveal d1">
-        <div class="test-icon"><i class="fas fa-exchange-alt"></i></div>
+      <div class="test-row reveal d1">
+        <div class="test-ico"><i class="fas fa-exchange-alt"></i></div>
         <div>
-          <div class="test-title">Ping inter-sites</div>
-          <div class="test-desc">Communication ICMP fonctionnelle entre LAN central et LAN distant</div>
+          <div class="test-name">Ping inter-sites</div>
+          <div class="test-sub">Communication ICMP entre LAN central et LAN distant</div>
         </div>
-        <span class="test-status">✓ OK</span>
+        <span class="test-ok">✓ OK</span>
       </div>
-      <div class="test-card reveal d2">
-        <div class="test-icon"><i class="fas fa-folder-open"></i></div>
+      <div class="test-row reveal d2">
+        <div class="test-ico"><i class="fas fa-folder-open"></i></div>
         <div>
-          <div class="test-title">Partage SMB</div>
-          <div class="test-desc">Accès au partage de fichiers réseau depuis le site distant</div>
+          <div class="test-name">Partage SMB</div>
+          <div class="test-sub">Accès au partage \\SRV-CAEN-DC01\Partage depuis Site A</div>
         </div>
-        <span class="test-status">✓ OK</span>
+        <span class="test-ok">✓ OK</span>
       </div>
-      <div class="test-card reveal d3">
-        <div class="test-icon"><i class="fas fa-hdd"></i></div>
+      <div class="test-row reveal d3">
+        <div class="test-ico"><i class="fas fa-hdd"></i></div>
         <div>
-          <div class="test-title">Lecteur réseau</div>
-          <div class="test-desc">Montage du lecteur réseau distant sur les postes clients</div>
+          <div class="test-name">Lecteur réseau</div>
+          <div class="test-sub">Montage du lecteur réseau distant sur les postes clients</div>
         </div>
-        <span class="test-status">✓ OK</span>
+        <span class="test-ok">✓ OK</span>
       </div>
-      <div class="test-card reveal">
-        <div class="test-icon"><i class="fas fa-clock"></i></div>
+      <div class="test-row reveal">
+        <div class="test-ico"><i class="fas fa-clock"></i></div>
         <div>
-          <div class="test-title">Schedule prestataire</div>
-          <div class="test-desc">Blocage VPN prestataire hors heures ouvrées validé via Floating Rule</div>
+          <div class="test-name">Schedule prestataire</div>
+          <div class="test-sub">Blocage VPN hors heures ouvrées via Floating Rule</div>
         </div>
-        <span class="test-status">✓ OK</span>
+        <span class="test-ok">✓ OK</span>
       </div>
-      <div class="test-card reveal d1">
-        <div class="test-icon"><i class="fas fa-shield-alt"></i></div>
+      <div class="test-row reveal d1">
+        <div class="test-ico"><i class="fas fa-user-shield"></i></div>
         <div>
-          <div class="test-title">Accès prestataire</div>
-          <div class="test-desc">Accès aux ressources internes depuis poste hors domaine via VPN</div>
+          <div class="test-name">Accès prestataire</div>
+          <div class="test-sub">Accès ressources internes depuis poste hors domaine</div>
         </div>
-        <span class="test-status">✓ OK</span>
+        <span class="test-ok">✓ OK</span>
       </div>
     </div>
   </section>
 
-  <!-- COMPÉTENCES (BLUE) -->
-  <section class="s-blue">
-    <div class="sec-label reveal">Bilan</div>
+  <!-- COMPÉTENCES -->
+  <section class="s-dark2">
+    <div class="sec-eyebrow reveal">Bilan</div>
     <h2 class="sec-title reveal">Compétences<br>mobilisées</h2>
-    <div class="skills-wrap reveal">
-      <span class="skill-tag">Administration Windows Server</span>
-      <span class="skill-tag">Active Directory & DNS</span>
-      <span class="skill-tag">Configuration OPNsense</span>
-      <span class="skill-tag">Déploiement VPN WireGuard</span>
-      <span class="skill-tag">Sécurisation réseau</span>
-      <span class="skill-tag">Segmentation réseau</span>
-      <span class="skill-tag">Virtualisation Proxmox</span>
-      <span class="skill-tag">Règles Firewall</span>
-      <span class="skill-tag">Floating Rules OPNsense</span>
-      <span class="skill-tag">Planification d'accès (Schedule)</span>
+    <div class="tags-cloud reveal">
+      <span class="tag">Administration Windows Server</span>
+      <span class="tag">Active Directory & DNS</span>
+      <span class="tag">Configuration OPNsense</span>
+      <span class="tag">Déploiement VPN WireGuard</span>
+      <span class="tag">Sécurisation réseau</span>
+      <span class="tag">Segmentation réseau</span>
+      <span class="tag">Virtualisation Proxmox</span>
+      <span class="tag">Règles Firewall</span>
+      <span class="tag">Floating Rules OPNsense</span>
+      <span class="tag">Planification d'accès</span>
+      <span class="tag">Comparaison solutions VPN</span>
     </div>
-    <p style="font-size:0.88rem;line-height:1.9;color:var(--blue-muted);max-width:640px;margin-top:36px;" class="reveal">
-      Ce projet m'a permis de consolider mes compétences en <strong style="color:var(--blue-text)">administration réseau</strong> et en <strong style="color:var(--blue-text)">sécurisation d'infrastructures multi-sites</strong>, en travaillant avec des outils professionnels utilisés en entreprise. La comparaison WireGuard / OpenVPN m'a également permis de développer un regard critique sur le choix des solutions techniques.
+    <p style="font-size:0.85rem; line-height:1.95; color:var(--blue-muted); max-width:660px; margin-top:32px;" class="reveal">
+      Ce projet m'a permis de consolider mes compétences en <strong style="color:var(--blue-text)">administration réseau</strong> et en <strong style="color:var(--blue-text)">sécurisation d'infrastructures multi-sites</strong>. La comparaison WireGuard / OpenVPN m'a permis de développer un regard critique sur le choix des solutions techniques en contexte professionnel.
     </p>
-    <div class="cta-wrap reveal">
-      <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
-      <a href="projet2.html" class="btn-fill">Projet suivant <i class="fas fa-arrow-right"></i></a>
+    <div class="cta-row reveal">
+      <a href="index.html" class="btn-outline"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
+      <a href="projet2.html" class="btn-solid">Projet suivant <i class="fas fa-arrow-right"></i></a>
     </div>
   </section>
 
@@ -445,7 +542,9 @@
 
   <script>
     const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
