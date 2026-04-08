@@ -9,163 +9,133 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
-  --cyan: #f97316;
-  --cyan-dim: rgba(249,115,22,0.2);
-  --cyan-glow: rgba(249,115,22,0.4);
-
-  --blue-bg: #111111;
-  --blue-bg2: #1c1c1c;
-  --blue-text: #f5f5f5;
-  --blue-muted: #a3a3a3;
-  --blue-border: rgba(255,255,255,0.1);
-
-  --white-bg: #ffffff;
-  --white-bg2: #f3f3f3;
-  --white-text: #111111;
-  --white-muted: #666666;
-  --white-border: #dddddd;
-}
+      --cyan: #f97316;
+      --cyan-dim: rgba(249,115,22,0.15);
+      --cyan-glow: rgba(249,115,22,0.4);
+      --blue-bg: #111111;
+      --blue-bg2: #1a1a1a;
+      --blue-text: #f0f0f0;
+      --blue-muted: #999999;
+      --blue-border: rgba(255,255,255,0.08);
+      --white-bg: #ffffff;
+      --white-bg2: #f5f5f5;
+      --white-text: #111111;
+      --white-muted: #666666;
+      --white-border: #e5e5e5;
+    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--font-mono); overflow-x: hidden; background: var(--blue-bg); color: var(--blue-text); }
+    body { font-family: 'DM Mono', monospace; overflow-x: hidden; background: var(--blue-bg); color: var(--blue-text); }
 
     /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(5,13,26,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--blue-border); }
-    .nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; letter-spacing: -0.5px; text-decoration: none; color: var(--blue-text); }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--blue-border); }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; text-decoration: none; color: var(--blue-text); letter-spacing: -0.5px; }
     .nav-logo span { color: var(--cyan); }
-    .nav-back { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 20px; border: 1px solid var(--blue-border); color: var(--blue-muted); text-decoration: none; border-radius: 2px; display: flex; align-items: center; gap: 8px; transition: border-color 0.2s, color 0.2s; }
+    .nav-back { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 18px; border: 1px solid var(--blue-border); color: var(--blue-muted); text-decoration: none; border-radius: 3px; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
     .nav-back:hover { border-color: var(--cyan); color: var(--cyan); }
 
     /* HERO */
-    .hero { min-height: 52vh; padding: 130px 48px 80px; background: var(--blue-bg); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
-    .hero::after { content: ''; position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(var(--blue-border) 1px, transparent 1px), linear-gradient(90deg, var(--blue-border) 1px, transparent 1px); background-size: 60px 60px; }
-    .hero-glow { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(0,229,255,0.07) 0%, transparent 70%); top: 50%; left: 30%; transform: translate(-50%,-50%); pointer-events: none; z-index: 1; }
-    .hero-content { position: relative; z-index: 2; max-width: 760px; }
-    .hero-breadcrumb { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-muted); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+    .hero { min-height: 55vh; padding: 140px 48px 80px; background: var(--blue-bg); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--blue-border) 1px, transparent 1px), linear-gradient(90deg, var(--blue-border) 1px, transparent 1px); background-size: 50px 50px; }
+    .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(249,115,22,0.06) 0%, transparent 70%); top: 40%; left: 25%; transform: translate(-50%,-50%); pointer-events: none; }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; }
+    .hero-breadcrumb { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-muted); margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
     .hero-breadcrumb a { color: var(--cyan); text-decoration: none; }
-    .hero-breadcrumb span { color: var(--blue-muted); }
-    .hero-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); border: 1px solid var(--cyan-dim); padding: 5px 12px; border-radius: 2px; margin-bottom: 20px; }
-    .hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 800; line-height: 1; letter-spacing: -2px; margin-bottom: 20px; }
-    .hero-desc { font-size: 0.92rem; line-height: 1.8; color: var(--blue-muted); max-width: 580px; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); border: 1px solid var(--cyan-dim); padding: 5px 12px; border-radius: 2px; margin-bottom: 24px; }
+    .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.2rem, 5vw, 4.2rem); font-weight: 800; line-height: 0.95; letter-spacing: -2px; margin-bottom: 24px; }
+    .hero h1 span { color: var(--cyan); }
+    .hero-desc { font-size: 0.88rem; line-height: 1.9; color: var(--blue-muted); max-width: 600px; margin-bottom: 32px; }
     .hero-desc strong { color: var(--blue-text); font-weight: 500; }
-    .hero-meta { display: flex; gap: 24px; margin-top: 32px; flex-wrap: wrap; }
-    .meta-chip { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; color: var(--blue-muted); }
-    .meta-chip i { color: var(--cyan); font-size: 0.7rem; }
+    .hero-chips { display: flex; gap: 12px; flex-wrap: wrap; }
+    .chip { display: flex; align-items: center; gap: 7px; font-size: 0.7rem; color: var(--blue-muted); background: rgba(255,255,255,0.04); border: 1px solid var(--blue-border); padding: 6px 12px; border-radius: 2px; }
+    .chip i { color: var(--cyan); font-size: 0.65rem; }
 
     /* SECTIONS */
-    section { padding: 80px 48px; position: relative; }
-    .s-blue { background: var(--blue-bg2); }
-    .s-white { background: var(--white-bg); color: var(--white-text); }
-    .s-white2 { background: var(--white-bg2); color: var(--white-text); }
-    .s-blue2 { background: var(--blue-bg); }
+    section { padding: 88px 48px; }
+    .s-dark { background: var(--blue-bg); color: var(--blue-text); }
+    .s-dark2 { background: var(--blue-bg2); color: var(--blue-text); }
+    .s-light { background: var(--white-bg); color: var(--white-text); }
+    .s-light2 { background: var(--white-bg2); color: var(--white-text); }
 
-    .sec-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-    .sec-label::before { content: ''; width: 24px; height: 1px; background: var(--cyan); display: inline-block; }
-    .sec-title { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1; margin-bottom: 48px; }
-    .s-white .sec-title, .s-white2 .sec-title { color: var(--white-text); }
-    .s-blue .sec-title, .s-blue2 .sec-title { color: var(--blue-text); }
+    .sec-eyebrow { font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+    .sec-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--cyan); display: inline-block; }
+    .sec-title { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1; margin-bottom: 52px; }
+    .s-light .sec-title, .s-light2 .sec-title { color: var(--white-text); }
+    .s-dark .sec-title, .s-dark2 .sec-title { color: var(--blue-text); }
 
-    /* CONTEXTE */
-    .context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-    .context-text p { font-size: 0.88rem; line-height: 1.9; color: var(--white-muted); margin-bottom: 14px; }
-    .context-text strong { color: var(--white-text); font-weight: 500; }
-    .context-cards { display: flex; flex-direction: column; gap: 12px; }
-    .ctx-card { border: 1px solid var(--white-border); border-radius: 6px; padding: 16px 20px; background: var(--white-bg); transition: border-color 0.3s, transform 0.3s; }
-    .ctx-card:hover { border-color: var(--cyan); transform: translateX(5px); }
-    .ctx-card-label { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
-    .ctx-card-value { font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; color: var(--white-text); }
+    /* DEUX COLONNES */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+    .prose p { font-size: 0.87rem; line-height: 1.95; margin-bottom: 14px; color: var(--white-muted); }
+    .prose strong { color: var(--white-text); font-weight: 500; }
+    .prose-dark p { color: var(--blue-muted); }
+    .prose-dark strong { color: var(--blue-text); }
+    .info-stack { display: flex; flex-direction: column; gap: 10px; }
+    .info-item { border: 1px solid var(--white-border); border-radius: 5px; padding: 14px 18px; background: var(--white-bg); transition: border-color 0.25s, transform 0.25s; }
+    .info-item:hover { border-color: var(--cyan); transform: translateX(5px); }
+    .info-item-label { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); margin-bottom: 4px; }
+    .info-item-val { font-family: 'Syne', sans-serif; font-size: 0.86rem; font-weight: 700; color: var(--white-text); }
 
-    /* TECH STACK */
-    .stack-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .stack-card { border: 1px solid var(--blue-border); border-radius: 6px; padding: 24px 20px; background: rgba(255,255,255,0.03); position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; text-align: center; }
-    .stack-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--cyan); transition: height 0.4s; }
-    .stack-card:hover::before { height: 100%; }
+    /* STACK */
+    .stack-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .stack-card { border: 1px solid var(--blue-border); border-radius: 5px; padding: 22px 18px; background: rgba(255,255,255,0.025); position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; text-align: center; }
+    .stack-card::after { content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 0; background: var(--cyan); transition: height 0.4s; }
+    .stack-card:hover::after { height: 100%; }
     .stack-card:hover { border-color: var(--cyan-dim); transform: translateY(-3px); }
-    .stack-card i { font-size: 1.6rem; color: var(--cyan); margin-bottom: 12px; display: block; }
-    .stack-card h3 { font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; color: var(--blue-text); margin-bottom: 6px; }
-    .stack-card p { font-size: 0.75rem; color: var(--blue-muted); line-height: 1.6; }
+    .stack-card i { font-size: 1.4rem; color: var(--cyan); margin-bottom: 10px; display: block; }
+    .stack-card h3 { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; color: var(--blue-text); margin-bottom: 6px; }
+    .stack-card p { font-size: 0.73rem; color: var(--blue-muted); line-height: 1.65; }
 
-    /* ARCHITECTURE */
-    .archi-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-    .archi-text p { font-size: 0.88rem; line-height: 1.9; color: var(--white-muted); margin-bottom: 14px; }
-    .archi-text strong { color: var(--white-text); font-weight: 500; }
-    .archi-schema { border: 1px solid var(--white-border); border-radius: 8px; overflow: hidden; }
-    .schema-bar { background: var(--white-text); padding: 8px 16px; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white-bg); display: flex; align-items: center; gap: 8px; }
-    .schema-bar i { color: var(--cyan); }
-    .schema-body { padding: 20px; display: flex; flex-direction: column; gap: 8px; background: var(--white-bg2); }
-    .archi-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border: 1px solid var(--white-border); border-radius: 4px; background: var(--white-bg); }
-    .archi-row i { color: var(--cyan); font-size: 0.85rem; width: 18px; text-align: center; flex-shrink: 0; }
-    .archi-row-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--white-muted); min-width: 100px; }
-    .archi-row-value { font-family: var(--font-display); font-size: 0.82rem; font-weight: 700; color: var(--white-text); }
-    .archi-arrow { text-align: center; color: var(--cyan); font-size: 0.75rem; padding: 2px 0; }
+    /* SCHÉMA ARCHITECTURE */
+    .schema-section { padding: 88px 48px; background: var(--white-bg2); }
+    .schema-wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; }
+    .schema-desc p { font-size: 0.87rem; line-height: 1.95; margin-bottom: 14px; color: var(--white-muted); }
+    .schema-desc strong { color: var(--white-text); font-weight: 500; }
+    .network-diagram { background: var(--white-bg); border: 1px solid var(--white-border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+    .diagram-bar { background: #1a1a1a; padding: 10px 16px; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: #999; display: flex; align-items: center; gap: 8px; }
+    .diagram-bar i { color: var(--cyan); }
 
     /* ÉTAPES */
-    .phases-wrap { display: flex; flex-direction: column; gap: 0; }
-    .phase { display: grid; grid-template-columns: 60px 1fr; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--blue-border); align-items: start; }
-    .phase:last-child { border-bottom: none; }
-    .phase-num { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: var(--cyan); opacity: 0.2; line-height: 1; padding-top: 4px; }
-    .phase-body h3 { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--blue-text); margin-bottom: 8px; }
-    .phase-body p { font-size: 0.82rem; color: var(--blue-muted); line-height: 1.8; }
-    .phase-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-    .phase-tag { font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--blue-border); color: var(--blue-muted); border-radius: 2px; }
+    .steps-list { display: flex; flex-direction: column; }
+    .step-row { display: grid; grid-template-columns: 52px 1fr; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--blue-border); align-items: start; }
+    .step-row:last-child { border-bottom: none; }
+    .step-n { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--cyan); opacity: 0.2; line-height: 1; }
+    .step-content h3 { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--blue-text); margin-bottom: 6px; }
+    .step-content p { font-size: 0.8rem; color: var(--blue-muted); line-height: 1.75; }
+    .step-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+    .step-tag { font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--blue-border); color: var(--blue-muted); border-radius: 2px; }
 
     /* PLAYBOOKS */
-    .playbooks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .playbook-card { border: 1px solid var(--white-border); border-radius: 6px; overflow: hidden; background: var(--white-bg); transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; }
-    .playbook-card:hover { border-color: var(--cyan); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,229,255,0.08); }
-    .playbook-header { padding: 18px 22px; border-bottom: 1px solid var(--white-border); display: flex; align-items: center; gap: 14px; background: var(--white-bg2); }
-    .playbook-icon { width: 38px; height: 38px; background: rgba(0,229,255,0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .playbook-icon i { color: var(--cyan); font-size: 0.9rem; }
-    .playbook-filename { font-size: 0.72rem; font-family: var(--font-mono); color: var(--cyan); background: rgba(0,229,255,0.06); border: 1px solid var(--cyan-dim); padding: 3px 8px; border-radius: 3px; }
-    .playbook-title { font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; color: var(--white-text); }
-    .playbook-body { padding: 20px 22px; }
-    .playbook-body p { font-size: 0.82rem; color: var(--white-muted); line-height: 1.8; margin-bottom: 14px; }
-    .playbook-body p:last-child { margin-bottom: 0; }
-    .playbook-tasks { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-    .playbook-tasks li { font-size: 0.8rem; color: var(--white-muted); padding: 6px 10px; background: var(--white-bg2); border-radius: 3px; border-left: 2px solid var(--white-border); transition: border-color 0.2s; display: flex; align-items: center; gap: 8px; }
-    .playbook-tasks li:hover { border-color: var(--cyan); }
-    .playbook-tasks li::before { content: '▸'; color: var(--cyan); font-size: 0.6rem; flex-shrink: 0; }
+    .playbooks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .pb-card { border: 1px solid var(--white-border); border-radius: 8px; overflow: hidden; background: var(--white-bg); transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; }
+    .pb-card:hover { border-color: var(--cyan); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(249,115,22,0.08); }
+    .pb-header { padding: 16px 20px; border-bottom: 1px solid var(--white-border); display: flex; align-items: center; gap: 12px; background: var(--white-bg2); }
+    .pb-icon { width: 36px; height: 36px; background: rgba(249,115,22,0.1); border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .pb-icon i { color: var(--cyan); font-size: 0.9rem; }
+    .pb-filename { font-size: 0.7rem; font-family: 'DM Mono', monospace; color: var(--cyan); background: rgba(249,115,22,0.06); border: 1px solid var(--cyan-dim); padding: 3px 8px; border-radius: 3px; }
+    .pb-title { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--white-text); }
+    .pb-body { padding: 18px 20px; }
+    .pb-body p { font-size: 0.81rem; color: var(--white-muted); line-height: 1.8; margin-bottom: 12px; }
+    .pb-tasks { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .pb-tasks li { font-size: 0.78rem; color: var(--white-muted); padding: 6px 10px; background: var(--white-bg2); border-radius: 3px; border-left: 2px solid var(--white-border); transition: border-color 0.2s; display: flex; align-items: center; gap: 8px; }
+    .pb-tasks li:hover { border-color: var(--cyan); }
+    .pb-tasks li::before { content: '▸'; color: var(--cyan); font-size: 0.58rem; flex-shrink: 0; }
 
-    /* RÉSULTATS */
-    .results-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-    .result-card { border: 1px solid var(--blue-border); border-radius: 6px; padding: 20px 22px; background: rgba(255,255,255,0.03); display: flex; align-items: center; gap: 16px; transition: border-color 0.3s; }
-    .result-card:hover { border-color: var(--cyan-dim); }
-    .result-icon { width: 38px; height: 38px; border-radius: 6px; background: rgba(0,229,255,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .result-icon i { color: var(--cyan); font-size: 0.9rem; }
-    .result-title { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--blue-text); margin-bottom: 2px; }
-    .result-desc { font-size: 0.76rem; color: var(--blue-muted); }
-    .result-status { margin-left: auto; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: #22c55e; background: rgba(34,197,94,0.1); padding: 3px 8px; border-radius: 2px; flex-shrink: 0; }
-
-    /* AMÉLIORATIONS */
-    .improve-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-    .improve-card { border: 1px solid var(--white-border); border-radius: 6px; padding: 18px 20px; background: var(--white-bg); display: flex; align-items: center; gap: 14px; transition: border-color 0.3s, transform 0.3s; }
-    .improve-card:hover { border-color: var(--cyan); transform: translateX(4px); }
-    .improve-card i { color: var(--cyan); font-size: 0.9rem; flex-shrink: 0; width: 20px; text-align: center; }
-    .improve-card span { font-size: 0.82rem; color: var(--white-muted); }
-
-    /* COMPÉTENCES */
-    .skills-wrap { display: flex; flex-wrap: wrap; gap: 10px; }
-    .skill-tag { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 16px; border: 1px solid var(--blue-border); color: var(--blue-muted); border-radius: 2px; background: rgba(255,255,255,0.02); transition: border-color 0.2s, color 0.2s; }
-    .skill-tag:hover { border-color: var(--cyan); color: var(--cyan); }
-
-    /* CODE BLOCKS */
-    .code-block { border: 1px solid var(--blue-border); border-radius: 8px; overflow: hidden; }
-    .code-header { background: #0a1628; padding: 12px 20px; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid var(--blue-border); }
+    /* CODE BLOCK */
+    .code-block { border: 1px solid var(--blue-border); border-radius: 8px; overflow: hidden; margin-bottom: 28px; }
+    .code-header { background: #0d0d0d; padding: 11px 18px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--blue-border); }
     .code-dots { display: flex; gap: 6px; }
-    .code-dots span { width: 12px; height: 12px; border-radius: 50%; background: var(--blue-border); }
+    .code-dots span { width: 11px; height: 11px; border-radius: 50%; }
     .code-dots span:nth-child(1) { background: #ff5f57; }
     .code-dots span:nth-child(2) { background: #febc2e; }
     .code-dots span:nth-child(3) { background: #28c840; }
-    .code-filename { font-size: 0.72rem; color: var(--blue-muted); font-family: var(--font-mono); display: flex; align-items: center; gap: 8px; flex: 1; }
+    .code-filename { font-size: 0.7rem; color: var(--blue-muted); font-family: 'DM Mono', monospace; display: flex; align-items: center; gap: 7px; flex: 1; }
     .code-filename i { color: var(--cyan); }
-    .code-copy { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 12px; border: 1px solid var(--blue-border); color: var(--blue-muted); background: transparent; border-radius: 2px; cursor: pointer; font-family: var(--font-mono); transition: border-color 0.2s, color 0.2s; }
+    .code-copy { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 11px; border: 1px solid var(--blue-border); color: var(--blue-muted); background: transparent; border-radius: 2px; cursor: pointer; font-family: 'DM Mono', monospace; transition: all 0.2s; }
     .code-copy:hover { border-color: var(--cyan); color: var(--cyan); }
     .code-copy.copied { border-color: #22c55e; color: #22c55e; }
-    .code-pre { background: #060e1c; padding: 24px 24px; overflow-x: auto; margin: 0; font-size: 0.78rem; line-height: 1.8; font-family: var(--font-mono); max-height: 520px; overflow-y: auto; }
-    .code-pre::-webkit-scrollbar { width: 6px; height: 6px; }
-    .code-pre::-webkit-scrollbar-track { background: transparent; }
+    .code-pre { background: #080808; padding: 22px; overflow-x: auto; margin: 0; font-size: 0.77rem; line-height: 1.85; font-family: 'DM Mono', monospace; max-height: 480px; overflow-y: auto; }
+    .code-pre::-webkit-scrollbar { width: 5px; height: 5px; }
     .code-pre::-webkit-scrollbar-thumb { background: var(--blue-border); border-radius: 3px; }
-    /* YAML syntax colors */
     .y-key { color: #79b8ff; }
     .y-colon { color: #6b8aaa; }
     .y-str { color: #9ecbff; }
@@ -173,28 +143,50 @@
     .y-bool { color: #f97583; }
     .y-num { color: #b392f0; }
     .y-dash { color: var(--cyan); font-weight: 700; }
+    .y-comment { color: #555; font-style: italic; }
+
+    /* RÉSULTATS */
+    .results-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .result-card { border: 1px solid var(--blue-border); border-radius: 5px; padding: 18px 20px; background: rgba(255,255,255,0.025); display: flex; align-items: center; gap: 14px; transition: border-color 0.3s; }
+    .result-card:hover { border-color: var(--cyan-dim); }
+    .result-ico { width: 36px; height: 36px; border-radius: 5px; background: rgba(249,115,22,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .result-ico i { color: var(--cyan); font-size: 0.85rem; }
+    .result-name { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; color: var(--blue-text); margin-bottom: 2px; }
+    .result-sub { font-size: 0.73rem; color: var(--blue-muted); }
+    .result-ok { margin-left: auto; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: #16a34a; background: rgba(22,163,74,0.1); padding: 3px 8px; border-radius: 2px; flex-shrink: 0; white-space: nowrap; }
+
+    /* AMÉLIORATIONS */
+    .improve-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; }
+    .improve-card { border: 1px solid var(--white-border); border-radius: 5px; padding: 16px 18px; background: var(--white-bg); display: flex; align-items: center; gap: 12px; transition: border-color 0.25s, transform 0.25s; }
+    .improve-card:hover { border-color: var(--cyan); transform: translateX(4px); }
+    .improve-card i { color: var(--cyan); font-size: 0.88rem; flex-shrink: 0; width: 18px; text-align: center; }
+    .improve-card span { font-size: 0.8rem; color: var(--white-muted); }
+
+    /* TAGS */
+    .tags-cloud { display: flex; flex-wrap: wrap; gap: 9px; }
+    .tag { font-size: 0.7rem; letter-spacing: 0.07em; text-transform: uppercase; padding: 8px 14px; border: 1px solid var(--blue-border); color: var(--blue-muted); border-radius: 2px; background: rgba(255,255,255,0.02); transition: all 0.2s; }
+    .tag:hover { border-color: var(--cyan); color: var(--cyan); }
 
     /* CTA */
-    .cta-wrap { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 36px; }
-    .btn-back { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border: 1px solid var(--blue-border); color: var(--blue-muted); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: border-color 0.2s, color 0.2s; }
-    .btn-back:hover { border-color: var(--cyan); color: var(--cyan); }
-    .btn-fill { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; background: var(--cyan); color: var(--blue-bg); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; font-weight: 500; transition: box-shadow 0.2s, transform 0.2s; }
-    .btn-fill:hover { box-shadow: 0 0 24px var(--cyan-glow); transform: translateY(-2px); }
+    .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 40px; }
+    .btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; border: 1px solid var(--blue-border); color: var(--blue-muted); font-family: 'DM Mono', monospace; font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; }
+    .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+    .btn-solid { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; background: var(--cyan); color: #111; font-family: 'DM Mono', monospace; font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; font-weight: 500; transition: all 0.2s; }
+    .btn-solid:hover { box-shadow: 0 0 24px var(--cyan-glow); transform: translateY(-2px); }
 
-    /* FOOTER */
-    footer { background: var(--blue-bg); border-top: 1px solid var(--blue-border); padding: 24px 48px; display: flex; align-items: center; justify-content: space-between; font-size: 0.72rem; color: var(--blue-muted); }
-    .f-logo { font-family: var(--font-display); font-weight: 800; color: var(--blue-text); }
+    footer { background: var(--blue-bg); border-top: 1px solid var(--blue-border); padding: 22px 48px; display: flex; align-items: center; justify-content: space-between; font-size: 0.7rem; color: var(--blue-muted); }
+    .f-logo { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--blue-text); }
     .f-logo span { color: var(--cyan); }
 
-    /* ANIMATIONS */
-    .reveal { opacity:0; transform:translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .reveal.visible { opacity:1; transform:translateY(0); }
-    .d1{transition-delay:0.1s;} .d2{transition-delay:0.2s;} .d3{transition-delay:0.3s;} .d4{transition-delay:0.4s;}
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
 
-    @media(max-width:900px){
-      nav{padding:16px 20px;} .hero{padding:100px 20px 60px;} section{padding:60px 20px;}
-      .context-grid,.archi-wrap,.playbooks-grid,.results-grid,.improve-grid,.stack-grid{grid-template-columns:1fr;}
-      footer{flex-direction:column;gap:8px;text-align:center;}
+    @media(max-width: 900px) {
+      nav { padding: 14px 20px; }
+      .hero, section, .schema-section { padding-left: 20px; padding-right: 20px; }
+      .two-col, .schema-wrap, .playbooks-grid, .results-grid, .improve-grid, .stack-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 6px; text-align: center; }
     }
   </style>
 </head>
@@ -202,309 +194,368 @@
 
   <nav>
     <a href="index.html" class="nav-logo">GG<span>.</span></a>
-    <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
+    <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Retour</a>
   </nav>
 
-  <!-- HERO (BLUE) -->
-  <div class="hero s-blue2">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-grid"></div>
     <div class="hero-glow"></div>
     <div class="hero-content">
-      <div class="hero-breadcrumb"><a href="index.html">Portfolio</a><span>/</span>Projets<span>/</span>Ansible + Minecraft</div>
+      <div class="hero-breadcrumb">
+        <a href="index.html">Portfolio</a><span>/</span>Projets<span>/</span>Ansible + Minecraft
+      </div>
       <div class="hero-tag"><i class="fas fa-robot"></i> DevOps · Automatisation · Virtualisation</div>
-      <h1>Déploiement automatique<br>de serveur<br><span style="color:var(--cyan)">Minecraft via Ansible</span></h1>
-      <p class="hero-desc">Automatisation complète du déploiement d'un serveur Minecraft sur un conteneur <strong>Proxmox Debian 12</strong> grâce à des <strong>playbooks Ansible</strong> — en une seule commande.</p>
-      <div class="hero-meta">
-        <div class="meta-chip"><i class="fas fa-calendar"></i>BTS SIO 2025 — Épreuve E6</div>
-        <div class="meta-chip"><i class="fas fa-tools"></i>Ansible · Proxmox · Linux</div>
-        <div class="meta-chip"><i class="fas fa-check-circle"></i>Fonctionnel</div>
+      <h1>Déploiement automatique<br>de serveur Minecraft<br><span>via Ansible</span></h1>
+      <p class="hero-desc">Automatisation complète du déploiement d'un serveur <strong>Minecraft 1.21.4</strong> sur un conteneur <strong>Proxmox Debian 12</strong> via des <strong>playbooks Ansible</strong> — en une seule commande.</p>
+      <div class="hero-chips">
+        <div class="chip"><i class="fas fa-calendar"></i>BTS SIO 2025 — Épreuve E6</div>
+        <div class="chip"><i class="fas fa-tools"></i>Ansible · Proxmox · Linux · Java 21</div>
+        <div class="chip"><i class="fas fa-check-circle"></i>Fonctionnel</div>
       </div>
     </div>
   </div>
 
-  <!-- CONTEXTE (WHITE) -->
-  <section class="s-white">
-    <div class="sec-label reveal">Contexte</div>
+  <!-- CONTEXTE -->
+  <section class="s-light">
+    <div class="sec-eyebrow reveal">Contexte</div>
     <h2 class="sec-title reveal">Pourquoi<br>ce projet ?</h2>
-    <div class="context-grid">
-      <div class="context-text reveal">
-        <p>Installer un serveur Minecraft manuellement demande de nombreuses étapes : installation de Java, configuration du système, création d'un utilisateur dédié, téléchargement du serveur, acceptation de la licence… Un processus long et sujet aux erreurs humaines.</p>
-        <p>L'objectif de ce projet est de <strong>rendre ce déploiement entièrement automatique</strong>. Grâce à Ansible et Proxmox, un serveur Minecraft complet est prêt à fonctionner <strong>en une seule commande</strong>, de manière reproductible et fiable.</p>
+    <div class="two-col">
+      <div class="prose reveal">
+        <p>Installer un serveur Minecraft manuellement demande de nombreuses étapes : installation de Java, configuration du système, création d'un utilisateur dédié, téléchargement du serveur, acceptation de la licence… Un processus long et sujet aux erreurs.</p>
+        <p>L'objectif est de <strong>rendre ce déploiement entièrement automatique</strong>. Grâce à Ansible et Proxmox, un serveur Minecraft complet est prêt à fonctionner <strong>en une seule commande</strong>, de façon reproductible et fiable.</p>
         <p>Ce projet illustre concrètement les pratiques modernes d'<strong>Infrastructure as Code</strong> et d'orchestration, directement en lien avec les compétences SISR.</p>
       </div>
-      <div class="context-cards reveal d2">
-        <div class="ctx-card"><div class="ctx-card-label">Objectif</div><div class="ctx-card-value">Déploiement automatisé en 1 commande</div></div>
-        <div class="ctx-card"><div class="ctx-card-label">Outil d'automatisation</div><div class="ctx-card-value">Ansible (playbooks YAML)</div></div>
-        <div class="ctx-card"><div class="ctx-card-label">Virtualisation</div><div class="ctx-card-value">Proxmox — Conteneurs Debian 12</div></div>
-        <div class="ctx-card"><div class="ctx-card-label">Cadre</div><div class="ctx-card-value">BTS SIO SISR — Épreuve E6</div></div>
+      <div class="info-stack reveal d2">
+        <div class="info-item"><div class="info-item-label">Objectif</div><div class="info-item-val">Déploiement automatisé en 1 commande</div></div>
+        <div class="info-item"><div class="info-item-label">Outil d'automatisation</div><div class="info-item-val">Ansible — playbooks YAML</div></div>
+        <div class="info-item"><div class="info-item-label">Virtualisation</div><div class="info-item-val">Proxmox — Conteneurs Debian 12</div></div>
+        <div class="info-item"><div class="info-item-label">Version Minecraft</div><div class="info-item-val">1.21.4 — Java 21 (JDK Oracle)</div></div>
+        <div class="info-item"><div class="info-item-label">Cadre</div><div class="info-item-val">BTS SIO SISR — Épreuve E6</div></div>
       </div>
     </div>
   </section>
 
-  <!-- STACK (BLUE) -->
-  <section class="s-blue">
-    <div class="sec-label reveal">Technologies</div>
+  <!-- STACK -->
+  <section class="s-dark2">
+    <div class="sec-eyebrow reveal">Technologies</div>
     <h2 class="sec-title reveal">Stack<br>utilisée</h2>
     <div class="stack-grid">
       <div class="stack-card reveal">
         <i class="fas fa-server"></i>
         <h3>Proxmox</h3>
-        <p>Plateforme de virtualisation pour créer et gérer les conteneurs LXC Debian 12.</p>
+        <p>Hyperviseur pour créer et gérer les conteneurs LXC Debian 12 via API REST.</p>
       </div>
       <div class="stack-card reveal d1">
         <i class="fas fa-robot"></i>
         <h3>Ansible</h3>
-        <p>Outil d'automatisation sans agent. Pilote les machines via SSH avec des playbooks YAML.</p>
+        <p>Automatisation sans agent via SSH. Playbooks YAML décrivant l'état cible.</p>
       </div>
       <div class="stack-card reveal d2">
         <i class="fab fa-linux"></i>
-        <h3>Linux (Debian 12)</h3>
-        <p>OS des conteneurs cibles. Environnement léger et stable pour héberger le serveur.</p>
+        <h3>Debian 12</h3>
+        <p>OS des conteneurs cibles. Environnement léger et stable pour le serveur.</p>
       </div>
       <div class="stack-card reveal d3">
         <i class="fas fa-gamepad"></i>
-        <h3>Minecraft Server</h3>
-        <p>Service déployé automatiquement via l'API Mojang. Tournant sous Java 21.</p>
+        <h3>Minecraft 1.21.4</h3>
+        <p>Serveur Vanilla déployé automatiquement sous Java 21 via playbook.</p>
       </div>
     </div>
   </section>
 
-  <!-- ARCHITECTURE (WHITE) -->
-  <section class="s-white2">
-    <div class="sec-label reveal">Infrastructure</div>
-    <h2 class="sec-title reveal">Architecture<br>du projet</h2>
-    <div class="archi-wrap">
-      <div class="archi-text reveal">
-        <p>L'architecture repose sur un <strong>serveur Ansible maître</strong> hébergé dans un premier conteneur Proxmox. Ce serveur pilote à distance les conteneurs cibles via une connexion <strong>SSH sans mot de passe</strong> (clé publique).</p>
-        <p>Les playbooks définissent l'état souhaité de chaque machine : le premier crée le conteneur Debian 12, le second y installe et configure le serveur Minecraft de A à Z.</p>
-        <p>Le déploiement est <strong>entièrement reproductible</strong> : relancer les playbooks produit exactement le même résultat, sans intervention manuelle.</p>
+  <!-- SCHÉMA ARCHITECTURE -->
+  <div class="schema-section">
+    <div class="sec-eyebrow reveal">Architecture</div>
+    <h2 class="sec-title reveal" style="color:var(--white-text)">Schéma de<br>déploiement</h2>
+    <div class="schema-wrap">
+      <div class="schema-desc reveal">
+        <p>L'architecture repose sur un <strong>serveur Ansible maître</strong> hébergé dans un conteneur Proxmox dédié. Ce serveur pilote les conteneurs cibles via <strong>SSH sans mot de passe</strong> (clé publique).</p>
+        <p>Le premier playbook appelle l'<strong>API REST de Proxmox</strong> pour créer automatiquement le conteneur Debian 12 : attribution du VMID, configuration réseau, démarrage.</p>
+        <p>Le second playbook se connecte en SSH au conteneur créé et installe tout : mise à jour système, DNS, Java 21, utilisateur dédié, serveur Minecraft et lancement du service.</p>
+        <p>Le déploiement est <strong>entièrement reproductible</strong> : relancer les playbooks produit exactement le même résultat, sans aucune intervention manuelle.</p>
       </div>
-      <div class="archi-schema reveal d2">
-        <div class="schema-bar"><i class="fas fa-sitemap"></i> Schéma d'architecture</div>
-        <div class="schema-body">
-          <div class="archi-row">
-            <i class="fas fa-server"></i>
-            <span class="archi-row-label">Hôte Proxmox</span>
-            <span class="archi-row-value">Hyperviseur principal</span>
-          </div>
-          <div class="archi-arrow">↓ crée &amp; gère</div>
-          <div class="archi-row">
-            <i class="fas fa-robot"></i>
-            <span class="archi-row-label">CT Ansible</span>
-            <span class="archi-row-value">Serveur maître (Debian 12)</span>
-          </div>
-          <div class="archi-arrow">↓ SSH + playbooks</div>
-          <div class="archi-row">
-            <i class="fab fa-linux"></i>
-            <span class="archi-row-label">CT cible</span>
-            <span class="archi-row-value">Debian 12 — Serveur Minecraft</span>
-          </div>
-          <div class="archi-arrow">↓ écoute sur</div>
-          <div class="archi-row">
-            <i class="fas fa-gamepad"></i>
-            <span class="archi-row-label">Port</span>
-            <span class="archi-row-value">25565 (TCP — Minecraft)</span>
-          </div>
-        </div>
+
+      <!-- SCHÉMA SVG -->
+      <div class="network-diagram reveal d2">
+        <div class="diagram-bar"><i class="fas fa-project-diagram"></i> Flux de déploiement Ansible</div>
+        <svg width="100%" viewBox="0 0 460 520" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Mono',monospace; display:block; padding:20px;">
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/>
+            </marker>
+            <marker id="arr-ssh" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M2 1L8 5L2 9" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round"/>
+            </marker>
+            <marker id="arr-api" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M2 1L8 5L2 9" fill="none" stroke="#f97316" stroke-width="1.5" stroke-linecap="round"/>
+            </marker>
+          </defs>
+
+          <!-- Proxmox Host -->
+          <rect x="10" y="10" width="420" height="480" rx="14" fill="#f8f8f8" stroke="#e0e0e0" stroke-width="1.5" stroke-dasharray="6 3"/>
+          <text x="220" y="34" text-anchor="middle" font-size="10.5" font-weight="600" fill="#888" letter-spacing="1">PROXMOX HOST — pve-01</text>
+
+          <!-- CT Ansible -->
+          <rect x="30" y="55" width="170" height="100" rx="10" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
+          <text x="115" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">CT Ansible</text>
+          <text x="115" y="96" text-anchor="middle" font-size="10" fill="#78350f">Serveur maître</text>
+          <text x="115" y="112" text-anchor="middle" font-size="10" fill="#78350f">Debian 12</text>
+          <text x="115" y="130" text-anchor="middle" font-size="9.5" fill="#b45309">Playbooks YAML</text>
+
+          <!-- API Proxmox -->
+          <rect x="250" y="55" width="170" height="100" rx="10" fill="#fff7ed" stroke="#f97316" stroke-width="1.5"/>
+          <text x="335" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">API Proxmox</text>
+          <text x="335" y="96" text-anchor="middle" font-size="10" fill="#78350f">REST HTTPS</text>
+          <text x="335" y="112" text-anchor="middle" font-size="10" fill="#78350f">Port 8006</text>
+          <text x="335" y="130" text-anchor="middle" font-size="9.5" fill="#b45309">Token Auth</text>
+
+          <!-- Flèche Ansible → API -->
+          <path d="M 200 105 L 250 105" fill="none" stroke="#f97316" stroke-width="1.8" marker-end="url(#arr-api)"/>
+          <rect x="188" y="88" width="76" height="16" rx="3" fill="#fff7ed"/>
+          <text x="226" y="99" text-anchor="middle" font-size="9" fill="#c2410c">① API REST</text>
+
+          <!-- CT Cible créé -->
+          <rect x="130" y="220" width="180" height="100" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+          <text x="220" y="244" text-anchor="middle" font-size="11" font-weight="700" fill="#166534">CT Debian 12 — cible</text>
+          <text x="220" y="262" text-anchor="middle" font-size="10" fill="#15803d">IP : 10.1.0.X (DHCP)</text>
+          <text x="220" y="278" text-anchor="middle" font-size="10" fill="#15803d">SSH actif</text>
+          <text x="220" y="294" text-anchor="middle" font-size="9.5" fill="#16a34a">Créé automatiquement</text>
+
+          <!-- Flèche API → CT Cible -->
+          <path d="M 335 155 L 335 200 L 310 220" fill="none" stroke="#f97316" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr-api)"/>
+          <rect x="290" y="174" width="90" height="16" rx="3" fill="#fff7ed"/>
+          <text x="335" y="185" text-anchor="middle" font-size="9" fill="#c2410c">② Crée le CT</text>
+
+          <!-- Flèche Ansible → CT Cible (SSH) -->
+          <path d="M 115 155 L 115 260 L 130 260" fill="none" stroke="#22c55e" stroke-width="1.8" stroke-dasharray="6 3" marker-end="url(#arr-ssh)"/>
+          <rect x="46" y="195" width="90" height="16" rx="3" fill="#f0fdf4"/>
+          <text x="91" y="206" text-anchor="middle" font-size="9" fill="#166534">③ SSH + playbook</text>
+
+          <!-- Serveur Minecraft -->
+          <rect x="130" y="385" width="180" height="90" rx="10" fill="#fdf4ff" stroke="#d8b4fe" stroke-width="1.5"/>
+          <text x="220" y="409" text-anchor="middle" font-size="11" font-weight="700" fill="#581c87">Serveur Minecraft</text>
+          <text x="220" y="427" text-anchor="middle" font-size="10" fill="#6b21a8">Version 1.21.4</text>
+          <text x="220" y="443" text-anchor="middle" font-size="10" fill="#6b21a8">Java 21 — Port 25565</text>
+          <text x="220" y="460" text-anchor="middle" font-size="9.5" fill="#7e22ce">Prêt à jouer !</text>
+
+          <!-- Flèche CT → Minecraft -->
+          <line x1="220" y1="320" x2="220" y2="385" stroke="#86efac" stroke-width="1.8" marker-end="url(#arr-ssh)"/>
+          <rect x="160" y="344" width="120" height="16" rx="3" fill="#f0fdf4"/>
+          <text x="220" y="355" text-anchor="middle" font-size="9" fill="#166534">④ Installe Minecraft</text>
+
+          <!-- Légende -->
+          <line x1="30" y1="480" x2="55" y2="480" stroke="#f97316" stroke-width="1.8"/>
+          <text x="62" y="484" font-size="9" fill="#888">Appel API REST</text>
+          <line x1="160" y1="480" x2="185" y2="480" stroke="#22c55e" stroke-width="1.8" stroke-dasharray="5 3"/>
+          <text x="192" y="484" font-size="9" fill="#888">Connexion SSH</text>
+        </svg>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- ÉTAPES (BLUE) -->
-  <section class="s-blue2">
-    <div class="sec-label reveal">Mise en œuvre</div>
+  <!-- ÉTAPES -->
+  <section class="s-dark">
+    <div class="sec-eyebrow reveal">Mise en œuvre</div>
     <h2 class="sec-title reveal">Déroulement<br>du projet</h2>
-    <div class="phases-wrap">
-      <div class="phase reveal">
-        <div class="phase-num">01</div>
-        <div class="phase-body">
+    <div class="steps-list">
+      <div class="step-row reveal">
+        <div class="step-n">01</div>
+        <div class="step-content">
           <h3>Déploiement de l'infrastructure Proxmox</h3>
-          <p>Création du conteneur maître sur Proxmox (Debian 12), configuration du réseau (IP fixe ou DHCP, gateway, DNS), allocation des ressources (CPU, RAM, disque).</p>
-          <div class="phase-tags"><span class="phase-tag">Proxmox</span><span class="phase-tag">LXC</span><span class="phase-tag">Debian 12</span></div>
+          <p>Création du conteneur maître sur Proxmox (Debian 12), configuration du réseau, allocation des ressources (CPU, RAM, disque). Installation d'Ansible et OpenSSH.</p>
+          <div class="step-tags"><span class="step-tag">Proxmox</span><span class="step-tag">LXC</span><span class="step-tag">Debian 12</span><span class="step-tag">Ansible</span></div>
         </div>
       </div>
-      <div class="phase reveal">
-        <div class="phase-num">02</div>
-        <div class="phase-body">
-          <h3>Installation et configuration d'Ansible</h3>
-          <p>Mise à jour du système, installation d'Ansible et d'OpenSSH. Génération d'une paire de clés SSH et copie de la clé publique sur les machines cibles pour une connexion sans mot de passe.</p>
-          <div class="phase-tags"><span class="phase-tag">Ansible</span><span class="phase-tag">OpenSSH</span><span class="phase-tag">Clé SSH</span><span class="phase-tag">apt</span></div>
+      <div class="step-row reveal">
+        <div class="step-n">02</div>
+        <div class="step-content">
+          <h3>Configuration SSH sans mot de passe</h3>
+          <p>Génération d'une paire de clés SSH (ssh-keygen) et copie de la clé publique sur les machines cibles pour permettre la connexion Ansible sans authentification par mot de passe.</p>
+          <div class="step-tags"><span class="step-tag">SSH</span><span class="step-tag">Clé publique</span><span class="step-tag">ssh-keygen</span><span class="step-tag">ssh-copy-id</span></div>
         </div>
       </div>
-      <div class="phase reveal">
-        <div class="phase-num">03</div>
-        <div class="phase-body">
-          <h3>Création du playbook — Conteneur Debian 12</h3>
-          <p>Rédaction du fichier <code style="color:var(--cyan);font-size:0.8rem">create-debian12.yml</code> permettant à Ansible de créer automatiquement un conteneur sur Proxmox, lui attribuer des ressources et le démarrer. Exécution via <code style="color:var(--cyan);font-size:0.8rem">ansible-playbook</code>.</p>
-          <div class="phase-tags"><span class="phase-tag">YAML</span><span class="phase-tag">Proxmox API</span><span class="phase-tag">Playbook</span></div>
+      <div class="step-row reveal">
+        <div class="step-n">03</div>
+        <div class="step-content">
+          <h3>Playbook — Création du conteneur Debian 12</h3>
+          <p>Rédaction du fichier <span style="color:var(--cyan);font-family:'DM Mono',monospace;font-size:0.78rem">create-debian12.yml</span> : appel à l'API REST de Proxmox pour créer automatiquement un conteneur, lui attribuer ses ressources et le démarrer.</p>
+          <div class="step-tags"><span class="step-tag">YAML</span><span class="step-tag">API Proxmox</span><span class="step-tag">URI module</span><span class="step-tag">Token Auth</span></div>
         </div>
       </div>
-      <div class="phase reveal">
-        <div class="phase-num">04</div>
-        <div class="phase-body">
-          <h3>Création du playbook — Serveur Minecraft</h3>
-          <p>Rédaction du playbook d'installation complet : mise à jour système, installation des dépendances, installation de Java 21, création d'un utilisateur dédié <em>minecraft</em>, téléchargement du serveur via l'API Mojang, acceptation de l'EULA, lancement automatique.</p>
-          <div class="phase-tags"><span class="phase-tag">Java 21</span><span class="phase-tag">API Mojang</span><span class="phase-tag">EULA</span><span class="phase-tag">Utilisateur dédié</span></div>
+      <div class="step-row reveal">
+        <div class="step-n">04</div>
+        <div class="step-content">
+          <h3>Playbook — Installation automatique Minecraft</h3>
+          <p>Rédaction du playbook complet <span style="color:var(--cyan);font-family:'DM Mono',monospace;font-size:0.78rem">deploy-minecraft.yml</span> : DNS, mise à jour système, Java 21 (JDK Oracle), utilisateur dédié, téléchargement du server.jar Minecraft 1.21.4, acceptation EULA, lancement.</p>
+          <div class="step-tags"><span class="step-tag">Java 21</span><span class="step-tag">Minecraft 1.21.4</span><span class="step-tag">EULA</span><span class="step-tag">Utilisateur dédié</span><span class="step-tag">DNS 8.8.8.8</span></div>
         </div>
       </div>
-      <div class="phase reveal">
-        <div class="phase-num">05</div>
-        <div class="phase-body">
+      <div class="step-row reveal">
+        <div class="step-n">05</div>
+        <div class="step-content">
+          <h3>Corrections et résolution des problèmes</h3>
+          <p>Résolution des erreurs rencontrées : clé SSH tronquée dans le playbook, version de Java incompatible (Minecraft 1.21.5 → 1.21.4), DNS absent dans le conteneur, problème sudo avec l'utilisateur minecraft.</p>
+          <div class="step-tags"><span class="step-tag">Debugging</span><span class="step-tag">Known_hosts</span><span class="step-tag">StrictHostKeyChecking</span><span class="step-tag">Floating Rule</span></div>
+        </div>
+      </div>
+      <div class="step-row reveal">
+        <div class="step-n">06</div>
+        <div class="step-content">
           <h3>Tests et validation</h3>
-          <p>Vérification de l'exécution complète des playbooks sans erreur. Connexion au serveur Minecraft depuis un client via l'adresse IP du conteneur. Validation de la reproductibilité du déploiement.</p>
-          <div class="phase-tags"><span class="phase-tag">Tests</span><span class="phase-tag">Validation</span><span class="phase-tag">Connexion Minecraft</span></div>
+          <p>Exécution complète des playbooks sans erreur. Connexion validée au serveur Minecraft depuis un client via l'adresse IP du conteneur sur le port 25565.</p>
+          <div class="step-tags"><span class="step-tag">Tests</span><span class="step-tag">Port 25565</span><span class="step-tag">Connexion Minecraft</span><span class="step-tag">Reproductibilité</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PLAYBOOKS (WHITE) -->
-  <section class="s-white">
-    <div class="sec-label reveal">Code</div>
+  <!-- PLAYBOOKS -->
+  <section class="s-light">
+    <div class="sec-eyebrow reveal">Code</div>
     <h2 class="sec-title reveal">Les deux<br>playbooks</h2>
     <div class="playbooks-grid">
-      <div class="playbook-card reveal">
-        <div class="playbook-header">
-          <div class="playbook-icon"><i class="fas fa-file-code"></i></div>
+      <div class="pb-card reveal">
+        <div class="pb-header">
+          <div class="pb-icon"><i class="fas fa-file-code"></i></div>
           <div>
-            <div class="playbook-filename">create-debian12.yml</div>
-            <div class="playbook-title" style="margin-top:4px">Création du conteneur</div>
+            <div class="pb-filename">create-debian12.yml</div>
+            <div class="pb-title" style="margin-top:4px">Création du conteneur</div>
           </div>
         </div>
-        <div class="playbook-body">
-          <p>Automatise la création d'un conteneur LXC Debian 12 sur Proxmox via l'API. Configure les ressources et le réseau, puis démarre la machine.</p>
-          <ul class="playbook-tasks">
-            <li>Connexion à l'API Proxmox</li>
-            <li>Création du conteneur LXC Debian 12</li>
-            <li>Attribution CPU, RAM, disque</li>
-            <li>Configuration réseau (IP / Gateway)</li>
-            <li>Démarrage automatique du conteneur</li>
+        <div class="pb-body">
+          <p>Crée automatiquement un conteneur LXC Debian 12 sur Proxmox via l'API REST. Configure les ressources et démarre la machine.</p>
+          <ul class="pb-tasks">
+            <li>Appel API Proxmox — récupère le prochain VMID</li>
+            <li>Définit le nom du conteneur (CT-Debian12-VMID)</li>
+            <li>Crée le conteneur LXC avec CPU, RAM, disque</li>
+            <li>Configure le réseau (DHCP — vmbr0)</li>
+            <li>Démarre automatiquement le conteneur</li>
           </ul>
         </div>
       </div>
-      <div class="playbook-card reveal d2">
-        <div class="playbook-header">
-          <div class="playbook-icon"><i class="fas fa-gamepad"></i></div>
+      <div class="pb-card reveal d2">
+        <div class="pb-header">
+          <div class="pb-icon"><i class="fas fa-gamepad"></i></div>
           <div>
-            <div class="playbook-filename">install-minecraft.yml</div>
-            <div class="playbook-title" style="margin-top:4px">Installation du serveur</div>
+            <div class="pb-filename">deploy-minecraft.yml</div>
+            <div class="pb-title" style="margin-top:4px">Installation du serveur</div>
           </div>
         </div>
-        <div class="playbook-body">
-          <p>Installe et configure entièrement le serveur Minecraft sur le conteneur cible. Aucune intervention manuelle requise après lancement.</p>
-          <ul class="playbook-tasks">
-            <li>Mise à jour du système (apt update/upgrade)</li>
-            <li>Installation des dépendances (wget, curl…)</li>
-            <li>Installation de Java 21 (JDK)</li>
-            <li>Création de l'utilisateur dédié <em>minecraft</em></li>
-            <li>Téléchargement du server.jar via API Mojang</li>
+        <div class="pb-body">
+          <p>Installe et configure entièrement le serveur Minecraft 1.21.4. Aucune intervention manuelle requise après lancement.</p>
+          <ul class="pb-tasks">
+            <li>Configure le DNS (8.8.8.8 / 8.8.4.4)</li>
+            <li>Mise à jour système (apt update/upgrade)</li>
+            <li>Installation Java 21 JDK Oracle</li>
+            <li>Création utilisateur dédié minecraft</li>
+            <li>Téléchargement server.jar v1.21.4</li>
             <li>Acceptation automatique de l'EULA</li>
-            <li>Lancement du serveur Minecraft</li>
+            <li>Lancement du serveur via screen</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CODE PLAYBOOKS (BLUE) -->
-  <section class="s-blue2">
-    <div class="sec-label reveal">Source code</div>
+  <!-- CODE SOURCE -->
+  <section class="s-dark2">
+    <div class="sec-eyebrow reveal">Source code</div>
     <h2 class="sec-title reveal">Code<br>source YAML</h2>
 
-    <!-- Playbook 1 -->
-    <div class="code-block reveal" style="margin-bottom:32px;">
-      <div class="code-header">
-        <div class="code-dots"><span></span><span></span><span></span></div>
-        <div class="code-filename"><i class="fas fa-file-code"></i> create-debian12.yml</div>
-        <button class="code-copy" onclick="copyCode(this)">Copier</button>
-      </div>
-      <pre class="code-pre"><code id="code1"><span class="y-key">name</span><span class="y-colon">:</span> <span class="y-str">Deploiement CT Minecraft automatique</span>
-<span class="y-key">hosts</span><span class="y-colon">:</span> <span class="y-val">localhost</span>
-<span class="y-key">gather_facts</span><span class="y-colon">:</span> <span class="y-bool">no</span>
-
-<span class="y-key">vars</span><span class="y-colon">:</span>
-  <span class="y-key">proxmox_host</span><span class="y-colon">:</span> <span class="y-str">"X.X.X.X"</span>
-  <span class="y-key">node</span><span class="y-colon">:</span> <span class="y-str">"pve-XX"</span>
-  <span class="y-key">template</span><span class="y-colon">:</span> <span class="y-str">"local:vztmpl/debian-12-standard_12.12-1_amd64.tar.zst"</span>
-  <span class="y-key">api_token</span><span class="y-colon">:</span> <span class="y-str">"root@pam!ansibe=********************"</span>
-
-<span class="y-key">tasks</span><span class="y-colon">:</span>
-
-  <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Recuperer le prochain VMID</span>
-    <span class="y-key">uri</span><span class="y-colon">:</span>
-      <span class="y-key">url</span><span class="y-colon">:</span> <span class="y-str">"https://{{ proxmox_host }}:8006/api2/json/cluster/nextid"</span>
-      <span class="y-key">method</span><span class="y-colon">:</span> <span class="y-val">GET</span>
-      <span class="y-key">headers</span><span class="y-colon">:</span>
-        <span class="y-key">Authorization</span><span class="y-colon">:</span> <span class="y-str">"PVEAPIToken={{ api_token }}"</span>
-      <span class="y-key">validate_certs</span><span class="y-colon">:</span> <span class="y-bool">no</span>
-    <span class="y-key">register</span><span class="y-colon">:</span> <span class="y-val">nextid</span>
-
-  <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Definir le VMID</span>
-    <span class="y-key">set_fact</span><span class="y-colon">:</span>
-      <span class="y-key">vmid</span><span class="y-colon">:</span> <span class="y-str">"{{ nextid.json.data }}"</span>
-
-  <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Definir le nom du conteneur</span>
-    <span class="y-key">set_fact</span><span class="y-colon">:</span>
-      <span class="y-key">container_name</span><span class="y-colon">:</span> <span class="y-str">"CT-minecraft-{{ vmid }}"</span>
-
-  <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Creer le conteneur</span>
-    <span class="y-key">uri</span><span class="y-colon">:</span>
-      <span class="y-key">url</span><span class="y-colon">:</span> <span class="y-str">"https://{{ proxmox_host }}:8006/api2/json/nodes/{{ node }}/lxc"</span>
-      <span class="y-key">method</span><span class="y-colon">:</span> <span class="y-val">POST</span>
-      <span class="y-key">headers</span><span class="y-colon">:</span>
-        <span class="y-key">Authorization</span><span class="y-colon">:</span> <span class="y-str">"PVEAPIToken={{ api_token }}"</span>
-      <span class="y-key">body_format</span><span class="y-colon">:</span> <span class="y-val">form-urlencoded</span>
-      <span class="y-key">body</span><span class="y-colon">:</span>
-        <span class="y-key">vmid</span><span class="y-colon">:</span> <span class="y-str">"{{ vmid }}"</span>
-        <span class="y-key">hostname</span><span class="y-colon">:</span> <span class="y-str">"{{ container_name }}"</span>
-        <span class="y-key">ostemplate</span><span class="y-colon">:</span> <span class="y-str">"{{ template }}"</span>
-        <span class="y-key">cores</span><span class="y-colon">:</span> <span class="y-num">2</span>
-        <span class="y-key">memory</span><span class="y-colon">:</span> <span class="y-num">2048</span>
-        <span class="y-key">swap</span><span class="y-colon">:</span> <span class="y-num">512</span>
-        <span class="y-key">rootfs</span><span class="y-colon">:</span> <span class="y-str">"rpool-data:10"</span>
-        <span class="y-key">net0</span><span class="y-colon">:</span> <span class="y-str">"name=eth0,bridge=vmbr0,ip=dhcp"</span>
-        <span class="y-key">password</span><span class="y-colon">:</span> <span class="y-str">"**********"</span>
-      <span class="y-key">validate_certs</span><span class="y-colon">:</span> <span class="y-bool">no</span>
-
-  <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Demarrer le conteneur</span>
-    <span class="y-key">uri</span><span class="y-colon">:</span>
-      <span class="y-key">url</span><span class="y-colon">:</span> <span class="y-str">"https://{{ proxmox_host }}:8006/api2/json/nodes/{{ node }}/lxc/{{ vmid }}/status/start"</span>
-      <span class="y-key">method</span><span class="y-colon">:</span> <span class="y-val">POST</span>
-      <span class="y-key">headers</span><span class="y-colon">:</span>
-        <span class="y-key">Authorization</span><span class="y-colon">:</span> <span class="y-str">"PVEAPIToken={{ api_token }}"</span>
-      <span class="y-key">validate_certs</span><span class="y-colon">:</span> <span class="y-bool">no</span>
-
-  <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Afficher les infos</span>
-    <span class="y-key">debug</span><span class="y-colon">:</span>
-      <span class="y-key">msg</span><span class="y-colon">:</span>
-        <span class="y-dash">-</span> <span class="y-str">"Conteneur cree : {{ container_name }}"</span>
-        <span class="y-dash">-</span> <span class="y-str">"VMID : {{ vmid }}"</span></code></pre>
-    </div>
-
-    <!-- Playbook 2 -->
+    <!-- create-debian12.yml -->
     <div class="code-block reveal">
       <div class="code-header">
         <div class="code-dots"><span></span><span></span><span></span></div>
-        <div class="code-filename"><i class="fas fa-file-code"></i> deploy-minecraft.yml</div>
-        <button class="code-copy" onclick="copyCode(this)">Copier</button>
+        <div class="code-filename"><i class="fas fa-file-code"></i> create-debian12.yml</div>
+        <button class="code-copy" onclick="copyCode(this, 'code1')">Copier</button>
       </div>
-      <pre class="code-pre"><code id="code2"><span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Provisionnement du CT Minecraft</span>
+      <pre class="code-pre"><code id="code1"><span class="y-dash">---</span>
+<span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Deploiement CT Minecraft automatique</span>
+  <span class="y-key">hosts</span><span class="y-colon">:</span> <span class="y-val">localhost</span>
+  <span class="y-key">gather_facts</span><span class="y-colon">:</span> <span class="y-bool">no</span>
+
+  <span class="y-key">vars</span><span class="y-colon">:</span>
+    <span class="y-key">proxmox_host</span><span class="y-colon">:</span> <span class="y-str">"10.1.0.253"</span>
+    <span class="y-key">node</span><span class="y-colon">:</span> <span class="y-str">"pve-01"</span>
+    <span class="y-key">template</span><span class="y-colon">:</span> <span class="y-str">"local:vztmpl/debian-12-standard_12.12-1_amd64.tar.zst"</span>
+    <span class="y-key">api_token</span><span class="y-colon">:</span> <span class="y-str">"root@pam!ansibe=********************"</span>
+
+  <span class="y-key">tasks</span><span class="y-colon">:</span>
+
+    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Recuperer le prochain VMID</span>
+      <span class="y-key">uri</span><span class="y-colon">:</span>
+        <span class="y-key">url</span><span class="y-colon">:</span> <span class="y-str">"https://{{ proxmox_host }}:8006/api2/json/cluster/nextid"</span>
+        <span class="y-key">method</span><span class="y-colon">:</span> <span class="y-val">GET</span>
+        <span class="y-key">headers</span><span class="y-colon">:</span>
+          <span class="y-key">Authorization</span><span class="y-colon">:</span> <span class="y-str">"PVEAPIToken={{ api_token }}"</span>
+        <span class="y-key">validate_certs</span><span class="y-colon">:</span> <span class="y-bool">no</span>
+      <span class="y-key">register</span><span class="y-colon">:</span> <span class="y-val">nextid</span>
+
+    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Definir le VMID et le nom</span>
+      <span class="y-key">set_fact</span><span class="y-colon">:</span>
+        <span class="y-key">vmid</span><span class="y-colon">:</span> <span class="y-str">"{{ nextid.json.data }}"</span>
+        <span class="y-key">container_name</span><span class="y-colon">:</span> <span class="y-str">"CT-Debian12-{{ nextid.json.data }}"</span>
+
+    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Creer le conteneur</span>
+      <span class="y-key">uri</span><span class="y-colon">:</span>
+        <span class="y-key">url</span><span class="y-colon">:</span> <span class="y-str">"https://{{ proxmox_host }}:8006/api2/json/nodes/{{ node }}/lxc"</span>
+        <span class="y-key">method</span><span class="y-colon">:</span> <span class="y-val">POST</span>
+        <span class="y-key">headers</span><span class="y-colon">:</span>
+          <span class="y-key">Authorization</span><span class="y-colon">:</span> <span class="y-str">"PVEAPIToken={{ api_token }}"</span>
+        <span class="y-key">body_format</span><span class="y-colon">:</span> <span class="y-val">form-urlencoded</span>
+        <span class="y-key">body</span><span class="y-colon">:</span>
+          <span class="y-key">vmid</span><span class="y-colon">:</span> <span class="y-str">"{{ vmid }}"</span>
+          <span class="y-key">hostname</span><span class="y-colon">:</span> <span class="y-str">"{{ container_name }}"</span>
+          <span class="y-key">ostemplate</span><span class="y-colon">:</span> <span class="y-str">"{{ template }}"</span>
+          <span class="y-key">cores</span><span class="y-colon">:</span> <span class="y-num">2</span>
+          <span class="y-key">memory</span><span class="y-colon">:</span> <span class="y-num">2048</span>
+          <span class="y-key">swap</span><span class="y-colon">:</span> <span class="y-num">512</span>
+          <span class="y-key">rootfs</span><span class="y-colon">:</span> <span class="y-str">"rpool-data:10"</span>
+          <span class="y-key">net0</span><span class="y-colon">:</span> <span class="y-str">"name=eth0,bridge=vmbr0,ip=dhcp"</span>
+          <span class="y-key">password</span><span class="y-colon">:</span> <span class="y-str">"Root!"</span>
+        <span class="y-key">validate_certs</span><span class="y-colon">:</span> <span class="y-bool">no</span>
+
+    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Demarrer le conteneur</span>
+      <span class="y-key">uri</span><span class="y-colon">:</span>
+        <span class="y-key">url</span><span class="y-colon">:</span> <span class="y-str">"https://{{ proxmox_host }}:8006/api2/json/nodes/{{ node }}/lxc/{{ vmid }}/status/start"</span>
+        <span class="y-key">method</span><span class="y-colon">:</span> <span class="y-val">POST</span>
+        <span class="y-key">headers</span><span class="y-colon">:</span>
+          <span class="y-key">Authorization</span><span class="y-colon">:</span> <span class="y-str">"PVEAPIToken={{ api_token }}"</span>
+        <span class="y-key">validate_certs</span><span class="y-colon">:</span> <span class="y-bool">no</span>
+
+    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Afficher les infos</span>
+      <span class="y-key">debug</span><span class="y-colon">:</span>
+        <span class="y-key">msg</span><span class="y-colon">:</span>
+          <span class="y-dash">-</span> <span class="y-str">"Conteneur cree : {{ container_name }}"</span>
+          <span class="y-dash">-</span> <span class="y-str">"VMID : {{ vmid }}"</span></code></pre>
+    </div>
+
+    <!-- deploy-minecraft.yml -->
+    <div class="code-block reveal">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <div class="code-filename"><i class="fas fa-gamepad"></i> deploy-minecraft.yml</div>
+        <button class="code-copy" onclick="copyCode(this, 'code2')">Copier</button>
+      </div>
+      <pre class="code-pre"><code id="code2"><span class="y-dash">---</span>
+<span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Provisionnement du CT Minecraft</span>
   <span class="y-key">hosts</span><span class="y-colon">:</span> <span class="y-val">localhost</span>
   <span class="y-key">gather_facts</span><span class="y-colon">:</span> <span class="y-bool">no</span>
   <span class="y-key">collections</span><span class="y-colon">:</span>
     <span class="y-dash">-</span> <span class="y-val">community.general</span>
 
   <span class="y-key">vars</span><span class="y-colon">:</span>
-    <span class="y-key">proxmox_host</span><span class="y-colon">:</span> <span class="y-str">"X.X.X.X"</span>
-    <span class="y-key">node</span><span class="y-colon">:</span> <span class="y-str">"pve-XX"</span>
-    <span class="y-key">api_user</span><span class="y-colon">:</span> <span class="y-str">"root@pam"</span>
-    <span class="y-key">api_token_id</span><span class="y-colon">:</span> <span class="y-str">"ansibe"</span>
+    <span class="y-key">proxmox_host</span><span class="y-colon">:</span> <span class="y-str">"10.1.0.253"</span>
+    <span class="y-key">node</span><span class="y-colon">:</span> <span class="y-str">"pve-01"</span>
+    <span class="y-key">api_token_id</span><span class="y-colon">:</span> <span class="y-str">"root@pam!ansibe"</span>
     <span class="y-key">api_token_secret</span><span class="y-colon">:</span> <span class="y-str">"********************"</span>
     <span class="y-key">ip_range_start</span><span class="y-colon">:</span> <span class="y-num">2</span>
     <span class="y-key">ip_range_end</span><span class="y-colon">:</span> <span class="y-num">9</span>
     <span class="y-key">network_prefix</span><span class="y-colon">:</span> <span class="y-str">"10.1.0"</span>
-    <span class="y-key">gateway</span><span class="y-colon">:</span> <span class="y-str">"X.X.X.X"</span>
     <span class="y-key">storage</span><span class="y-colon">:</span> <span class="y-str">"rpool-data"</span>
     <span class="y-key">template</span><span class="y-colon">:</span> <span class="y-str">"local:vztmpl/debian-12-standard_12.12-1_amd64.tar.zst"</span>
+    <span class="y-key">ssh_public_key</span><span class="y-colon">:</span> <span class="y-str">"ssh-rsa AAAA... root@ansible-gael"</span>
 
   <span class="y-key">tasks</span><span class="y-colon">:</span>
     <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Trouver une IP libre dans la plage</span>
@@ -536,14 +587,13 @@
         <span class="y-key">ostemplate</span><span class="y-colon">:</span> <span class="y-str">"{{ template }}"</span>
         <span class="y-key">cores</span><span class="y-colon">:</span> <span class="y-num">2</span>
         <span class="y-key">memory</span><span class="y-colon">:</span> <span class="y-num">2048</span>
-        <span class="y-key">swap</span><span class="y-colon">:</span> <span class="y-num">512</span>
         <span class="y-key">storage</span><span class="y-colon">:</span> <span class="y-str">"{{ storage }}"</span>
         <span class="y-key">pubkey</span><span class="y-colon">:</span> <span class="y-str">"{{ ssh_public_key }}"</span>
         <span class="y-key">netif</span><span class="y-colon">:</span>
-          <span class="y-key">net0</span><span class="y-colon">:</span> <span class="y-str">"name=eth0,bridge=vmbr0,ip={{ selected_ip }}/24,gw=X.X.X.X"</span>
+          <span class="y-key">net0</span><span class="y-colon">:</span> <span class="y-str">"name=eth0,bridge=vmbr0,ip={{ selected_ip }}/24,gw=10.1.0.254"</span>
         <span class="y-key">state</span><span class="y-colon">:</span> <span class="y-val">present</span>
 
-    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Demarrer le conteneur</span>
+    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Demarrer et attendre SSH</span>
       <span class="y-key">community.general.proxmox</span><span class="y-colon">:</span>
         <span class="y-key">api_host</span><span class="y-colon">:</span> <span class="y-str">"{{ proxmox_host }}"</span>
         <span class="y-key">api_user</span><span class="y-colon">:</span> <span class="y-str">"root@pam"</span>
@@ -553,18 +603,13 @@
         <span class="y-key">vmid</span><span class="y-colon">:</span> <span class="y-str">"{{ vmid }}"</span>
         <span class="y-key">state</span><span class="y-colon">:</span> <span class="y-val">started</span>
 
-    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Attendre que SSH soit disponible</span>
-      <span class="y-key">wait_for</span><span class="y-colon">:</span>
-        <span class="y-key">host</span><span class="y-colon">:</span> <span class="y-str">"{{ selected_ip }}"</span>
-        <span class="y-key">port</span><span class="y-colon">:</span> <span class="y-num">22</span>
-        <span class="y-key">timeout</span><span class="y-colon">:</span> <span class="y-num">120</span>
-
     <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Ajouter le CT dans l'inventory dynamique</span>
       <span class="y-key">add_host</span><span class="y-colon">:</span>
         <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">minecraft_ct</span>
         <span class="y-key">ansible_host</span><span class="y-colon">:</span> <span class="y-str">"{{ selected_ip }}"</span>
         <span class="y-key">ansible_user</span><span class="y-colon">:</span> <span class="y-val">root</span>
         <span class="y-key">ansible_ssh_private_key_file</span><span class="y-colon">:</span> <span class="y-val">/root/.ssh/id_rsa</span>
+        <span class="y-key">ansible_ssh_extra_args</span><span class="y-colon">:</span> <span class="y-str">"-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"</span>
 
 <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Installation automatique Minecraft Vanilla</span>
   <span class="y-key">hosts</span><span class="y-colon">:</span> <span class="y-val">minecraft_ct</span>
@@ -573,27 +618,28 @@
   <span class="y-key">vars</span><span class="y-colon">:</span>
     <span class="y-key">minecraft_dir</span><span class="y-colon">:</span> <span class="y-val">/opt/minecraft</span>
     <span class="y-key">minecraft_user</span><span class="y-colon">:</span> <span class="y-val">minecraft</span>
-    <span class="y-key">minecraft_url</span><span class="y-colon">:</span> <span class="y-str">"https://piston-data.mojang.com/v1/objects/..."</span>
 
   <span class="y-key">tasks</span><span class="y-colon">:</span>
+    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Configurer le DNS</span>
+      <span class="y-key">copy</span><span class="y-colon">:</span>
+        <span class="y-key">dest</span><span class="y-colon">:</span> <span class="y-val">/etc/resolv.conf</span>
+        <span class="y-key">content</span><span class="y-colon">:</span> <span class="y-str">"nameserver 8.8.8.8\nnameserver 8.8.4.4"</span>
+
     <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Mettre a jour les paquets</span>
       <span class="y-key">apt</span><span class="y-colon">:</span>
         <span class="y-key">update_cache</span><span class="y-colon">:</span> <span class="y-bool">yes</span>
 
     <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Installer dependances</span>
       <span class="y-key">apt</span><span class="y-colon">:</span>
-        <span class="y-key">name</span><span class="y-colon">:</span>
-          <span class="y-dash">-</span> <span class="y-val">wget</span>
-          <span class="y-dash">-</span> <span class="y-val">screen</span>
-          <span class="y-dash">-</span> <span class="y-val">nano</span>
+        <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-str">[ wget, screen, nano ]</span>
         <span class="y-key">state</span><span class="y-colon">:</span> <span class="y-val">present</span>
 
-    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Telecharger Java 21</span>
+    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Telecharger Java 21 (JDK Oracle)</span>
       <span class="y-key">get_url</span><span class="y-colon">:</span>
         <span class="y-key">url</span><span class="y-colon">:</span> <span class="y-str">https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb</span>
         <span class="y-key">dest</span><span class="y-colon">:</span> <span class="y-val">/tmp/jdk21.deb</span>
 
-    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Installer Java</span>
+    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Installer Java 21</span>
       <span class="y-key">apt</span><span class="y-colon">:</span>
         <span class="y-key">deb</span><span class="y-colon">:</span> <span class="y-val">/tmp/jdk21.deb</span>
 
@@ -612,109 +658,104 @@
         <span class="y-key">group</span><span class="y-colon">:</span> <span class="y-str">"{{ minecraft_user }}"</span>
         <span class="y-key">mode</span><span class="y-colon">:</span> <span class="y-str">'0755'</span>
 
-    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Recuperer manifest Minecraft</span>
-      <span class="y-key">uri</span><span class="y-colon">:</span>
-        <span class="y-key">url</span><span class="y-colon">:</span> <span class="y-str">https://launchermeta.mojang.com/mc/game/version_manifest.json</span>
-        <span class="y-key">return_content</span><span class="y-colon">:</span> <span class="y-bool">yes</span>
-      <span class="y-key">register</span><span class="y-colon">:</span> <span class="y-val">mc_manifest</span>
-
-    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Extraire derniere version</span>
-      <span class="y-key">set_fact</span><span class="y-colon">:</span>
-        <span class="y-key">mc_latest</span><span class="y-colon">:</span> <span class="y-str">"{{ mc_manifest.json.latest.release }}"</span>
-
-    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Telecharger serveur Minecraft Vanilla</span>
+    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Telecharger serveur Minecraft 1.21.4</span>
       <span class="y-key">get_url</span><span class="y-colon">:</span>
-        <span class="y-key">url</span><span class="y-colon">:</span> <span class="y-str">"{{ mc_version_data.json.downloads.server.url }}"</span>
+        <span class="y-key">url</span><span class="y-colon">:</span> <span class="y-str">"https://piston-data.mojang.com/v1/objects/4707d00eb834b446575d89a61a11b5d548d8c001/server.jar"</span>
         <span class="y-key">dest</span><span class="y-colon">:</span> <span class="y-str">"{{ minecraft_dir }}/server.jar"</span>
         <span class="y-key">owner</span><span class="y-colon">:</span> <span class="y-str">"{{ minecraft_user }}"</span>
         <span class="y-key">group</span><span class="y-colon">:</span> <span class="y-str">"{{ minecraft_user }}"</span>
 
     <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Accepter l'EULA</span>
       <span class="y-key">copy</span><span class="y-colon">:</span>
-        <span class="y-key">content</span><span class="y-colon">:</span> <span class="y-str">"eula=true"</span>
         <span class="y-key">dest</span><span class="y-colon">:</span> <span class="y-str">"{{ minecraft_dir }}/eula.txt"</span>
+        <span class="y-key">content</span><span class="y-colon">:</span> <span class="y-str">"eula=true"</span>
         <span class="y-key">owner</span><span class="y-colon">:</span> <span class="y-str">"{{ minecraft_user }}"</span>
 
     <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Lancer le serveur Minecraft</span>
-      <span class="y-key">shell</span><span class="y-colon">:</span> <span class="y-str">"screen -dmS minecraft java -Xmx1024M -Xms1024M -jar {{ minecraft_dir }}/server.jar nogui"</span>
-      <span class="y-key">become_user</span><span class="y-colon">:</span> <span class="y-str">"{{ minecraft_user }}"</span></code></pre>
+      <span class="y-key">shell</span><span class="y-colon">:</span> <span class="y-str">|
+        su - {{ minecraft_user }} -c "screen -dmS minecraft bash -c 'cd {{ minecraft_dir }} && java -Xms1024M -Xmx1024M -jar server.jar nogui'"</span>
+
+    <span class="y-dash">-</span> <span class="y-key">name</span><span class="y-colon">:</span> <span class="y-val">Afficher l'adresse du serveur</span>
+      <span class="y-key">debug</span><span class="y-colon">:</span>
+        <span class="y-key">msg</span><span class="y-colon">:</span> <span class="y-str">"Serveur Minecraft disponible : {{ ansible_host }}:25565"</span></code></pre>
     </div>
   </section>
 
-  <!-- RÉSULTATS (BLUE) -->
-  <section class="s-blue">
-    <div class="sec-label reveal">Validation</div>
+  <!-- RÉSULTATS -->
+  <section class="s-dark">
+    <div class="sec-eyebrow reveal">Validation</div>
     <h2 class="sec-title reveal">Résultats<br>obtenus</h2>
     <div class="results-grid">
       <div class="result-card reveal">
-        <div class="result-icon"><i class="fas fa-check-circle"></i></div>
+        <div class="result-ico"><i class="fas fa-check-circle"></i></div>
         <div>
-          <div class="result-title">Serveur Minecraft fonctionnel</div>
-          <div class="result-desc">Connexion validée via l'adresse IP du conteneur</div>
+          <div class="result-name">Serveur Minecraft fonctionnel</div>
+          <div class="result-sub">Connexion validée via l'IP du conteneur</div>
         </div>
-        <span class="result-status">✓ OK</span>
+        <span class="result-ok">✓ OK</span>
       </div>
       <div class="result-card reveal d1">
-        <div class="result-icon"><i class="fas fa-bolt"></i></div>
+        <div class="result-ico"><i class="fas fa-bolt"></i></div>
         <div>
-          <div class="result-title">Déploiement en 1 commande</div>
-          <div class="result-desc">ansible-playbook suffit à tout déployer</div>
+          <div class="result-name">Déploiement en 1 commande</div>
+          <div class="result-sub">ansible-playbook deploy-minecraft.yml</div>
         </div>
-        <span class="result-status">✓ OK</span>
+        <span class="result-ok">✓ OK</span>
       </div>
       <div class="result-card reveal d2">
-        <div class="result-icon"><i class="fas fa-ban"></i></div>
+        <div class="result-ico"><i class="fas fa-ban"></i></div>
         <div>
-          <div class="result-title">Zéro intervention manuelle</div>
-          <div class="result-desc">Aucun réglage post-déploiement nécessaire</div>
+          <div class="result-name">Zéro intervention manuelle</div>
+          <div class="result-sub">Aucun réglage post-déploiement</div>
         </div>
-        <span class="result-status">✓ OK</span>
+        <span class="result-ok">✓ OK</span>
       </div>
       <div class="result-card reveal d3">
-        <div class="result-icon"><i class="fas fa-redo"></i></div>
+        <div class="result-ico"><i class="fas fa-redo"></i></div>
         <div>
-          <div class="result-title">Reproductible à l'infini</div>
-          <div class="result-desc">Même résultat garanti à chaque exécution</div>
+          <div class="result-name">Reproductible à l'infini</div>
+          <div class="result-sub">Même résultat garanti à chaque exécution</div>
         </div>
-        <span class="result-status">✓ OK</span>
+        <span class="result-ok">✓ OK</span>
       </div>
     </div>
   </section>
 
-  <!-- AMÉLIORATIONS (WHITE) -->
-  <section class="s-white2">
-    <div class="sec-label reveal">Perspectives</div>
+  <!-- AMÉLIORATIONS -->
+  <section class="s-light2">
+    <div class="sec-eyebrow reveal">Perspectives</div>
     <h2 class="sec-title reveal">Améliorations<br>envisagées</h2>
     <div class="improve-grid">
-      <div class="improve-card reveal"><i class="fas fa-save"></i><span>Système de sauvegarde automatique des données du serveur</span></div>
-      <div class="improve-card reveal d1"><i class="fas fa-chart-line"></i><span>Supervision du serveur (monitoring, alertes)</span></div>
-      <div class="improve-card reveal d2"><i class="fas fa-copy"></i><span>Déploiement de plusieurs serveurs Minecraft en parallèle</span></div>
-      <div class="improve-card reveal d3"><i class="fas fa-sync-alt"></i><span>Système de mise à jour automatique via l'API Mojang</span></div>
+      <div class="improve-card reveal"><i class="fas fa-save"></i><span>Sauvegarde automatique des données du serveur</span></div>
+      <div class="improve-card reveal d1"><i class="fas fa-chart-line"></i><span>Supervision du serveur avec Netdata ou Zabbix</span></div>
+      <div class="improve-card reveal d2"><i class="fas fa-copy"></i><span>Déploiement de plusieurs serveurs en parallèle</span></div>
+      <div class="improve-card reveal d3"><i class="fas fa-sync-alt"></i><span>Mise à jour automatique via l'API Mojang</span></div>
     </div>
   </section>
 
-  <!-- COMPÉTENCES (BLUE) -->
-  <section class="s-blue2">
-    <div class="sec-label reveal">Bilan</div>
+  <!-- COMPÉTENCES -->
+  <section class="s-dark2">
+    <div class="sec-eyebrow reveal">Bilan</div>
     <h2 class="sec-title reveal">Compétences<br>mobilisées</h2>
-    <div class="skills-wrap reveal">
-      <span class="skill-tag">Ansible</span>
-      <span class="skill-tag">Playbooks YAML</span>
-      <span class="skill-tag">Virtualisation Proxmox</span>
-      <span class="skill-tag">Conteneurs LXC</span>
-      <span class="skill-tag">Administration Linux</span>
-      <span class="skill-tag">SSH & clés publiques</span>
-      <span class="skill-tag">Java / JDK 21</span>
-      <span class="skill-tag">Infrastructure as Code</span>
-      <span class="skill-tag">API REST (Mojang / Proxmox)</span>
-      <span class="skill-tag">Automatisation</span>
+    <div class="tags-cloud reveal">
+      <span class="tag">Ansible</span>
+      <span class="tag">Playbooks YAML</span>
+      <span class="tag">Virtualisation Proxmox</span>
+      <span class="tag">Conteneurs LXC</span>
+      <span class="tag">Administration Linux</span>
+      <span class="tag">SSH & clés publiques</span>
+      <span class="tag">Java 21 / JDK</span>
+      <span class="tag">Infrastructure as Code</span>
+      <span class="tag">API REST Proxmox</span>
+      <span class="tag">Automatisation</span>
+      <span class="tag">Debugging YAML</span>
     </div>
-    <p style="font-size:0.88rem;line-height:1.9;color:var(--blue-muted);max-width:680px;margin-top:36px;" class="reveal">
-      Ce projet m'a permis de mettre en pratique des compétences essentielles en <strong style="color:var(--blue-text)">administration système</strong> et en <strong style="color:var(--blue-text)">automatisation d'infrastructures</strong>. En combinant virtualisation et orchestration, j'ai pu déployer une solution concrète, reproductible et fonctionnelle — directement transposable à un contexte professionnel.
+    <p style="font-size:0.85rem; line-height:1.95; color:var(--blue-muted); max-width:660px; margin-top:32px;" class="reveal">
+      Ce projet m'a permis de mettre en pratique des compétences essentielles en <strong style="color:var(--blue-text)">administration système</strong> et en <strong style="color:var(--blue-text)">automatisation d'infrastructures</strong>. En combinant virtualisation Proxmox et orchestration Ansible, j'ai pu déployer une solution concrète, reproductible et fonctionnelle, directement transposable à un contexte professionnel.
     </p>
-    <div class="cta-wrap reveal">
-      <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
-      <a href="projet1.html" class="btn-fill"><i class="fas fa-network-wired"></i> Voir le projet VPN</a>
+    <div class="cta-row reveal">
+      <a href="index.html" class="btn-outline"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
+      <a href="projet1.html" class="btn-solid"><i class="fas fa-network-wired"></i> Voir le projet VPN</a>
     </div>
   </section>
 
@@ -725,15 +766,14 @@
   </footer>
 
   <script>
-    function copyCode(btn) {
-      const pre = btn.closest('.code-block').querySelector('code');
-      navigator.clipboard.writeText(pre.innerText).then(() => {
+    function copyCode(btn, id) {
+      const code = document.getElementById(id);
+      navigator.clipboard.writeText(code.innerText).then(() => {
         btn.textContent = '✓ Copié';
         btn.classList.add('copied');
         setTimeout(() => { btn.textContent = 'Copier'; btn.classList.remove('copied'); }, 2000);
       });
     }
-
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
     }, { threshold: 0.1 });
@@ -741,4 +781,3 @@
   </script>
 </body>
 </html>
-
