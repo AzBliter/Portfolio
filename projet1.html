@@ -9,9 +9,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
-      --cyan: #f97316;
-      --cyan-dim: rgba(249,115,22,0.15);
-      --cyan-glow: rgba(249,115,22,0.4);
+      --cyan: #00e5ff;
+      --cyan-dim: rgba(0,229,255,0.15);
+      --cyan-glow: rgba(0,229,255,0.4);
       --blue-bg: #111111;
       --blue-bg2: #1a1a1a;
       --blue-text: #f0f0f0;
@@ -37,7 +37,7 @@
     /* HERO */
     .hero { min-height: 55vh; padding: 140px 48px 80px; background: var(--blue-bg); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
     .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--blue-border) 1px, transparent 1px), linear-gradient(90deg, var(--blue-border) 1px, transparent 1px); background-size: 50px 50px; }
-    .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(249,115,22,0.06) 0%, transparent 70%); top: 40%; left: 25%; transform: translate(-50%,-50%); pointer-events: none; }
+    .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 70%); top: 40%; left: 25%; transform: translate(-50%,-50%); pointer-events: none; }
     .hero-content { position: relative; z-index: 2; max-width: 800px; }
     .hero-breadcrumb { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-muted); margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
     .hero-breadcrumb a { color: var(--cyan); text-decoration: none; }
@@ -110,7 +110,7 @@
     .tests-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .test-row { border: 1px solid var(--white-border); border-radius: 5px; padding: 18px 20px; background: var(--white-bg); display: flex; align-items: center; gap: 14px; transition: border-color 0.25s, transform 0.25s; }
     .test-row:hover { border-color: var(--cyan); transform: translateX(4px); }
-    .test-ico { width: 36px; height: 36px; border-radius: 5px; background: rgba(249,115,22,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .test-ico { width: 36px; height: 36px; border-radius: 5px; background: rgba(0,229,255,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .test-ico i { color: var(--cyan); font-size: 0.85rem; }
     .test-name { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; color: var(--white-text); margin-bottom: 2px; }
     .test-sub { font-size: 0.73rem; color: var(--white-muted); line-height: 1.5; }
@@ -334,7 +334,7 @@
             <text x="260" y="285" text-anchor="middle" font-size="11" font-weight="700" fill="#4c1d95">Internet</text>
 
             <!-- vmbr3 / WAN -->
-            <rect x="195" y="342" width="130" height="50" rx="8" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
+            <rect x="195" y="342" width="130" height="50" rx="8" fill="#e0f7fa" stroke="#fdba74" stroke-width="1.5"/>
             <text x="260" y="362" text-anchor="middle" font-size="10" font-weight="700" fill="#92400e">vmbr3 — WAN</text>
             <text x="260" y="378" text-anchor="middle" font-size="10" fill="#c2410c">IP : 192.168.50.1</text>
 
